@@ -11,7 +11,7 @@
   
   <!-- QRCode.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- html2pdf.js Library for background PDF Generation -->
+  <!-- html2pdf.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
@@ -245,9 +245,28 @@
       margin-bottom: 15px;
     }
 
+    /* Clickable QR Code Styles */
+    .qr-link {
+      display: inline-block;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      cursor: pointer;
+    }
+
+    .qr-link:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
     .qr-container {
       width: 80px;
       height: 80px;
+    }
+
+    .qr-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .fee-table {
@@ -374,15 +393,15 @@
     &copy; <span id="year"></span> Flexi Educational Consult. All rights reserved.
   </footer>
 
-  <!-- HIDDEN RECEIPT CONTAINER (Used by html2pdf in background) -->
+  <!-- HIDDEN RECEIPT CONTAINER -->
   <div class="pdf-hidden-wrapper">
     <div class="receipt-card" id="receiptTemplate">
       
       <!-- Watermark Logo Image -->
-      <img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Watermark" class="watermark-bg">
+      <img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Watermark" class="watermark-bg" crossorigin="anonymous">
 
       <div class="receipt-header">
-        <img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Flexi Logo" class="header-logo">
+        <img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Flexi Logo" class="header-logo" crossorigin="anonymous">
         <h2>FLEXI EDUCATIONAL CONSULT</h2>
         <h3>BILL RECEIPT - MASTERCLASS REGISTRATION</h3>
       </div>
@@ -400,7 +419,10 @@
       </div>
 
       <div class="ref-bar">
-        <div id="qrcode" class="qr-container"></div>
+        <!-- Clickable QR Code Anchor Wrapper -->
+        <a href="https://www.flexieduconsult.com.ng" target="_blank" class="qr-link" title="Visit Flexi Educational Consult">
+          <div id="qrcode" class="qr-container"></div>
+        </a>
         <div style="text-align: right;">
           <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">
             REF: <span id="rcpRefNumber">FLEXI-000000</span> 
@@ -448,7 +470,7 @@
       </div>
 
       <div class="signature-section">
-        <img src="https://i.postimg.cc/RhgyvMfF/IMG-20260727-141301-416.jpg" alt="Signature" class="signature-img"><br>
+        <img src="https://i.postimg.cc/RhgyvMfF/IMG-20260727-141301-416.jpg" alt="Signature" class="signature-img" crossorigin="anonymous"><br>
         <strong style="font-size: 0.85rem; color: #0f172a; text-transform: uppercase;">DANIEL CHIEMERE OKEREKE</strong><br>
         <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase; font-style: italic;">CHIEF BURSAR</span>
       </div>
@@ -457,7 +479,7 @@
         <div>Generated at <span id="genTimestamp"></span></div>
         <div class="powered-by">
           <span>Powered by</span>
-          <img src="https://i.postimg.cc/Jz1P4wKy/1785167021863.png" alt="Flexi Digital Logo">
+          <img src="https://i.postimg.cc/Jz1P4wKy/1785167021863.png" alt="Flexi Digital Logo" crossorigin="anonymous">
           <span>Flexi Digital Technology</span>
         </div>
       </div>
@@ -532,7 +554,7 @@
       }
     }
 
-    // PDF Download Handler
+    // PDF Download Handler with CORS enabled
     document.getElementById('downloadPdfBtn').addEventListener('click', () => {
       const btn = document.getElementById('downloadPdfBtn');
       btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Generating PDF...`;
@@ -543,11 +565,19 @@
         margin:       0.3,
         filename:     `Receipt_${regId || 'FlexiEdu'}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
+        html2canvas:  { 
+          scale: 2,
+          useCORS: true,      // Fixes external cross-origin images
+          allowTaint: true   // Allows rendering tainted images
+        },
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
 
       html2pdf().set(opt).from(element).save().then(() => {
+        btn.innerHTML = `<i class="fa-solid fa-file-arrow-down"></i> Download Receipt (PDF)`;
+        btn.disabled = false;
+      }).catch(err => {
+        console.error("PDF generation error:", err);
         btn.innerHTML = `<i class="fa-solid fa-file-arrow-down"></i> Download Receipt (PDF)`;
         btn.disabled = false;
       });
