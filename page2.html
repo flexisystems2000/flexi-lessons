@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration - Flexi Educational Consult</title>
+  <!-- Google Font (Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-royal: #1e40af;       /* Royal Blue */
+      --primary-royal-dark: #1e3a8a;
+      --accent-lemon: #84cc16;        /* Lemon Green */
+      --accent-lemon-hover: #65a30d;
+      --dark-blue: #0f172a;           /* Dark Blue Footer */
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #334155;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+    }
+
+    /* --- NAVBAR --- */
+    .navbar {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--primary-royal);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--primary-royal);
+    }
+
+    /* --- FORM SECTION --- */
+    .registration-container {
+      max-width: 800px;
+      width: 100%;
+      margin: 20px auto;
+      padding: 0 12px;
+    }
+
+    .form-card {
+      background: var(--card-bg);
+      padding: 24px 16px;
+      border-radius: 16px;
+      border-top: 6px solid var(--primary-royal);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .form-header h1 {
+      color: var(--primary-royal);
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .form-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .section-heading {
+      font-size: 1.05rem;
+      color: var(--primary-royal);
+      font-weight: 700;
+      margin: 25px 0 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--dark-blue);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"] {
+      width: 100%;
+      max-width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--primary-royal);
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+    }
+
+    input[readonly] {
+      background-color: #f1f5f9;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    /* Checkbox Group */
+    .checkbox-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-royal);
+      cursor: pointer;
+    }
+
+    /* Dynamic Subject Boxes (Fixed Overflow) */
+    .subject-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 16px 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+      width: 100%;
+      box-sizing: border-box;
+      display: none; /* Controlled by JS */
+    }
+
+    .subject-box h4 {
+      color: var(--primary-royal);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      word-break: break-word;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-lemon);
+      color: var(--dark-blue);
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 30px;
+      box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-lemon-hover);
+      transform: translateY(-2px);
+    }
+
+    /* --- DARK BLUE FOOTER --- */
+    footer {
+      background-color: var(--dark-blue);
+      color: #94a3b8;
+      padding: 50px 5% 30px;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; word-break: break-all; }
+    .footer-col a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent-lemon); }
+
+    .social-vertical { display: flex; flex-direction: column; gap: 12px; }
+    .social-link { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+    .social-link i { font-size: 1.2rem; width: 20px; color: var(--accent-lemon); }
+
+    .payment-badges-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .payment-card {
+      background: #ffffff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      min-width: 60px;
+    }
+    .payment-card img { max-height: 20px; max-width: 55px; object-fit: contain; }
+
+    .footer-bottom { text-align: center; padding-top: 25px; font-size: 0.85rem; color: #64748b; }
+
+    /* FLOATING WHATSAPP BUTTON */
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .floating-whatsapp:hover { transform: scale(1.1); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="brand">Flexi Educational Consult</div>
+  </nav>
+
+  <!-- REGISTRATION FORM CONTAINER -->
+  <div class="registration-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h1>Student Registration Form</h1>
+        <p>Please fill in all required academic and personal details accurately.</p>
+      </div>
+
+      <form id="studentRegistrationForm">
+        
+        <!-- SECTION 1: PERSONAL DETAILS -->
+        <div class="section-heading">
+          <i class="fa-solid fa-user"></i> Student Personal Details
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" placeholder="e.g. Samuel" required />
+          </div>
+
+          <div class="form-group">
+            <label for="surname">Surname *</label>
+            <input type="text" id="surname" placeholder="e.g. Adebayo" required />
+          </div>
+
+          <div class="form-group">
+            <label for="dob">Date Of Birth *</label>
+            <input type="date" id="dob" required />
+          </div>
+
+          <div class="form-group">
+            <label for="studentPhone">Student Phone Number *</label>
+            <input type="tel" id="studentPhone" placeholder="08012345678" required />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="studentEmail">Student Email Address *</label>
+            <input type="email" id="studentEmail" placeholder="student@example.com" required />
+          </div>
+        </div>
+
+        <!-- SECTION 2: PARENT / GUARDIAN DETAILS -->
+        <div class="section-heading">
+          <i class="fa-solid fa-users"></i> Parent / Guardian Contact Info
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="parentPhone1">Parent Phone Number 1 *</label>
+            <input type="tel" id="parentPhone1" placeholder="08099887766" required />
+          </div>
+
+          <div class="form-group">
+            <label for="parentPhone2">Parent Phone Number 2 *</label>
+            <input type="tel" id="parentPhone2" placeholder="07011223344" required />
+          </div>
+
+          <div class="form-group">
+            <label for="parentEmail1">Parent Email Address 1 *</label>
+            <input type="email" id="parentEmail1" placeholder="parent1@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="parentEmail2">Parent Email Address 2 *</label>
+            <input type="email" id="parentEmail2" placeholder="parent2@example.com" required />
+          </div>
+        </div>
+
+        <!-- SECTION 3: EXAM SELECTION -->
+        <div class="section-heading">
+          <i class="fa-solid fa-graduation-cap"></i> Exam Type Selection
+        </div>
+        <div class="form-group full-width">
+          <label>Select Exam Type (Select one or more): *</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="examType" value="JAMB" id="chkJamb"> JAMB
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="examType" value="SSCE" id="chkSsce"> SSCE (WAEC/NECO)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="examType" value="JUPEB" id="chkJupeb"> JUPEB
+            </label>
+          </div>
+        </div>
+
+        <!-- DYNAMIC SUBJECT CONTAINERS -->
+        
+        <!-- JAMB Subjects (English + 3 Others) -->
+        <div id="jambSubjectsBox" class="subject-box">
+          <h4><i class="fa-solid fa-book"></i> JAMB Subjects Configuration</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Compulsory Subject</label>
+              <input type="text" value="English Language" readonly />
+            </div>
+            <div class="form-group">
+              <label>Subject 2 *</label>
+              <input type="text" class="jamb-sub" placeholder="e.g. Mathematics" />
+            </div>
+            <div class="form-group">
+              <label>Subject 3 *</label>
+              <input type="text" class="jamb-sub" placeholder="e.g. Physics" />
+            </div>
+            <div class="form-group">
+              <label>Subject 4 *</label>
+              <input type="text" class="jamb-sub" placeholder="e.g. Chemistry" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SSCE Subjects (English, Maths + 6 Required + 1 Optional) -->
+        <div id="ssceSubjectsBox" class="subject-box">
+          <h4><i class="fa-solid fa-book-open"></i> SSCE (WAEC/NECO) Subjects Configuration</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Compulsory Subject 1</label>
+              <input type="text" value="English Language" readonly />
+            </div>
+            <div class="form-group">
+              <label>Compulsory Subject 2</label>
+              <input type="text" value="Mathematics" readonly />
+            </div>
+            <div class="form-group">
+              <label>Subject 3 *</label>
+              <input type="text" class="ssce-sub-req" placeholder="e.g. Physics" />
+            </div>
+            <div class="form-group">
+              <label>Subject 4 *</label>
+              <input type="text" class="ssce-sub-req" placeholder="e.g. Chemistry" />
+            </div>
+            <div class="form-group">
+              <label>Subject 5 *</label>
+              <input type="text" class="ssce-sub-req" placeholder="e.g. Biology" />
+            </div>
+            <div class="form-group">
+              <label>Subject 6 *</label>
+              <input type="text" class="ssce-sub-req" placeholder="e.g. Civic Education" />
+            </div>
+            <div class="form-group">
+              <label>Subject 7 *</label>
+              <input type="text" class="ssce-sub-req" placeholder="e.g. Economics" />
+            </div>
+            <div class="form-group">
+              <label>Subject 8 *</label>
+              <input type="text" class="ssce-sub-req" placeholder="e.g. Geography" />
+            </div>
+            <div class="form-group">
+              <label>Subject 9 (Optional)</label>
+              <input type="text" class="ssce-sub-opt" placeholder="e.g. Agricultural Science" />
+            </div>
+          </div>
+        </div>
+
+        <!-- JUPEB Subjects (3 Subjects) -->
+        <div id="jupebSubjectsBox" class="subject-box">
+          <h4><i class="fa-solid fa-award"></i> JUPEB Subjects Configuration</h4>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>JUPEB Subject 1 *</label>
+              <input type="text" class="jupeb-sub" placeholder="e.g. Physics" />
+            </div>
+            <div class="form-group">
+              <label>JUPEB Subject 2 *</label>
+              <input type="text" class="jupeb-sub" placeholder="e.g. Chemistry" />
+            </div>
+            <div class="form-group">
+              <label>JUPEB Subject 3 *</label>
+              <input type="text" class="jupeb-sub" placeholder="e.g. Mathematics" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMIT BUTTON TO PAGE 3 -->
+        <button type="submit" class="btn-submit">Proceed to Instructions (Page 3) &rarr;</button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- DARK BLUE FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <!-- Contact Column -->
+      <div class="footer-col">
+        <h4>CONTACT US</h4>
+        <ul>
+          <li><i class="fa-solid fa-phone" style="color: var(--accent-lemon); margin-right: 8px;"></i> 09034159839</li>
+          <li><i class="fa-solid fa-phone" style="color: var(--accent-lemon); margin-right: 8px;"></i> 07033855206</li>
+          <li><i class="fa-solid fa-envelope" style="color: var(--accent-lemon); margin-right: 8px;"></i> <a href="mailto:info@flexieduconsult.com.ng">info@flexieduconsult.com.ng</a></li>
+          <li style="margin-top: 10px; font-size: 0.85rem; color: #cbd5e1;">
+            <strong>For complaints:</strong><br>
+            <i class="fa-solid fa-circle-exclamation" style="color: var(--accent-lemon); margin-right: 8px;"></i> 
+            <a href="mailto:support@flexieduconsult.com.ng">support@flexieduconsult.com.ng</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Follow Us Column -->
+      <div class="footer-col">
+        <h4>FOLLOW US</h4>
+        <div class="social-vertical">
+          <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
+        </div>
+      </div>
+
+      <!-- Security & Payment Logos -->
+      <div class="footer-col">
+        <h4>SECURED BY</h4>
+        <div class="payment-badges-grid">
+          <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Paystack_Logo.png" alt="Paystack" /></div>
+          <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard" /></div>
+          <div class="payment-card"><img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg" alt="Visa" /></div>
+          <div class="payment-card"><img src="https://i.postimg.cc/W3ZKrzXt/images-(27).jpg" alt="Verve" /></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      &copy; <span id="year"></span> flexieduconsult. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult,%20I%20have%20a%20question%20about%20registration" 
+     class="floating-whatsapp" target="_blank" title="Chat with Flexi Educational Consult">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- JS CONTROLS AND DYNAMIC SUBJECT TOGGLING -->
+  <script>
+    // Set Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Checkboxes
+    const chkJamb = document.getElementById('chkJamb');
+    const chkSsce = document.getElementById('chkSsce');
+    const chkJupeb = document.getElementById('chkJupeb');
+
+    // Subject Boxes
+    const jambBox = document.getElementById('jambSubjectsBox');
+    const ssceBox = document.getElementById('ssceSubjectsBox');
+    const jupebBox = document.getElementById('jupebSubjectsBox');
+
+    // Toggle Visibility Function
+    function toggleSubjects() {
+      jambBox.style.display = chkJamb.checked ? 'block' : 'none';
+      ssceBox.style.display = chkSsce.checked ? 'block' : 'none';
+      jupebBox.style.display = chkJupeb.checked ? 'block' : 'none';
+    }
+
+    chkJamb.addEventListener('change', toggleSubjects);
+    chkSsce.addEventListener('change', toggleSubjects);
+    chkJupeb.addEventListener('change', toggleSubjects);
+
+    // Form Handling
+    const form = document.getElementById('studentRegistrationForm');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Check if at least one Exam Type is selected
+      if (!chkJamb.checked && !chkSsce.checked && !chkJupeb.checked) {
+        alert('Please select at least one Exam Type (JAMB, SSCE, or JUPEB).');
+        return;
+      }
+
+      // Collect Data
+      const studentData = {
+        firstName: document.getElementById('firstName').value,
+        surname: document.getElementById('surname').value,
+        dob: document.getElementById('dob').value,
+        studentPhone: document.getElementById('studentPhone').value,
+        studentEmail: document.getElementById('studentEmail').value,
+        parentPhone1: document.getElementById('parentPhone1').value,
+        parentPhone2: document.getElementById('parentPhone2').value,
+        parentEmail1: document.getElementById('parentEmail1').value,
+        parentEmail2: document.getElementById('parentEmail2').value,
+        examTypes: []
+      };
+
+      if (chkJamb.checked) studentData.examTypes.push('JAMB');
+      if (chkSsce.checked) studentData.examTypes.push('SSCE');
+      if (chkJupeb.checked) studentData.examTypes.push('JUPEB');
+
+      // Save to localStorage so Page 3 and Paystack can access student details
+      localStorage.setItem('flexiStudentRegistration', JSON.stringify(studentData));
+
+      // Redirect to Page 3
+      window.location.href = 'page3.html';
+    });
+  </script>
+</body>
+</html>

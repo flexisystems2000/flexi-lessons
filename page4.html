@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Complete - Flexi Educational Consult</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- QRCode.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- html2pdf.js Library for background PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --primary-royal: #1e40af;
+      --accent-green: #16a34a;
+      --dark-blue: #0f172a;
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* --- NAVBAR --- */
+    .navbar {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--primary-royal);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--primary-royal);
+    }
+
+    /* --- SUCCESS CARD UI --- */
+    .main-container {
+      max-width: 600px;
+      width: 90%;
+      margin: 40px auto;
+    }
+
+    .status-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border-top: 6px solid var(--accent-green);
+    }
+
+    .icon-box {
+      width: 80px;
+      height: 80px;
+      background: #dcfce7;
+      color: var(--accent-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 20px;
+    }
+
+    .status-card h1 {
+      color: var(--dark-blue);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .status-card p {
+      color: #64748b;
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .details-box {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .details-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .details-row span.label {
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .details-row span.value {
+      color: var(--dark-blue);
+      font-weight: 700;
+    }
+
+    /* ACTION BUTTONS */
+    .actions-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ea952;
+      transform: translateY(-2px);
+    }
+
+    .btn-download {
+      background: var(--primary-royal);
+      color: white;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+
+    .btn-download:hover {
+      background: #1e3a8a;
+      transform: translateY(-2px);
+    }
+
+    /* --- HIDDEN RECEIPT TEMPLATE FOR PDF GENERATION --- */
+    .pdf-hidden-wrapper {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+    }
+
+    .receipt-card {
+      background: #ffffff;
+      width: 750px;
+      padding: 40px;
+      position: relative;
+    }
+
+    .watermark-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .receipt-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header-logo {
+      height: 55px;
+      margin-bottom: 6px;
+      object-fit: contain;
+    }
+
+    .receipt-header h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .receipt-header h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-top: 10px;
+      color: #1e293b;
+      text-transform: uppercase;
+    }
+
+    .info-section {
+      border: 1px solid #e2e8f0;
+      padding: 12px 16px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+
+    .student-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+
+    .ref-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .qr-container {
+      width: 80px;
+      height: 80px;
+    }
+
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      font-size: 0.85rem;
+    }
+
+    .fee-table th, .fee-table td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+    }
+
+    .fee-table th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .meta-notes {
+      font-size: 0.8rem;
+      color: #475569;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .signature-section {
+      margin-top: 15px;
+    }
+
+    .signature-img {
+      height: 40px;
+      object-fit: contain;
+      margin-bottom: 4px;
+    }
+
+    .receipt-footer-brand {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 10px;
+    }
+
+    .powered-by {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .powered-by img {
+      height: 16px;
+      object-fit: contain;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="brand">Flexi Educational Consult</div>
+  </nav>
+
+  <!-- MAIN STATUS CONTAINER -->
+  <div class="main-container">
+    <div class="status-card">
+      <div class="icon-box">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+      <h1>Payment Successful!</h1>
+      <p>Your registration for the <strong>2027 JAMB Masterclass</strong> has been confirmed.</p>
+
+      <!-- PAYMENT SUMMARY BOX -->
+      <div class="details-box">
+        <div class="details-row">
+          <span class="label">Student Name:</span>
+          <span class="value" id="uiStudentName">Loading...</span>
+        </div>
+        <div class="details-row">
+          <span class="label">Registration ID:</span>
+          <span class="value" id="uiRegId">---</span>
+        </div>
+        <div class="details-row">
+          <span class="label">Amount Paid:</span>
+          <span class="value" style="color: var(--accent-green);">₦3,148</span>
+        </div>
+        <div class="details-row">
+          <span class="label">Payment Status:</span>
+          <span class="value" style="color: var(--accent-green);"><i class="fa-solid fa-circle-check"></i> PAID</span>
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="actions-group">
+        <!-- Join WhatsApp Button -->
+        <a href="https://chat.whatsapp.com/HHTe58HhyfoH6sCuD9e2lV" target="_blank" class="btn btn-whatsapp">
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Join Our WhatsApp Group
+        </a>
+
+        <!-- Download Receipt PDF Button -->
+        <button id="downloadPdfBtn" class="btn btn-download">
+          <i class="fa-solid fa-file-arrow-down"></i> Download Receipt (PDF)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; <span id="year"></span> Flexi Educational Consult. All rights reserved.
+  </footer>
+
+  <!-- HIDDEN RECEIPT CONTAINER (Used by html2pdf in background) -->
+  <div class="pdf-hidden-wrapper">
+    <div class="receipt-card" id="receiptTemplate">
+      
+      <!-- Watermark Logo Image -->
+      <img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Watermark" class="watermark-bg">
+
+      <div class="receipt-header">
+        <img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Flexi Logo" class="header-logo">
+        <h2>FLEXI EDUCATIONAL CONSULT</h2>
+        <h3>BILL RECEIPT - MASTERCLASS REGISTRATION</h3>
+      </div>
+
+      <div class="info-section">
+        <div class="student-details">
+          <div style="grid-column: 1 / -1;">
+            <strong id="rcpStudentName" style="font-size: 1rem; color: #0f172a;">---</strong>
+          </div>
+          <div><strong>REG ID:</strong> <span id="rcpRegId">---</span></div>
+          <div><strong>EMAIL:</strong> <span id="rcpEmail">---</span></div>
+          <div><strong>PHONE:</strong> <span id="rcpPhone">---</span></div>
+          <div><strong>PROGRAM:</strong> 2027 JAMB Masterclass</div>
+        </div>
+      </div>
+
+      <div class="ref-bar">
+        <div id="qrcode" class="qr-container"></div>
+        <div style="text-align: right;">
+          <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">
+            REF: <span id="rcpRefNumber">FLEXI-000000</span> 
+            <span style="color: #16a34a; margin-left: 5px;">PAID</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th style="width: 40px; text-align: center;">#</th>
+            <th>FEES</th>
+            <th style="width: 140px; text-align: right;">AMOUNT (NGN)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td>CBT MOCK FEE</td>
+            <td style="text-align: right;">1,000</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">2</td>
+            <td>LESSON FEE</td>
+            <td style="text-align: right;">2,000</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">3</td>
+            <td>ELECTRONIC CHARGES FEE</td>
+            <td style="text-align: right;">148</td>
+          </tr>
+          <tr style="font-weight: 800; background-color: #f8fafc;">
+            <td colspan="2" style="text-align: right;">TOTAL</td>
+            <td style="text-align: right;">₦3,148</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="meta-notes">
+        <div><strong>Date Initiated:</strong> <span id="rcpDateInit" style="color: #16a34a; font-weight: 600;">---</span></div>
+        <div><strong>Payment Date:</strong> <span id="rcpDatePaid" style="color: #16a34a; font-weight: 600;">---</span></div>
+        <p style="margin-top: 8px;"><em>Please save a copy of this receipt as official evidence of payment.</em></p>
+        <p>For enquiries, call <strong>09034159839, 07033855206</strong> OR email <strong>support@flexieduconsult.com.ng</strong></p>
+      </div>
+
+      <div class="signature-section">
+        <img src="https://i.postimg.cc/RhgyvMfF/IMG-20260727-141301-416.jpg" alt="Signature" class="signature-img"><br>
+        <strong style="font-size: 0.85rem; color: #0f172a; text-transform: uppercase;">DANIEL CHIEMERE OKEREKE</strong><br>
+        <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase; font-style: italic;">CHIEF BURSAR</span>
+      </div>
+
+      <div class="receipt-footer-brand">
+        <div>Generated at <span id="genTimestamp"></span></div>
+        <div class="powered-by">
+          <span>Powered by</span>
+          <img src="https://i.postimg.cc/Jz1P4wKy/1785167021863.png" alt="Flexi Digital Logo">
+          <span>Flexi Digital Technology</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Firebase Modular SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoGX2bXlvuwcJY8oyW6_J42fgxfH5vZao",
+      authDomain: "jarvisai-1a594.firebaseapp.com",
+      projectId: "jarvisai-1a594",
+      storageBucket: "jarvisai-1a594.firebasestorage.app",
+      messagingSenderId: "868499596875",
+      appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Render QR Code
+    new QRCode(document.getElementById("qrcode"), {
+      text: "www.flexieduconsult.com.ng",
+      width: 80,
+      height: 80,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    document.getElementById('genTimestamp').textContent = new Date().toLocaleString();
+
+    const regId = localStorage.getItem('flexiCurrentRegId');
+
+    async function loadReceiptData() {
+      if (!regId) return;
+
+      try {
+        const docRef = doc(db, "registrations", regId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const fullName = `${data.firstName || ''} ${data.surname || ''}`.toUpperCase();
+
+          // Fill UI Status Box
+          document.getElementById('uiStudentName').textContent = fullName;
+          document.getElementById('uiRegId').textContent = data.registrationId || regId;
+
+          // Fill Hidden Receipt Template
+          document.getElementById('rcpStudentName').textContent = fullName;
+          document.getElementById('rcpRegId').textContent = data.registrationId || regId;
+          document.getElementById('rcpEmail').textContent = data.studentEmail || 'N/A';
+          document.getElementById('rcpPhone').textContent = data.studentPhone || 'N/A';
+          document.getElementById('rcpRefNumber').textContent = data.paystackReference || data.registrationId || regId;
+
+          const initDate = data.createdAt ? new Date(data.createdAt.seconds * 1000) : new Date();
+          const paidDate = data.paidAt ? new Date(data.paidAt) : new Date();
+
+          document.getElementById('rcpDateInit').textContent = initDate.toLocaleString();
+          document.getElementById('rcpDatePaid').textContent = paidDate.toLocaleString();
+        }
+      } catch (err) {
+        console.error("Error fetching registration details:", err);
+      }
+    }
+
+    // PDF Download Handler
+    document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+      const btn = document.getElementById('downloadPdfBtn');
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Generating PDF...`;
+      btn.disabled = true;
+
+      const element = document.getElementById('receiptTemplate');
+      const opt = {
+        margin:       0.3,
+        filename:     `Receipt_${regId || 'FlexiEdu'}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        btn.innerHTML = `<i class="fa-solid fa-file-arrow-down"></i> Download Receipt (PDF)`;
+        btn.disabled = false;
+      });
+    });
+
+    loadReceiptData();
+  </script>
+</body>
+</html>
