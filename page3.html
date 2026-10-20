@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e40af">
 
-  <title>Instructions & Payment - Flexi Educational Consult</title>
+  <title>Instructions &amp; Payment - Flexi Educational Consult</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Paystack InlineJS V2 -->
@@ -478,12 +478,12 @@
         <ul>
           <li>
             <i class="fa-solid fa-check"></i>
-            <span>Updates on JAMB 2027 registration, dates, syllabus & CBT tips</span>
+            <span>Updates on JAMB 2027 registration, dates, syllabus &amp; CBT tips</span>
           </li>
 
           <li>
             <i class="fa-solid fa-check"></i>
-            <span>Free study materials, past questions & group discussions</span>
+            <span>Free study materials, past questions &amp; group discussions</span>
           </li>
 
           <li>
@@ -532,7 +532,7 @@
 
       <button id="payBtn" class="btn-pay" type="button">
         <i class="fa-solid fa-lock"></i>
-        Submit & Pay
+        Submit &amp; Pay
         <span id="btnPayAmount">—</span>
       </button>
 
@@ -565,9 +565,7 @@
 
           <li style="margin-top:10px;font-size:0.85rem;color:#cbd5e1;">
             <strong>For complaints:</strong><br>
-
             <i class="fa-solid fa-circle-exclamation" style="color:var(--accent-lemon);margin-right:8px;"></i>
-
             <a href="mailto:support@flexieduconsult.com.ng">support@flexieduconsult.com.ng</a>
           </li>
         </ul>
@@ -660,20 +658,8 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // =========================================================
-    // PAYSTACK CONFIGURATION
-    // =========================================================
-
-    /*
-     * This is your existing Live public key.
-     *
-     * Before testing with real payments, verify the split
-     * integration in Test Mode and then switch deliberately
-     * to the matching Live configuration.
-     *
-     * Never put a Paystack secret key in this file.
-     */
-
+    // TEST MODE public key and matching TEST MODE split codes.
+    // Never place a Paystack secret key in this frontend file.
     const PAYSTACK_PUBLIC_KEY =
       'pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35';
 
@@ -707,14 +693,7 @@
       }
     };
 
-    /*
-     * This is only an estimate based on the fee formula used
-     * by the previous version of your page.
-     *
-     * Confirm the applicable Paystack fee rules for your
-     * account before relying on this calculation.
-     */
-
+    // Estimate only. Confirm the applicable Paystack charges before production.
     function calculateGrossPaystackAmount(netAmount) {
       return Math.ceil((netAmount + 100) / (1 - 0.015));
     }
@@ -738,16 +717,16 @@
       paymentNotice.textContent = message;
     }
 
+    function safeText(value) {
+      return typeof value === 'string' ? value.trim() : '';
+    }
+
     function setButtonEnabled(enabled) {
       payBtn.disabled = !enabled;
 
       payBtn.innerHTML = enabled
-        ? `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`
+        ? `<i class="fa-solid fa-lock"></i> Submit &amp; Pay <span>${formatNaira(GROSS_FEE)}</span>`
         : '<i class="fa-solid fa-spinner fa-spin"></i> Please wait...';
-    }
-
-    function safeText(value) {
-      return typeof value === 'string' ? value.trim() : '';
     }
 
     // =========================================================
@@ -763,7 +742,7 @@
         'No registration data found. Please complete the form on Page 2 first.'
       );
 
-      window.location.href = 'page2.html';
+      window.location.replace('page2.html');
       throw new Error('Missing registration data.');
     }
 
@@ -776,7 +755,7 @@
         'Your registration information could not be read. Please complete the form again.'
       );
 
-      window.location.href = 'page2.html';
+      window.location.replace('page2.html');
       throw new Error('Invalid registration JSON.');
     }
 
@@ -797,7 +776,7 @@
         'Please select a valid department and subscription package on Page 2.'
       );
 
-      window.location.href = 'page2.html';
+      window.location.replace('page2.html');
 
       throw new Error(
         'Invalid department or subscription package.'
@@ -811,7 +790,7 @@
         'Your email address is missing. Please return to Page 2 and enter your email.'
       );
 
-      window.location.href = 'page2.html';
+      window.location.replace('page2.html');
       throw new Error('Missing student email.');
     }
 
@@ -928,12 +907,7 @@
         return;
       }
 
-      /*
-       * The registration reference is created before checkout.
-       * A secure backend must eventually own transaction
-       * initialization and verification for production.
-       */
-
+      // Create the registration ID before opening checkout.
       const registrationId =
         'FLEXI_' +
         Date.now() +
@@ -949,12 +923,6 @@
       try {
         payBtn.innerHTML =
           '<i class="fa-solid fa-spinner fa-spin"></i> Saving Registration...';
-
-        /*
-         * Save the registration as unpaid.
-         *
-         * Do not save card details or secret credentials here.
-         */
 
         await setDoc(candidateRef, {
           ...studentData,
@@ -988,6 +956,13 @@
           createdAt: serverTimestamp()
         });
 
+        // Page 4 uses this ID to retrieve the registration.
+        // Save it before opening checkout so it is already available.
+        localStorage.setItem(
+          'flexiCurrentRegId',
+          registrationId
+        );
+
       } catch (error) {
         console.error(
           'Registration save failed:',
@@ -1008,16 +983,6 @@
         payBtn.innerHTML =
           '<i class="fa-solid fa-credit-card"></i> Opening Paystack...';
 
-        /*
-         * PAYSTACK INLINEJS V2
-         *
-         * This uses the V2 constructor and transaction API,
-         * rather than the old PaystackPop.setup() interface.
-         *
-         * The split_code parameter is passed to Paystack.
-         * Paystack remains responsible for the actual split.
-         */
-
         popup.newTransaction({
           key: PAYSTACK_PUBLIC_KEY,
 
@@ -1036,7 +1001,6 @@
               {
                 display_name: 'Student Name',
                 variable_name: 'student_name',
-
                 value:
                   `${safeText(studentData.firstName)} ${safeText(studentData.surname)}`.trim()
               },
@@ -1044,49 +1008,36 @@
               {
                 display_name: 'Phone Number',
                 variable_name: 'phone_number',
-
-                value:
-                  safeText(studentData.studentPhone)
+                value: safeText(studentData.studentPhone)
               },
 
               {
                 display_name: 'Department',
                 variable_name: 'department',
-
                 value: studentData.department
               },
 
               {
                 display_name: 'Subscription Plan',
                 variable_name: 'subscription_plan',
-
                 value: selectedPlan.label
               },
 
               {
                 display_name: 'Registration ID',
                 variable_name: 'registration_id',
-
                 value: registrationId
               }
             ]
           },
 
-          onSuccess: async function(transaction) {
-            /*
-             * IMPORTANT:
-             *
-             * A browser success callback is not authoritative
-             * proof of payment.
-             *
-             * A secure backend must verify the transaction
-             * directly with Paystack before paymentStatus
-             * can be set to true.
-             */
+          // ===================================================
+          // SUCCESS CALLBACK
+          // ===================================================
 
+          onSuccess: async function(transaction) {
             const reference =
-              transaction &&
-              transaction.reference
+              transaction && transaction.reference
                 ? transaction.reference
                 : null;
 
@@ -1107,9 +1058,18 @@
               '<i class="fa-solid fa-spinner fa-spin"></i> Recording Payment Reference...';
 
             try {
+              // Make sure Page 4 can find this registration.
+              localStorage.setItem(
+                'flexiCurrentRegId',
+                registrationId
+              );
+
+              // Record the callback reference, but keep payment unconfirmed.
               await setDoc(
                 candidateRef,
                 {
+                  registrationId: registrationId,
+
                   paymentVerificationPending: true,
 
                   paystackReference: reference,
@@ -1123,23 +1083,20 @@
                 }
               );
 
-              localStorage.setItem(
-                'flexiCurrentRegId',
-                registrationId
-              );
-
               showNotice(
-                'Paystack returned a transaction reference. Your payment must now be verified by the server before your registration can be confirmed. Do not make another payment.',
-                'info'
+                'Transaction response received. Opening your registration details...',
+                'success'
               );
 
               /*
-               * Intentionally do not redirect to page4.html
-               * as a confirmed payment because no backend
-               * verification endpoint has been supplied.
+               * PAGE 3 -> PAGE 4
                *
-               * Connect the verified backend endpoint here.
+               * Page 4 will display the registration record.
+               * Payment must remain unconfirmed until a trusted
+               * backend verifies the transaction with Paystack.
                */
+
+              window.location.href = 'page4.html';
 
             } catch (error) {
               console.error(
@@ -1152,21 +1109,28 @@
                 'error'
               );
 
-            } finally {
               paymentLaunchInProgress = false;
               setButtonEnabled(true);
             }
           },
 
+          // ===================================================
+          // CHECKOUT CANCELLED
+          // ===================================================
+
           onCancel: function() {
             showNotice(
-              'Checkout was closed. If you did not complete the payment, you can try again.',
+              'Checkout was closed. If you did not complete payment, you can try again. If you completed it before closing, check with support before paying again.',
               'info'
             );
 
             paymentLaunchInProgress = false;
             setButtonEnabled(true);
           },
+
+          // ===================================================
+          // CHECKOUT ERROR
+          // ===================================================
 
           onError: function(error) {
             console.error(
@@ -1175,7 +1139,7 @@
             );
 
             showNotice(
-              'Paystack reported a checkout error. Please check the error details and confirm your transaction status before trying again.',
+              'Paystack reported a checkout error. Confirm the transaction status before attempting another payment.',
               'error'
             );
 
