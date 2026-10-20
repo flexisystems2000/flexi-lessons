@@ -10,12 +10,14 @@ import {
   getDocs, query, where, orderBy, limit, serverTimestamp, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-export const firebaseConfig = {
-  apiKey: "PASTE_FIREBASE_API_KEY",
-  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  appId: "PASTE_FIREBASE_APP_ID"
-};
+export const const firebaseConfig = {
+      apiKey: "AIzaSyCoGX2bXlvuwcJY8oyW6_J42fgxfH5vZao",
+      authDomain: "jarvisai-1a594.firebaseapp.com",
+      projectId: "jarvisai-1a594",
+      storageBucket: "jarvisai-1a594.firebasestorage.app",
+      messagingSenderId: "868499596875",
+      appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+    };
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
