@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login | Flexi Lessons</title><link rel="stylesheet" href="assets.css"></head><body>
+<main>
+<section class="card"><h1>Student Login / Registration</h1><p class="muted">Use your email address and password. New students can create an account below.</p>
+<div id="message" class="notice hidden"></div><form id="authForm">
+<label for="name">Full name (for new account)</label><input id="name" autocomplete="name" placeholder="Your full name">
+<label for="email">Email address</label><input id="email" type="email" required autocomplete="email">
+<label for="password">Password</label><input id="password" type="password" required minlength="6" autocomplete="current-password">
+<div class="actions"><button type="submit" id="loginBtn">Login</button><button type="button" class="secondary" id="registerBtn">Create account</button><button type="button" class="secondary" id="resetBtn">Reset password</button></div>
+</form></section>
+</main><footer>Flexi Educational Consult · Student Portal</footer><script type="module">
+import {auth,db,doc,setDoc,serverTimestamp,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile,sendPasswordResetEmail,onAuthStateChanged} from './firebase.js';
+const $=id=>document.getElementById(id), msg=$('message');
+function show(t,err=false){msg.textContent=t;msg.classList.remove('hidden','error','success');msg.classList.add(err?'error':'success')}
+function details(){return {name:$('name').value.trim(),email:$('email').value.trim().toLowerCase()}}
+$('authForm').addEventListener('submit',async e=>{e.preventDefault();try{const {email}=details();const cred=await signInWithEmailAndPassword(auth,email,$('password').value);location.href='dashboard.html'}catch(e){show(e.message,true)}});
+$('registerBtn').addEventListener('click',async()=>{try{const {name,email}=details();if(!name)throw Error('Enter your full name before creating an account.');const cred=await createUserWithEmailAndPassword(auth,email,$('password').value);await updateProfile(cred.user,{displayName:name});await setDoc(doc(db,'studentProfiles',cred.user.uid),{uid:cred.user.uid,name,email,createdAt:serverTimestamp(),photoBase64:'',phone:'',school:'',examType:'',bio:''},{merge:true});location.href='dashboard.html'}catch(e){show(e.message,true)}});
+$('resetBtn').addEventListener('click',async()=>{try{const email=$('email').value.trim();if(!email)throw Error('Enter your email address first.');await sendPasswordResetEmail(auth,email);show('Password reset email sent. Check your inbox.')}catch(e){show(e.message,true)}});
+onAuthStateChanged(auth,u=>{if(u){/* stay on page so user can choose */}});
+</script></body></html>

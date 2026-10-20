@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subscription | Flexi Lessons</title><link rel="stylesheet" href="assets.css"></head><body>
+
+    <header><div class="head"><div class="brand">Flexi Lessons <small>Guiding students to Academic success</small></div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a><a href="classes.html">My Classes</a><a href="progress.html">Progress</a>
+      <a href="cbt-scores.html">CBT Scores</a><a href="attendance.html">Attendance</a><a href="subscription.html">Subscription</a><a href="profile.html">Profile</a>
+    </nav></div></header><main>
+<section class="card"><h1>Subscription & Payment</h1><p class="muted">Choose a plan. Payment checkout opens from the frontend; this page will not mark a plan as paid based only on a browser callback.</p><div id="message" class="notice hidden"></div>
+<div class="grid">
+<article class="card"><h2>1 Month</h2><p class="stat">₦4,000</p><button data-plan="Monthly" data-amount="400000">Choose plan</button></article>
+<article class="card"><h2>2 Months</h2><p class="stat">₦7,500</p><button data-plan="2 Months" data-amount="750000">Choose plan</button></article>
+<article class="card"><h2>3 Months</h2><p class="stat">₦10,000</p><button data-plan="3 Months" data-amount="1000000">Choose plan</button></article>
+</div><p><strong>Current selection:</strong> <span id="currentPlan">Loading…</span></p>
+<div class="notice">To enable Paystack checkout, enter your Paystack public key in this page's script. Use only a <strong>public key</strong> in frontend code. Never paste your secret key here.</div>
+<div class="actions"><button class="secondary" id="payBtn" disabled>Open Paystack Checkout</button></div>
+</section>
+</main><footer>Flexi Educational Consult · Student Portal</footer>
+<script type="module">
+import {auth,onAuthStateChanged,signOut,db,doc,getDoc} from './firebase.js';
+const msg=document.getElementById('message');
+function notice(t,err=false){if(!msg)return;msg.textContent=t;msg.classList.remove('hidden','error','success');msg.classList.add(err?'error':'success')}
+onAuthStateChanged(auth,async user=>{if(!user){location.replace('login.html');return}window.flexiUser=user;const label=document.getElementById('userLabel');if(label)label.textContent=user.displayName||user.email;document.querySelectorAll('[data-logout]').forEach(b=>b.addEventListener('click',async()=>{await signOut(auth);location.href='login.html'}));document.dispatchEvent(new CustomEvent('flexi-ready',{detail:{user,db,doc,getDoc}}));});
+</script><script src="https://js.paystack.co/v1/inline.js"></script><script type="module">
+import {auth,db,doc,getDoc,setDoc,serverTimestamp} from './firebase.js';const $=id=>document.getElementById(id);let user,selected=null;const PAYSTACK_PUBLIC_KEY='PASTE_PAYSTACK_PUBLIC_KEY';
+function msg(t,err=false){let e=$('message');e.textContent=t;e.classList.remove('hidden','error','success');e.classList.add(err?'error':'success')}
+document.addEventListener('flexi-ready',async e=>{user=e.detail.user;const s=await getDoc(doc(db,'studentProfiles',user.uid));$('currentPlan').textContent=s.exists()?(s.data().subscriptionPlan||'No plan selected'):'No plan selected';});
+document.querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',async()=>{selected={plan:b.dataset.plan,amount:Number(b.dataset.amount)};$('currentPlan').textContent=selected.plan+' — pending payment';$('payBtn').disabled=false;try{await setDoc(doc(db,'studentProfiles',user.uid),{subscriptionPlan:selected.plan,subscriptionAmount:selected.amount/100,subscriptionStatus:'pending',subscriptionUpdatedAt:serverTimestamp()},{merge:true});msg('Plan selected. Continue to checkout when your public key is configured.')}catch(e){msg(e.message,true)}}));
+$('payBtn').addEventListener('click',()=>{if(!selected||!user)return;if(PAYSTACK_PUBLIC_KEY.includes('PASTE_')){msg('Add your Paystack public key in subscription.html first.',true);return}if(!window.PaystackPop){msg('Paystack checkout could not load. Check your internet connection.',true);return}const handler=PaystackPop.setup({key:PAYSTACK_PUBLIC_KEY,email:user.email,amount:selected.amount,currency:'NGN',ref:'flexi_'+user.uid+'_'+Date.now(),callback:function(response){msg('Checkout returned a reference: '+response.reference+'. Payment is pending trusted verification; this page will not mark it as paid.')},onClose:function(){msg('Checkout closed. Payment status has not been changed.')}});handler.openIframe()});
+</script></body></html>
