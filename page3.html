@@ -34,14 +34,14 @@
     }
 
     body {
-      background: var(--light-bg);
+      background-color: var(--light-bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
     .navbar {
-      background: white;
+      background: var(--card-bg);
       border-bottom: 2px solid var(--primary-royal);
       padding: 16px 5%;
       display: flex;
@@ -66,11 +66,12 @@
     }
 
     .instructions-card {
-      background: white;
+      background: var(--card-bg);
       padding: 28px 20px;
       border-radius: 16px;
       border-top: 6px solid var(--primary-royal);
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,.08);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      width: 100%;
     }
 
     .header-box {
@@ -86,7 +87,7 @@
 
     .header-box p {
       color: var(--text-muted);
-      font-size: .95rem;
+      font-size: 0.95rem;
     }
 
     .student-info-card {
@@ -121,15 +122,15 @@
     }
 
     .info-label {
-      font-size: .75rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: .5px;
+      letter-spacing: 0.5px;
       color: var(--text-muted);
       font-weight: 700;
     }
 
     .info-value {
-      font-size: .95rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: var(--dark-blue);
       word-break: break-word;
@@ -159,7 +160,7 @@
 
     .hub-banner ul li {
       margin-bottom: 8px;
-      font-size: .95rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: flex-start;
       gap: 8px;
@@ -188,13 +189,14 @@
     }
 
     .rules-list {
-      list-style: decimal;
+      list-style-type: decimal;
       padding-left: 20px;
     }
 
     .rules-list li {
       margin-bottom: 10px;
-      font-size: .95rem;
+      font-size: 0.95rem;
+      color: var(--text);
     }
 
     .summary-box {
@@ -211,7 +213,7 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 8px;
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: #cbd5e1;
     }
 
@@ -239,8 +241,8 @@
       font-size: 1.1rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(132,204,22,.3);
-      transition: background .2s, transform .2s;
+      box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
+      transition: background 0.2s, transform 0.2s;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -260,11 +262,11 @@
     }
 
     .payment-notice {
-      display: none;
       margin-top: 14px;
       padding: 12px;
       border-radius: 8px;
-      font-size: .88rem;
+      font-size: 0.88rem;
+      display: none;
       overflow-wrap: anywhere;
     }
 
@@ -290,10 +292,10 @@
     }
 
     footer {
-      background: var(--dark-blue);
+      background-color: var(--dark-blue);
       color: #94a3b8;
       padding: 50px 5% 30px;
-      font-size: .9rem;
+      font-size: 0.9rem;
       border-top: 1px solid #1e293b;
       margin-top: 60px;
     }
@@ -309,10 +311,11 @@
     }
 
     .footer-col h4 {
-      color: white;
-      font-size: .95rem;
+      color: #ffffff;
+      font-size: 0.95rem;
       font-weight: 700;
       margin-bottom: 16px;
+      letter-spacing: 0.5px;
     }
 
     .footer-col ul {
@@ -321,12 +324,13 @@
 
     .footer-col ul li {
       margin-bottom: 10px;
-      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .footer-col a {
       color: #94a3b8;
       text-decoration: none;
+      transition: color 0.2s;
     }
 
     .footer-col a:hover {
@@ -360,7 +364,7 @@
     }
 
     .payment-card {
-      background: white;
+      background: #ffffff;
       padding: 6px 10px;
       border-radius: 6px;
       display: inline-flex;
@@ -379,7 +383,7 @@
     .footer-bottom {
       text-align: center;
       padding-top: 25px;
-      font-size: .85rem;
+      font-size: 0.85rem;
       color: #64748b;
     }
 
@@ -387,7 +391,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #25d366;
+      background-color: #25d366;
       color: white;
       width: 55px;
       height: 55px;
@@ -396,9 +400,14 @@
       justify-content: center;
       align-items: center;
       font-size: 28px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 1000;
       text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .floating-whatsapp:hover {
+      transform: scale(1.1);
     }
 
     @media (max-width: 480px) {
@@ -463,28 +472,28 @@
       <div class="hub-banner">
         <h3>
           <i class="fa-solid fa-graduation-cap"></i>
-          2027 JAMB Aspirants Hub
+          2027 JAMB Aspirants Hub 📚
         </h3>
 
         <ul>
           <li>
             <i class="fa-solid fa-check"></i>
-            <span>Updates on JAMB 2027 registration, dates, syllabus and CBT tips.</span>
+            <span>Updates on JAMB 2027 registration, dates, syllabus & CBT tips</span>
           </li>
 
           <li>
             <i class="fa-solid fa-check"></i>
-            <span>Free study materials, past questions and group discussions.</span>
+            <span>Free study materials, past questions & group discussions</span>
           </li>
 
           <li>
             <i class="fa-solid fa-check"></i>
-            <span>Support each other. No fraud or fake form sales.</span>
+            <span>Support each other, no fraud / no fake form sales</span>
           </li>
         </ul>
 
-        <p style="font-size:.85rem;font-weight:700;color:#1e3a8a;margin-top:10px;">
-          Let's pass JAMB together. Admins won't DM you for money.
+        <p style="font-size:0.85rem;font-weight:700;color:#1e3a8a;margin-top:10px;">
+          💡 Let’s pass JAMB together. Admins won’t DM you for money.
         </p>
       </div>
 
@@ -496,11 +505,11 @@
 
         <ol class="rules-list">
           <li>Respect everyone in the group.</li>
-          <li>React to tutorial sessions that relate to your subjects.</li>
-          <li>Keep messages educational and relevant.</li>
-          <li>Do not insult administrators or students.</li>
+          <li>Do well to react to any tutorial session that relates to your subject.</li>
+          <li>No unnecessary messages; messages by students should only be questions, or replies to questions asked by administrators.</li>
+          <li>Do not insult your admins or any student.</li>
           <li>No stickers allowed.</li>
-          <li>Only educational topics should be discussed here.</li>
+          <li>Only educational topics are to be discussed here.</li>
         </ol>
       </div>
 
@@ -554,9 +563,11 @@
             <a href="mailto:info@flexieduconsult.com.ng">info@flexieduconsult.com.ng</a>
           </li>
 
-          <li style="margin-top:10px;font-size:.85rem;color:#cbd5e1;">
+          <li style="margin-top:10px;font-size:0.85rem;color:#cbd5e1;">
             <strong>For complaints:</strong><br>
+
             <i class="fa-solid fa-circle-exclamation" style="color:var(--accent-lemon);margin-right:8px;"></i>
+
             <a href="mailto:support@flexieduconsult.com.ng">support@flexieduconsult.com.ng</a>
           </li>
         </ul>
@@ -571,12 +582,12 @@
             Facebook
           </a>
 
-          <a href="https://www.instagram.com/flexieduconsult2000/" class="social-link" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/flexieduconsult2000?igsh=MWxqZG9reGRlb3Z0ZQ==" class="social-link" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-instagram"></i>
             Instagram
           </a>
 
-          <a href="https://www.tiktok.com/@flexieduconsult" class="social-link" target="_blank" rel="noopener noreferrer">
+          <a href="https://vm.tiktok.com/ZS9r7GfdDvykU-X6alu/" class="social-link" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-tiktok"></i>
             TikTok
           </a>
@@ -584,9 +595,7 @@
       </div>
 
       <div class="footer-col">
-        <h4>PAYMENT PROVIDER</h4>
-
-        <p>Test Mode is enabled for development. No real payment should be made during testing.</p>
+        <h4>SECURED BY</h4>
 
         <div class="payment-badges-grid">
           <div class="payment-card">
@@ -594,7 +603,15 @@
           </div>
 
           <div class="payment-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard">
+          </div>
+
+          <div class="payment-card">
+            <img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg" alt="Visa">
+          </div>
+
+          <div class="payment-card">
+            <img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg" alt="Verve">
           </div>
         </div>
       </div>
@@ -602,7 +619,7 @@
     </div>
 
     <div class="footer-bottom">
-      &copy; <span id="year"></span> Flexi Educational Consult. All rights reserved.
+      &copy; <span id="year"></span> flexieduconsult. All rights reserved.
     </div>
   </footer>
 
@@ -644,21 +661,26 @@
     const db = getFirestore(app);
 
     // =========================================================
-    // PAYSTACK TEST MODE
+    // PAYSTACK CONFIGURATION
     // =========================================================
+
+    /*
+     * This is your existing Live public key.
+     *
+     * Before testing with real payments, verify the split
+     * integration in Test Mode and then switch deliberately
+     * to the matching Live configuration.
+     *
+     * Never put a Paystack secret key in this file.
+     */
 
     const PAYSTACK_PUBLIC_KEY =
       'pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35';
 
-    /*
-     * Test split codes transcribed from your screenshots.
-     * Confirm exact characters in the Paystack Test Dashboard.
-     */
-
     const PAYSTACK_SPLIT_CODES = {
-      Commercial: 'SPL_ypWmeVigFk',
+      Commercial: 'SPL_ypWmeVjgFk',
       Art: 'SPL_vTxHE8YySd',
-      Science: 'SPL_oIR8KSBPbBO'
+      Science: 'SPL_oIR8KSbPBO'
     };
 
     // =========================================================
@@ -686,8 +708,11 @@
     };
 
     /*
-     * Preserves the calculation used in the previous page.
-     * Confirm the actual fee rules before charging real students.
+     * This is only an estimate based on the fee formula used
+     * by the previous version of your page.
+     *
+     * Confirm the applicable Paystack fee rules for your
+     * account before relying on this calculation.
      */
 
     function calculateGrossPaystackAmount(netAmount) {
@@ -713,6 +738,14 @@
       paymentNotice.textContent = message;
     }
 
+    function setButtonEnabled(enabled) {
+      payBtn.disabled = !enabled;
+
+      payBtn.innerHTML = enabled
+        ? `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`
+        : '<i class="fa-solid fa-spinner fa-spin"></i> Please wait...';
+    }
+
     function safeText(value) {
       return typeof value === 'string' ? value.trim() : '';
     }
@@ -721,8 +754,9 @@
     // LOAD REGISTRATION DATA
     // =========================================================
 
-    const storedData =
-      localStorage.getItem('flexiStudentRegistration');
+    const storedData = localStorage.getItem(
+      'flexiStudentRegistration'
+    );
 
     if (!storedData) {
       alert(
@@ -770,16 +804,15 @@
       );
     }
 
-    const studentEmail =
-      safeText(studentData.studentEmail);
+    const studentEmail = safeText(studentData.studentEmail);
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(studentEmail)) {
+    if (!studentEmail) {
       alert(
-        'A valid email address is required. Please return to Page 2.'
+        'Your email address is missing. Please return to Page 2 and enter your email.'
       );
 
       window.location.href = 'page2.html';
-      throw new Error('Missing or invalid student email.');
+      throw new Error('Missing student email.');
     }
 
     const BASE_FEE = selectedPlan.amount;
@@ -787,7 +820,7 @@
     const PROCESSING_FEE = GROSS_FEE - BASE_FEE;
 
     // =========================================================
-    // DISPLAY STUDENT INFORMATION
+    // DISPLAY STUDENT DETAILS
     // =========================================================
 
     document.getElementById('dispStudentName').textContent =
@@ -821,7 +854,7 @@
     function getPaystackConstructor() {
       if (typeof window.PaystackPop !== 'function') {
         throw new Error(
-          'Paystack InlineJS V2 has not loaded. Check your internet connection and reload.'
+          'Paystack InlineJS V2 has not loaded. Check your internet connection and reload the page.'
         );
       }
 
@@ -829,13 +862,15 @@
     }
 
     // =========================================================
-    // START PAYMENT
+    // PAYMENT FLOW
     // =========================================================
 
     let paymentLaunchInProgress = false;
 
     payBtn.addEventListener('click', async () => {
-      if (paymentLaunchInProgress) return;
+      if (paymentLaunchInProgress) {
+        return;
+      }
 
       paymentLaunchInProgress = true;
       payBtn.disabled = true;
@@ -848,12 +883,26 @@
 
       if (!splitCode) {
         showNotice(
-          'No Test split code is configured for this department.',
+          `No Paystack split code is configured for ${studentData.department}. Please contact support.`,
           'error'
         );
 
         paymentLaunchInProgress = false;
-        payBtn.disabled = false;
+        setButtonEnabled(true);
+        return;
+      }
+
+      const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailPattern.test(studentEmail)) {
+        showNotice(
+          'Please enter a valid email address on the registration page.',
+          'error'
+        );
+
+        paymentLaunchInProgress = false;
+        setButtonEnabled(true);
         return;
       }
 
@@ -863,35 +912,54 @@
         const PaystackPop = getPaystackConstructor();
         popup = new PaystackPop();
       } catch (error) {
-        console.error(error);
+        console.error(
+          'Paystack SDK initialization failed:',
+          error
+        );
 
         showNotice(
-          error.message || 'Paystack could not be initialized.',
+          error.message ||
+            'Paystack could not be initialized. Please reload the page.',
           'error'
         );
 
         paymentLaunchInProgress = false;
-        payBtn.disabled = false;
+        setButtonEnabled(true);
         return;
       }
 
+      /*
+       * The registration reference is created before checkout.
+       * A secure backend must eventually own transaction
+       * initialization and verification for production.
+       */
+
       const registrationId =
-        'FLEXITEST_' +
+        'FLEXI_' +
         Date.now() +
         '_' +
         Math.random().toString(36).slice(2, 8).toUpperCase();
 
-      const candidateRef =
-        doc(db, 'registrations', registrationId);
+      const candidateRef = doc(
+        db,
+        'registrations',
+        registrationId
+      );
 
       try {
         payBtn.innerHTML =
           '<i class="fa-solid fa-spinner fa-spin"></i> Saving Registration...';
 
+        /*
+         * Save the registration as unpaid.
+         *
+         * Do not save card details or secret credentials here.
+         */
+
         await setDoc(candidateRef, {
           ...studentData,
 
-          registrationId,
+          registrationId: registrationId,
 
           department: studentData.department,
 
@@ -909,7 +977,7 @@
 
           paymentVerificationPending: false,
 
-          paymentProvider: 'Paystack Test Mode',
+          paymentProvider: 'Paystack',
 
           paymentCurrency: 'NGN',
 
@@ -922,26 +990,33 @@
 
       } catch (error) {
         console.error(
-          'Could not save registration:',
+          'Registration save failed:',
           error
         );
 
         showNotice(
-          'Registration could not be saved. Check your connection and Firebase permissions.',
+          'Your registration could not be saved. Check your connection and try again.',
           'error'
         );
 
         paymentLaunchInProgress = false;
-        payBtn.disabled = false;
-        payBtn.innerHTML =
-          `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`;
-
+        setButtonEnabled(true);
         return;
       }
 
       try {
         payBtn.innerHTML =
-          '<i class="fa-solid fa-credit-card"></i> Opening Test Checkout...';
+          '<i class="fa-solid fa-credit-card"></i> Opening Paystack...';
+
+        /*
+         * PAYSTACK INLINEJS V2
+         *
+         * This uses the V2 constructor and transaction API,
+         * rather than the old PaystackPop.setup() interface.
+         *
+         * The split_code parameter is passed to Paystack.
+         * Paystack remains responsible for the actual split.
+         */
 
         popup.newTransaction({
           key: PAYSTACK_PUBLIC_KEY,
@@ -961,6 +1036,7 @@
               {
                 display_name: 'Student Name',
                 variable_name: 'student_name',
+
                 value:
                   `${safeText(studentData.firstName)} ${safeText(studentData.surname)}`.trim()
               },
@@ -968,52 +1044,67 @@
               {
                 display_name: 'Phone Number',
                 variable_name: 'phone_number',
-                value: safeText(studentData.studentPhone)
+
+                value:
+                  safeText(studentData.studentPhone)
               },
 
               {
                 display_name: 'Department',
                 variable_name: 'department',
+
                 value: studentData.department
               },
 
               {
                 display_name: 'Subscription Plan',
                 variable_name: 'subscription_plan',
+
                 value: selectedPlan.label
               },
 
               {
                 display_name: 'Registration ID',
                 variable_name: 'registration_id',
-                value: registrationId
-              },
 
-              {
-                display_name: 'Environment',
-                variable_name: 'environment',
-                value: 'TEST'
+                value: registrationId
               }
             ]
           },
 
           onSuccess: async function(transaction) {
+            /*
+             * IMPORTANT:
+             *
+             * A browser success callback is not authoritative
+             * proof of payment.
+             *
+             * A secure backend must verify the transaction
+             * directly with Paystack before paymentStatus
+             * can be set to true.
+             */
+
             const reference =
-              transaction && transaction.reference
+              transaction &&
+              transaction.reference
                 ? transaction.reference
                 : null;
 
             if (!reference) {
               showNotice(
-                'No transaction reference was returned. Check the Test Dashboard before trying again.',
+                'Paystack returned no transaction reference. Do not pay again yet. Contact support so the transaction can be checked.',
                 'error'
               );
 
               paymentLaunchInProgress = false;
-              payBtn.disabled = false;
-
+              setButtonEnabled(true);
               return;
             }
+
+            payBtn.disabled = true;
+
+            payBtn.innerHTML =
+              '<i class="fa-solid fa-spinner fa-spin"></i> Recording Payment Reference...';
 
             try {
               await setDoc(
@@ -1027,7 +1118,9 @@
 
                   paymentCallbackReceivedAt: serverTimestamp()
                 },
-                { merge: true }
+                {
+                  merge: true
+                }
               );
 
               localStorage.setItem(
@@ -1036,79 +1129,75 @@
               );
 
               showNotice(
-                'Test checkout returned a transaction reference. The transaction must be verified by the backend before the registration is confirmed. Check the Paystack Test Dashboard.',
-                'success'
+                'Paystack returned a transaction reference. Your payment must now be verified by the server before your registration can be confirmed. Do not make another payment.',
+                'info'
               );
+
+              /*
+               * Intentionally do not redirect to page4.html
+               * as a confirmed payment because no backend
+               * verification endpoint has been supplied.
+               *
+               * Connect the verified backend endpoint here.
+               */
 
             } catch (error) {
               console.error(
-                'Could not record the transaction reference:',
+                'Failed to record transaction reference:',
                 error
               );
 
               showNotice(
-                'The checkout returned a reference, but it could not be saved. Check the Test Dashboard before retrying.',
+                'The payment response was received, but we could not record its reference. Do not pay again yet. Contact support to check the transaction.',
                 'error'
               );
 
             } finally {
               paymentLaunchInProgress = false;
-              payBtn.disabled = false;
-
-              payBtn.innerHTML =
-                `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`;
+              setButtonEnabled(true);
             }
           },
 
           onCancel: function() {
             showNotice(
-              'Test checkout was cancelled. You can try again.',
+              'Checkout was closed. If you did not complete the payment, you can try again.',
               'info'
             );
 
             paymentLaunchInProgress = false;
-            payBtn.disabled = false;
-
-            payBtn.innerHTML =
-              `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`;
+            setButtonEnabled(true);
           },
 
           onError: function(error) {
             console.error(
-              'Paystack Test Mode error:',
+              'Paystack transaction error:',
               error
             );
 
             showNotice(
-              'Paystack reported a checkout error. Check the browser console and Test Dashboard for details.',
+              'Paystack reported a checkout error. Please check the error details and confirm your transaction status before trying again.',
               'error'
             );
 
             paymentLaunchInProgress = false;
-            payBtn.disabled = false;
-
-            payBtn.innerHTML =
-              `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`;
+            setButtonEnabled(true);
           }
         });
 
       } catch (error) {
         console.error(
-          'Could not launch Paystack checkout:',
+          'Unable to start Paystack transaction:',
           error
         );
 
         showNotice(
           error.message ||
-            'Unable to open Paystack Test Mode checkout.',
+            'Paystack could not start the transaction. Please try again.',
           'error'
         );
 
         paymentLaunchInProgress = false;
-        payBtn.disabled = false;
-
-        payBtn.innerHTML =
-          `<i class="fa-solid fa-lock"></i> Submit & Pay <span>${formatNaira(GROSS_FEE)}</span>`;
+        setButtonEnabled(true);
       }
     });
   </script>
