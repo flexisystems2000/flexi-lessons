@@ -3,14 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Instructions & Payment - Flexi Educational Consult</title>
-
-  <meta name="description" content="Complete your Flexi Educational Consult registration and select your JAMB Masterclass subscription package.">
-
-  <!-- Google Font -->
+  <!-- Google Font (Inter) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -19,11 +14,11 @@
 
   <style>
     :root {
-      --primary-royal: #1e40af;
+      --primary-royal: #1e40af;       /* Royal Blue */
       --primary-royal-dark: #1e3a8a;
-      --accent-lemon: #84cc16;
+      --accent-lemon: #84cc16;        /* Lemon Green */
       --accent-lemon-hover: #65a30d;
-      --dark-blue: #0f172a;
+      --dark-blue: #0f172a;           /* Dark Blue Footer */
       --light-bg: #f8fafc;
       --card-bg: #ffffff;
       --text: #334155;
@@ -44,8 +39,7 @@
       overflow-x: hidden;
     }
 
-    /* NAVBAR */
-
+    /* --- NAVBAR --- */
     .navbar {
       background: var(--card-bg);
       border-bottom: 2px solid var(--primary-royal);
@@ -64,8 +58,7 @@
       color: var(--primary-royal);
     }
 
-    /* MAIN CONTAINER */
-
+    /* --- MAIN CONTAINER --- */
     .page-container {
       max-width: 800px;
       width: 100%;
@@ -98,8 +91,7 @@
       font-size: 0.95rem;
     }
 
-    /* CANDIDATE SUMMARY */
-
+    /* --- CANDIDATE INFO SUMMARY BOX --- */
     .student-info-card {
       background: #f1f5f9;
       border: 1px solid #cbd5e1;
@@ -146,8 +138,7 @@
       word-break: break-word;
     }
 
-    /* HUB BANNER */
-
+    /* Hub Overview Banner */
     .hub-banner {
       background: #eff6ff;
       border-left: 4px solid var(--primary-royal);
@@ -183,8 +174,7 @@
       margin-top: 4px;
     }
 
-    /* RULES */
-
+    /* Rules Section */
     .rules-box {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
@@ -213,64 +203,27 @@
       color: var(--text);
     }
 
-    /* PACKAGE AND PRICE SUMMARY */
-
+    /* Price Summary Box */
     .summary-box {
       background: var(--dark-blue);
       color: white;
-      padding: 20px;
+      padding: 18px;
       border-radius: 10px;
       margin-bottom: 25px;
     }
 
-    .package-heading {
-      color: white;
-      margin-bottom: 15px;
-      font-size: 1.15rem;
-    }
-
-    .package-label {
-      display: block;
-      color: white;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .package-select {
-      width: 100%;
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      font-size: 1rem;
-      margin-bottom: 20px;
-      color: #0f172a;
-      background: white;
-      cursor: pointer;
-      outline-offset: 3px;
-    }
-
-    .package-select:focus {
-      outline: 2px solid var(--accent-lemon);
-    }
-
-    .package-row {
+    .summary-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-size: 0.9rem;
       color: #cbd5e1;
     }
 
-    .package-row span:last-child {
-      text-align: right;
-      font-weight: 600;
-    }
-
     .summary-row.total {
       margin-top: 12px;
-      padding-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid #334155;
       font-weight: 800;
       color: white;
@@ -282,15 +235,7 @@
       color: var(--accent-lemon);
     }
 
-    .fee-note {
-      color: #cbd5e1;
-      font-size: 0.78rem;
-      margin-top: 14px;
-      line-height: 1.5;
-    }
-
-    /* PAYMENT BUTTON */
-
+    /* Submit / Pay Button */
     .btn-pay {
       width: 100%;
       background: var(--accent-lemon);
@@ -298,7 +243,7 @@
       padding: 16px;
       border: none;
       border-radius: 8px;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
@@ -306,8 +251,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
 
     .btn-pay:hover {
@@ -322,8 +266,7 @@
       transform: none;
     }
 
-    /* FOOTER */
-
+    /* --- DARK BLUE FOOTER --- */
     footer {
       background-color: var(--dark-blue);
       color: #94a3b8;
@@ -351,51 +294,16 @@
       letter-spacing: 0.5px;
     }
 
-    .footer-col ul {
-      list-style: none;
-    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; word-break: break-all; }
+    .footer-col a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent-lemon); }
 
-    .footer-col ul li {
-      margin-bottom: 10px;
-      word-break: break-word;
-    }
+    .social-vertical { display: flex; flex-direction: column; gap: 12px; }
+    .social-link { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+    .social-link i { font-size: 1.2rem; width: 20px; color: var(--accent-lemon); }
 
-    .footer-col a {
-      color: #94a3b8;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-col a:hover {
-      color: var(--accent-lemon);
-    }
-
-    .social-vertical {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
-    }
-
-    .social-link i {
-      font-size: 1.2rem;
-      width: 20px;
-      color: var(--accent-lemon);
-    }
-
-    .payment-badges-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
+    .payment-badges-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .payment-card {
       background: #ffffff;
       padding: 6px 10px;
@@ -406,22 +314,11 @@
       height: 36px;
       min-width: 60px;
     }
+    .payment-card img { max-height: 20px; max-width: 55px; object-fit: contain; }
 
-    .payment-card img {
-      max-height: 20px;
-      max-width: 55px;
-      object-fit: contain;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 25px;
-      font-size: 0.85rem;
-      color: #64748b;
-    }
+    .footer-bottom { text-align: center; padding-top: 25px; font-size: 0.85rem; color: #64748b; }
 
     /* FLOATING WHATSAPP BUTTON */
-
     .floating-whatsapp {
       position: fixed;
       bottom: 20px;
@@ -435,352 +332,151 @@
       justify-content: center;
       align-items: center;
       font-size: 28px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 1000;
       text-decoration: none;
       transition: transform 0.2s;
     }
-
-    .floating-whatsapp:hover {
-      transform: scale(1.1);
-    }
-
-    @media (max-width: 480px) {
-      .instructions-card {
-        padding: 22px 15px;
-      }
-
-      .header-box h1 {
-        font-size: 1.35rem;
-      }
-
-      .summary-box {
-        padding: 16px;
-      }
-
-      .package-row {
-        font-size: 0.85rem;
-      }
-    }
+    .floating-whatsapp:hover { transform: scale(1.1); }
   </style>
 </head>
-
 <body>
 
   <!-- NAVBAR -->
-
   <nav class="navbar">
     <div class="brand">Flexi Educational Consult</div>
   </nav>
 
-  <!-- MAIN CONTENT -->
-
-  <main class="page-container">
+  <!-- CONTENT CONTAINER -->
+  <div class="page-container">
     <div class="instructions-card">
-
       <div class="header-box">
         <h1>Welcome to the Masterclass!</h1>
         <p>Please review your details and group guidelines before completing registration.</p>
       </div>
 
-      <!-- CANDIDATE SUMMARY -->
-
-      <section class="student-info-card">
-        <h3>
-          <i class="fa-solid fa-address-card"></i>
-          Candidate Summary
-        </h3>
-
+      <!-- CANDIDATE INFO SUMMARY -->
+      <div class="student-info-card">
+        <h3><i class="fa-solid fa-address-card"></i> Candidate Summary</h3>
         <div class="info-grid">
-
           <div class="info-item">
             <span class="info-label">Student Name</span>
             <span class="info-value" id="dispStudentName">---</span>
           </div>
-
           <div class="info-item">
             <span class="info-label">Email Address</span>
             <span class="info-value" id="dispStudentEmail">---</span>
           </div>
-
           <div class="info-item">
             <span class="info-label">WhatsApp / Phone</span>
             <span class="info-value" id="dispStudentPhone">---</span>
           </div>
-
         </div>
-      </section>
+      </div>
 
-      <!-- 2027 JAMB ASPIRANTS HUB -->
-
-      <section class="hub-banner">
-
-        <h3>
-          <i class="fa-solid fa-graduation-cap"></i>
-          2027 JAMB Aspirants Hub 📚
-        </h3>
-
+      <!-- 2027 JAMB Aspirants Hub -->
+      <div class="hub-banner">
+        <h3><i class="fa-solid fa-graduation-cap"></i> 2027 JAMB Aspirants Hub 📚</h3>
         <ul>
-          <li>
-            <i class="fa-solid fa-check"></i>
-            <span>Updates on JAMB 2027 registration, dates, syllabus and CBT tips.</span>
-          </li>
-
-          <li>
-            <i class="fa-solid fa-check"></i>
-            <span>Free study materials, past questions and group discussions.</span>
-          </li>
-
-          <li>
-            <i class="fa-solid fa-check"></i>
-            <span>Support each other. No fraud or fake form sales.</span>
-          </li>
+          <li><i class="fa-solid fa-check"></i> <span>Updates on JAMB 2027 registration, dates, syllabus & CBT tips</span></li>
+          <li><i class="fa-solid fa-check"></i> <span>Free study materials, past questions & group discussions</span></li>
+          <li><i class="fa-solid fa-check"></i> <span>Support each other, no fraud / no fake form sales</span></li>
         </ul>
-
-        <p style="font-size:0.85rem;font-weight:700;color:#1e3a8a;margin-top:10px;">
+        <p style="font-size: 0.85rem; font-weight: 700; color: #1e3a8a; margin-top: 10px;">
           💡 Let’s pass JAMB together. Admins won’t DM you for money.
         </p>
+      </div>
 
-      </section>
-
-      <!-- GROUP RULES -->
-
-      <section class="rules-box">
-
-        <h3>
-          <i class="fa-solid fa-shield-halved"></i>
-          Group Rules and Regulations
-        </h3>
-
+      <!-- Group Rules and Regulations -->
+      <div class="rules-box">
+        <h3><i class="fa-solid fa-shield-halved"></i> Group Rules and Regulations</h3>
         <ol class="rules-list">
           <li>Respect everyone in the group.</li>
-          <li>React to tutorial sessions that relate to your subjects.</li>
-          <li>Keep student messages educational and relevant to questions or administrators’ discussions.</li>
-          <li>Do not insult administrators or other students.</li>
+          <li>Do well to react to any tutorial session that relates to your subject.</li>
+          <li>No unnecessary messages; messages by students should only be questions, or replies to questions asked by administrators.</li>
+          <li>Do not insult your admins or any student.</li>
           <li>No stickers allowed.</li>
-          <li>Only educational topics are to be discussed here.</li>
+          <li>Only Educational topics are to be discussed here.</li>
         </ol>
+      </div>
 
-      </section>
-
-      <!-- PACKAGE SELECTION AND FEE SUMMARY -->
-
-      <section class="summary-box">
-
-        <h3 class="package-heading">
-          <i class="fa-solid fa-box-open"></i>
-          Choose Your Subscription Package
-        </h3>
-
-        <label class="package-label" for="packageSelect">
-          Select Package
-        </label>
-
-        <select id="packageSelect" class="package-select">
-
-          <option value="4000" data-duration="1">
-            1 Month — ₦4,000
-          </option>
-
-          <option value="7500" data-duration="2">
-            2 Months — ₦7,500
-          </option>
-
-          <option value="10000" data-duration="3">
-            3 Months — ₦10,000
-          </option>
-
-        </select>
-
-        <div class="package-row">
-          <span>Selected Package</span>
-          <span id="dispPackageName">1 Month</span>
+      <!-- Fee Breakdown Summary -->
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Subscription Package</span>
+          <span id="dispPackageFee">—</span>
         </div>
-
-        <div class="package-row">
-          <span>Package Fee</span>
-          <span id="dispBaseFee">₦4,000</span>
+        <div class="summary-row">
+          <span>Electronic Charges</span>
+          <span id="dispProcessingFee">—</span>
         </div>
-
-        <div class="package-row">
-          <span>Estimated Electronic Charges</span>
-          <span id="dispProcessingFee">₦162</span>
-        </div>
-
-        <div class="package-row summary-row total">
+        <div class="summary-row total">
           <span>Total Payable</span>
-          <span class="amount" id="dispTotalPayable">₦4,162</span>
+          <span class="amount" id="dispTotalPayable">—</span>
         </div>
+      </div>
 
-        <p class="fee-note">
-          Electronic charges shown here are estimates. The final transaction
-          charge depends on the applicable Paystack pricing for your account.
-        </p>
-
-      </section>
-
-      <!-- PAYMENT BUTTON -->
-
-      <button id="payBtn" class="btn-pay" type="button">
-        <i class="fa-solid fa-lock"></i>
-        <span>Submit &amp; Pay</span>
-        <span id="btnPayAmount">₦4,162</span>
+      <!-- Proceed & Pay Button -->
+      <button id="payBtn" class="btn-pay">
+        <i class="fa-solid fa-lock"></i> Submit & Pay <span id="btnPayAmount">₦3,148</span>
       </button>
-
     </div>
-  </main>
+  </div>
 
-  <!-- FOOTER -->
-
+  <!-- DARK BLUE FOOTER -->
   <footer>
-
     <div class="footer-container">
-
       <div class="footer-col">
-
         <h4>CONTACT US</h4>
-
         <ul>
-          <li>
-            <i class="fa-solid fa-phone" style="color:var(--accent-lemon);margin-right:8px;"></i>
-            09034159839
-          </li>
-
-          <li>
-            <i class="fa-solid fa-phone" style="color:var(--accent-lemon);margin-right:8px;"></i>
-            07033855206
-          </li>
-
-          <li>
-            <i class="fa-solid fa-envelope" style="color:var(--accent-lemon);margin-right:8px;"></i>
-            <a href="mailto:info@flexieduconsult.com.ng">
-              info@flexieduconsult.com.ng
-            </a>
-          </li>
-
-          <li style="margin-top:10px;font-size:0.85rem;color:#cbd5e1;">
+          <li><i class="fa-solid fa-phone" style="color: var(--accent-lemon); margin-right: 8px;"></i> 09034159839</li>
+          <li><i class="fa-solid fa-phone" style="color: var(--accent-lemon); margin-right: 8px;"></i> 07033855206</li>
+          <li><i class="fa-solid fa-envelope" style="color: var(--accent-lemon); margin-right: 8px;"></i> <a href="mailto:info@flexieduconsult.com.ng">info@flexieduconsult.com.ng</a></li>
+          <li style="margin-top: 10px; font-size: 0.85rem; color: #cbd5e1;">
             <strong>For complaints:</strong><br>
-
-            <i class="fa-solid fa-circle-exclamation" style="color:var(--accent-lemon);margin-right:8px;"></i>
-
-            <a href="mailto:support@flexieduconsult.com.ng">
-              support@flexieduconsult.com.ng
-            </a>
+            <i class="fa-solid fa-circle-exclamation" style="color: var(--accent-lemon); margin-right: 8px;"></i> 
+            <a href="mailto:support@flexieduconsult.com.ng">support@flexieduconsult.com.ng</a>
           </li>
         </ul>
-
       </div>
 
       <div class="footer-col">
-
         <h4>FOLLOW US</h4>
-
         <div class="social-vertical">
-
-          <a href="https://www.facebook.com/profile.php?id=61589793118693"
-             class="social-link"
-             target="_blank"
-             rel="noopener noreferrer">
-
-            <i class="fa-brands fa-facebook"></i>
-            Facebook
-
-          </a>
-
-          <a href="https://www.instagram.com/flexieduconsult2000?igsh=MWxqZG9reGRlb3Z0ZQ=="
-             class="social-link"
-             target="_blank"
-             rel="noopener noreferrer">
-
-            <i class="fa-brands fa-instagram"></i>
-            Instagram
-
-          </a>
-
-          <a href="https://vm.tiktok.com/ZS9r7GfdDvykU-X6alu/"
-             class="social-link"
-             target="_blank"
-             rel="noopener noreferrer">
-
-            <i class="fa-brands fa-tiktok"></i>
-            TikTok
-
-          </a>
-
+          <a href="https://www.facebook.com/profile.php?id=61589793118693" class="social-link"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a href="https://www.instagram.com/flexieduconsult2000?igsh=MWxqZG9reGRlb3Z0ZQ==" class="social-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="https://vm.tiktok.com/ZS9r7GfdDvykU-X6alu/" class="social-link"><i class="fa-brands fa-tiktok"></i> TikTok</a>
         </div>
-
       </div>
 
       <div class="footer-col">
-
         <h4>SECURED BY</h4>
-
         <div class="payment-badges-grid">
-
-          <div class="payment-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Paystack_Logo.png"
-                 alt="Paystack">
-          </div>
-
-          <div class="payment-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
-                 alt="Mastercard">
-          </div>
-
-          <div class="payment-card">
-            <img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg"
-                 alt="Visa">
-          </div>
-
-          <div class="payment-card">
-            <img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg"
-                 alt="Verve">
-          </div>
-
+          <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Paystack_Logo.png" alt="Paystack" /></div>
+          <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard" /></div>
+          <div class="payment-card"><img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg" alt="Visa" /></div>
+          <div class="payment-card"><img src="https://i.postimg.cc/xTVQsDzb/web-184786300.jpg" alt="Verve" /></div>
         </div>
-
       </div>
-
     </div>
 
     <div class="footer-bottom">
-      &copy; <span id="year"></span> Flexi Educational Consult. All rights reserved.
+      &copy; <span id="year"></span> flexieduconsult. All rights reserved.
     </div>
-
   </footer>
 
   <!-- FLOATING WHATSAPP BUTTON -->
-
-  <a href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult,%20I%20have%20a%20question%20about%20payment"
-     class="floating-whatsapp"
-     target="_blank"
-     rel="noopener noreferrer"
-     title="Chat with Flexi Educational Consult"
-     aria-label="Chat with Flexi Educational Consult on WhatsApp">
-
+  <a href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult,%20I%20have%20a%20question%20about%20payment" 
+     class="floating-whatsapp" target="_blank" title="Chat with Flexi Educational Consult">
     <i class="fa-brands fa-whatsapp"></i>
-
   </a>
 
-  <!-- FIREBASE AND PAYMENT LOGIC -->
-
+  <!-- Firebase Modular SDKs -->
   <script type="module">
-
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      updateDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-
-    // =============================================
-    // FIREBASE CONFIGURATION
-    // =============================================
-
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyCoGX2bXlvuwcJY8oyW6_J42fgxfH5vZao",
       authDomain: "jarvisai-1a594.firebaseapp.com",
@@ -790,397 +486,149 @@
       appId: "1:868499596875:web:4bf592934f6086be8a4fce"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Set Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // =============================================
-    // GENERAL PAGE SETUP
-    // =============================================
+    // Subscription prices are the amounts distributed to the selected department's recipients.
+    // Paystack processing charge is added to the amount charged to the student.
+    const SUBSCRIPTION_PLANS = {
+      monthly: { label: '1 Month', months: 1, amount: 4000 },
+      twoMonths: { label: '2 Months', months: 2, amount: 7500 },
+      threeMonths: { label: '3 Months', months: 3, amount: 10000 }
+    };
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    // Department-specific Paystack split codes supplied by the project owner.
+    // Each split must contain the recipients and percentages agreed for that department.
+    const PAYSTACK_SPLIT_CODES = {
+      Commercial: 'SPL_KKVdoIZw3e',
+      Art: 'SPL_xdTvrjYa3l',
+      Science: 'SPL_ZD33fo9szd'
+    };
 
-
-    // =============================================
-    // PACKAGE CONFIGURATION
-    // =============================================
-
-    const packageSelect = document.getElementById("packageSelect");
-    const payBtn = document.getElementById("payBtn");
-
-    let BASE_FEE = 4000;
-    let GROSS_FEE = 4162;
-    let PROCESSING_FEE = 162;
-
-    let selectedPlan = "1 Month";
-    let selectedDuration = 1;
-
-
-    // Estimated local Paystack fee:
-    // 1.5% plus ₦100, subject to Paystack's applicable terms.
-    function calculateGrossPaystackAmount(amount) {
-      return Math.ceil((amount + 100) / (1 - 0.015));
+    function calculateGrossPaystackAmount(netAmount) {
+      return Math.ceil((netAmount + 100) / (1 - 0.015));
     }
 
-
-    function formatNaira(amount) {
-      return "₦" + Number(amount).toLocaleString("en-NG");
-    }
-
-
-    // Update the displayed price whenever a package changes.
-    function updatePackagePrice() {
-
-      const selectedOption =
-        packageSelect.options[packageSelect.selectedIndex];
-
-      BASE_FEE = Number(selectedOption.value);
-
-      selectedDuration =
-        Number(selectedOption.dataset.duration);
-
-      selectedPlan =
-        selectedDuration === 1 ? "1 Month" :
-        selectedDuration === 2 ? "2 Months" :
-        "3 Months";
-
-      GROSS_FEE =
-        calculateGrossPaystackAmount(BASE_FEE);
-
-      PROCESSING_FEE =
-        GROSS_FEE - BASE_FEE;
-
-      document.getElementById("dispPackageName").textContent =
-        selectedPlan;
-
-      document.getElementById("dispBaseFee").textContent =
-        formatNaira(BASE_FEE);
-
-      document.getElementById("dispProcessingFee").textContent =
-        formatNaira(PROCESSING_FEE);
-
-      document.getElementById("dispTotalPayable").textContent =
-        formatNaira(GROSS_FEE);
-
-      document.getElementById("btnPayAmount").textContent =
-        formatNaira(GROSS_FEE);
-    }
-
-
-    packageSelect.addEventListener("change", updatePackagePrice);
-
-    updatePackagePrice();
-
-
-    // =============================================
-    // LOAD CANDIDATE REGISTRATION DETAILS
-    // =============================================
-
-    const storedData =
-      localStorage.getItem("flexiStudentRegistration");
-
-    let studentData = null;
-
+    const storedData = localStorage.getItem('flexiStudentRegistration');
     if (!storedData) {
-
-      alert(
-        "No registration data found. Please complete the form on Page 2 first."
-      );
-
-      window.location.replace("page2.html");
-
-    } else {
-
-      try {
-
-        studentData = JSON.parse(storedData);
-
-      } catch (error) {
-
-        console.error("Unable to read student registration:", error);
-
-        alert(
-          "Your registration details could not be read. Please complete the form again."
-        );
-
-        localStorage.removeItem("flexiStudentRegistration");
-
-        window.location.replace("page2.html");
-
-      }
-
+      alert("No registration data found. Please complete the form on Page 2 first.");
+      window.location.href = "page2.html";
+      throw new Error('Missing registration data');
     }
 
-
-    // Stop processing if the student data is unavailable.
-    if (!studentData) {
-      throw new Error("Student registration data is unavailable.");
+    const studentData = JSON.parse(storedData);
+    const selectedPlan = SUBSCRIPTION_PLANS[studentData.subscriptionPlan];
+    if (!selectedPlan || !['Commercial', 'Art', 'Science'].includes(studentData.department)) {
+      alert('Please select a valid department and subscription package on Page 2.');
+      window.location.href = 'page2.html';
+      throw new Error('Missing department or subscription package');
     }
 
+    const BASE_FEE = selectedPlan.amount;
+    const GROSS_FEE = calculateGrossPaystackAmount(BASE_FEE);
+    const PROCESSING_FEE = GROSS_FEE - BASE_FEE;
 
-    // Populate candidate information.
-    document.getElementById("dispStudentName").textContent =
-      `${studentData.firstName || ""} ${studentData.surname || ""}`.trim() || "N/A";
+    document.getElementById('dispPackageFee').textContent = `₦${BASE_FEE.toLocaleString()}`;
+    document.getElementById('dispProcessingFee').textContent = `₦${PROCESSING_FEE.toLocaleString()}`;
+    document.getElementById('dispTotalPayable').textContent = `₦${GROSS_FEE.toLocaleString()}`;
+    document.getElementById('btnPayAmount').textContent = `₦${GROSS_FEE.toLocaleString()}`;
 
-    document.getElementById("dispStudentEmail").textContent =
-      studentData.studentEmail || "N/A";
+    // Populate Candidate Summary Details in UI
+    document.getElementById('dispStudentName').textContent = `${studentData.firstName || ''} ${studentData.surname || ''}`.trim() || 'N/A';
+    document.getElementById('dispStudentEmail').textContent = studentData.studentEmail || 'N/A';
+    document.getElementById('dispStudentPhone').textContent = studentData.studentPhone || 'N/A';
 
-    document.getElementById("dispStudentPhone").textContent =
-      studentData.studentPhone || "N/A";
+    const payBtn = document.getElementById('payBtn');
 
-
-    // =============================================
-    // PAYMENT FLOW
-    // =============================================
-
-    let paymentInProgress = false;
-
-    payBtn.addEventListener("click", async function () {
-
-      if (paymentInProgress) {
+    // Payment Flow
+    payBtn.addEventListener('click', async () => {
+      const splitCode = PAYSTACK_SPLIT_CODES[studentData.department];
+      if (!splitCode || splitCode.startsWith('REPLACE_WITH_')) {
+        alert(`The Paystack split code for ${studentData.department} has not been configured yet. Add the SPL_ code from Paystack Dashboard in page3.html before accepting payments.`);
         return;
       }
-
-      if (!studentData.studentEmail) {
-
-        alert(
-          "A valid student email address is required to continue."
-        );
-
-        return;
-
-      }
-
-      if (
-        typeof window.PaystackPop === "undefined" ||
-        typeof window.PaystackPop.setup !== "function"
-      ) {
-
-        alert(
-          "The Paystack SDK could not be loaded. Check your internet connection and reload the page."
-        );
-
-        return;
-
-      }
-
-
-      paymentInProgress = true;
       payBtn.disabled = true;
+      payBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving Registration...`;
 
-      payBtn.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin"></i> Preparing Payment...';
-
-
-      // Freeze the selected package values for this transaction.
-      const paymentPlan = selectedPlan;
-      const paymentDuration = selectedDuration;
-      const paymentBaseFee = BASE_FEE;
-      const paymentGrossFee = GROSS_FEE;
-
-
-      // Generate a unique reference for the transaction.
-      const registrationId =
-        "FLEXI_" + Date.now() + "_" +
-        Math.random().toString(36).slice(2, 8).toUpperCase();
-
-
-      const candidateRef =
-        doc(db, "registrations", registrationId);
-
+      // Generate a unique registration reference ID
+      const registrationId = "FLEXI_" + Date.now();
 
       try {
-
-        // STEP 1: Save registration before opening checkout.
-        // Payment remains false until independently verified.
+        // STEP A: Save candidate to Firestore with paymentStatus = false
+        const candidateRef = doc(db, "registrations", registrationId);
         await setDoc(candidateRef, {
-
           ...studentData,
-
           registrationId: registrationId,
-
-          packageName: paymentPlan,
-
-          packageDurationMonths: paymentDuration,
-
-          amountPaid: paymentBaseFee,
-
-          grossAmountPaid: paymentGrossFee,
-
           paymentStatus: false,
-
-          paymentProvider: "Paystack",
-
+          amountPaid: BASE_FEE,
+          grossAmountPaid: GROSS_FEE,
+          department: studentData.department,
+          subscriptionPlan: studentData.subscriptionPlan,
+          subscriptionLabel: selectedPlan.label,
+          subscriptionMonths: selectedPlan.months,
           createdAt: serverTimestamp()
-
         });
 
+        payBtn.innerHTML = `<i class="fa-solid fa-credit-card"></i> Launching Paystack...`;
 
-        payBtn.innerHTML =
-          '<i class="fa-solid fa-credit-card"></i> Opening Paystack...';
+        // STEP B: Ensure Paystack script is loaded globally
+        if (typeof window.PaystackPop === 'undefined') {
+          alert('Paystack SDK failed to load. Please check your internet connection and reload the page.');
+          payBtn.disabled = false;
+          payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Submit & Pay ₦${GROSS_FEE.toLocaleString()}`;
+          return;
+        }
 
-
-        // STEP 2: Launch Paystack checkout.
-        //
-        // IMPORTANT:
-        // Replace this test key with your actual Paystack public key
-        // before accepting live payments.
-        //
-        // The public key is suitable for frontend use.
-        // Never place a Paystack secret key in this file.
-
+        // Trigger Paystack Payment
         const handler = window.PaystackPop.setup({
-
-          key: "pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35",
-
+          key: 'pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35', // REPLACE WITH YOUR REAL PAYSTACK PUBLIC KEY
           email: studentData.studentEmail,
-
-          amount: paymentGrossFee * 100,
-
-          currency: "NGN",
-
+          amount: GROSS_FEE * 100, // Amount in kobo, based on selected package
+          currency: 'NGN',
           ref: registrationId,
-
+          split_code: splitCode,
           metadata: {
-
             custom_fields: [
-
-              {
-                display_name: "Student Name",
-                variable_name: "student_name",
-                value:
-                  `${studentData.firstName || ""} ${studentData.surname || ""}`.trim()
-              },
-
-              {
-                display_name: "Phone Number",
-                variable_name: "phone_number",
-                value: studentData.studentPhone || ""
-              },
-
-              {
-                display_name: "Subscription Package",
-                variable_name: "subscription_package",
-                value: paymentPlan
-              },
-
-              {
-                display_name: "Subscription Duration",
-                variable_name: "subscription_duration_months",
-                value: String(paymentDuration)
-              }
-
+              { display_name: "Student Name", variable_name: "student_name", value: `${studentData.firstName} ${studentData.surname}` },
+              { display_name: "Phone Number", variable_name: "phone_number", value: studentData.studentPhone }
             ]
-
           },
+          callback: async function(response) {
+            // STEP C: Payment Successful -> Update Firestore paymentStatus to true
+            payBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Confirming Payment...`;
+            
+            await updateDoc(candidateRef, {
+              paymentStatus: true,
+              paystackReference: response.reference,
+              paidAt: new Date().toISOString()
+            });
 
+            // Store doc ID for Page 4 PDF receipt generation
+            localStorage.setItem('flexiCurrentRegId', registrationId);
 
-          // STEP 3: Handle Paystack's browser callback.
-          //
-          // A callback is NOT independent proof of payment.
-          // Do not set paymentStatus to true here without trusted
-          // server-side verification of the transaction.
-
-          callback: function (response) {
-
-            console.log(
-              "Paystack returned a payment reference:",
-              response.reference
-            );
-
-            // Save the pending reference for a later verified
-            // payment-confirmation workflow.
-            localStorage.setItem(
-              "flexiPendingRegId",
-              registrationId
-            );
-
-            localStorage.setItem(
-              "flexiPendingPaystackReference",
-              response.reference
-            );
-
-            localStorage.setItem(
-              "flexiPendingPackage",
-              paymentPlan
-            );
-
-            localStorage.setItem(
-              "flexiPendingPackageDuration",
-              String(paymentDuration)
-            );
-
-
-            alert(
-              "Paystack has returned a transaction reference. Your payment must be verified before your registration can be confirmed."
-            );
-
-
-            // Do not falsely mark payment as verified.
-            // Do not redirect to a page that presents an unverified
-            // transaction as a completed payment.
-
-            paymentInProgress = false;
-            payBtn.disabled = false;
-
-            payBtn.innerHTML =
-              '<i class="fa-solid fa-lock"></i>' +
-              '<span>Submit &amp; Pay</span>' +
-              '<span id="btnPayAmount">' +
-              formatNaira(GROSS_FEE) +
-              '</span>';
-
+            // STEP D: Redirect to Page 4
+            window.location.href = "page4.html";
           },
-
-
-          // STEP 4: Handle checkout closing.
-          onClose: function () {
-
-            paymentInProgress = false;
+          onClose: function() {
+            alert('Payment was not completed. You can click the button to try again.');
             payBtn.disabled = false;
-
-            payBtn.innerHTML =
-              '<i class="fa-solid fa-lock"></i>' +
-              '<span>Submit &amp; Pay</span>' +
-              '<span id="btnPayAmount">' +
-              formatNaira(GROSS_FEE) +
-              '</span>';
-
+            payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Submit & Pay ₦${GROSS_FEE.toLocaleString()}`;
           }
-
         });
-
 
         handler.openIframe();
 
-
       } catch (error) {
-
-        console.error(
-          "Registration or payment initialization error:",
-          error
-        );
-
-        alert(
-          "We could not prepare your registration for payment. Please check your internet connection and try again."
-        );
-
-        paymentInProgress = false;
+        console.error("Firestore Error: ", error);
+        alert("An error occurred while saving your details. Please check your internet connection and try again.");
         payBtn.disabled = false;
-
-        payBtn.innerHTML =
-          '<i class="fa-solid fa-lock"></i>' +
-          '<span>Submit &amp; Pay</span>' +
-          '<span id="btnPayAmount">' +
-          formatNaira(GROSS_FEE) +
-          '</span>';
-
+        payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Submit & Pay ₦${GROSS_FEE.toLocaleString()}`;
       }
-
     });
-
   </script>
-
 </body>
 </html>

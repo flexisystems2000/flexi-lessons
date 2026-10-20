@@ -366,7 +366,15 @@
         </div>
         <div class="details-row">
           <span class="label">Amount Paid:</span>
-          <span class="value" style="color: var(--accent-green);">₦3,148</span>
+          <span class="value" id="uiAmountPaid" style="color: var(--accent-green);">Loading...</span>
+        </div>
+        <div class="details-row">
+          <span class="label">Department:</span>
+          <span class="value" id="uiDepartment">---</span>
+        </div>
+        <div class="details-row">
+          <span class="label">Package:</span>
+          <span class="value" id="uiSubscription">---</span>
         </div>
         <div class="details-row">
           <span class="label">Payment Status:</span>
@@ -414,7 +422,7 @@
           <div><strong>REG ID:</strong> <span id="rcpRegId">---</span></div>
           <div><strong>EMAIL:</strong> <span id="rcpEmail">---</span></div>
           <div><strong>PHONE:</strong> <span id="rcpPhone">---</span></div>
-          <div><strong>PROGRAM:</strong> 2027 JAMB Masterclass</div>
+          <div><strong>DEPARTMENT:</strong> <span id="rcpDepartment">---</span></div>\n          <div><strong>PACKAGE:</strong> <span id="rcpSubscription">---</span></div>
         </div>
       </div>
 
@@ -442,22 +450,17 @@
         <tbody>
           <tr>
             <td style="text-align: center;">1</td>
-            <td>CBT MOCK FEE</td>
-            <td style="text-align: right;">1,000</td>
+            <td id="rcpPackageFeeLabel">SUBSCRIPTION FEE</td>
+            <td id="rcpPackageFee" style="text-align: right;">—</td>
           </tr>
           <tr>
             <td style="text-align: center;">2</td>
-            <td>LESSON FEE</td>
-            <td style="text-align: right;">2,000</td>
-          </tr>
-          <tr>
-            <td style="text-align: center;">3</td>
             <td>ELECTRONIC CHARGES FEE</td>
-            <td style="text-align: right;">148</td>
+            <td id="rcpProcessingFee" style="text-align: right;">—</td>
           </tr>
           <tr style="font-weight: 800; background-color: #f8fafc;">
             <td colspan="2" style="text-align: right;">TOTAL</td>
-            <td style="text-align: right;">₦3,148</td>
+            <td id="rcpTotalPaid" style="text-align: right;">—</td>
           </tr>
         </tbody>
       </table>
@@ -535,6 +538,20 @@
           // Fill UI Status Box
           document.getElementById('uiStudentName').textContent = fullName;
           document.getElementById('uiRegId').textContent = data.registrationId || regId;
+          const baseAmount = Number(data.amountPaid || 0);
+          const grossAmount = Number(data.grossAmountPaid || baseAmount);
+          const processingAmount = Math.max(0, grossAmount - baseAmount);
+          const money = amount => `₦${Number(amount).toLocaleString('en-NG')}`;
+          const planLabel = data.subscriptionLabel || data.subscriptionPlan || 'N/A';
+          document.getElementById('uiAmountPaid').textContent = money(grossAmount);
+          document.getElementById('uiDepartment').textContent = data.department || 'N/A';
+          document.getElementById('uiSubscription').textContent = planLabel;
+          document.getElementById('rcpDepartment').textContent = data.department || 'N/A';
+          document.getElementById('rcpSubscription').textContent = planLabel;
+          document.getElementById('rcpPackageFeeLabel').textContent = `${planLabel.toUpperCase()} SUBSCRIPTION`;
+          document.getElementById('rcpPackageFee').textContent = money(baseAmount).replace('₦','');
+          document.getElementById('rcpProcessingFee').textContent = money(processingAmount).replace('₦','');
+          document.getElementById('rcpTotalPaid').textContent = money(grossAmount);
 
           // Fill Hidden Receipt Template
           document.getElementById('rcpStudentName').textContent = fullName;
