@@ -7,15 +7,11 @@
 
   <title>Renew Subscription - Flexi Educational Consult</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  >
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script src="https://js.paystack.co/v2/inline.js"></script>
 
@@ -382,12 +378,7 @@
       You do not need to register again.
     </p>
 
-    <div
-      id="notice"
-      class="notice"
-      role="status"
-      aria-live="polite"
-    ></div>
+    <div id="notice" class="notice" role="status" aria-live="polite"></div>
 
     <section class="student">
       <h2>
@@ -432,46 +423,27 @@
 
     <h2 class="section-title">Select your renewal package</h2>
 
-    <div
-      class="plans"
-      id="plans"
-      role="radiogroup"
-      aria-label="Subscription package"
-    >
+    <div class="plans" id="plans" role="radiogroup"
+         aria-label="Subscription package">
 
-      <button
-        type="button"
-        class="plan"
-        data-plan="monthly"
-        aria-checked="true"
-        role="radio"
-      >
+      <button type="button" class="plan"
+              data-plan="monthly" aria-checked="true" role="radio">
         <i class="fa-solid fa-circle-check tick"></i>
         <span class="duration">1 Month</span>
         <span class="price">₦4,000</span>
         <span class="hint">Monthly access</span>
       </button>
 
-      <button
-        type="button"
-        class="plan"
-        data-plan="twoMonths"
-        aria-checked="false"
-        role="radio"
-      >
+      <button type="button" class="plan"
+              data-plan="twoMonths" aria-checked="false" role="radio">
         <i class="fa-solid fa-circle-check tick"></i>
         <span class="duration">2 Months</span>
         <span class="price">₦7,500</span>
         <span class="hint">Two-month access</span>
       </button>
 
-      <button
-        type="button"
-        class="plan"
-        data-plan="threeMonths"
-        aria-checked="false"
-        role="radio"
-      >
+      <button type="button" class="plan"
+              data-plan="threeMonths" aria-checked="false" role="radio">
         <i class="fa-solid fa-circle-check tick"></i>
         <span class="duration">3 Months</span>
         <span class="price">₦10,000</span>
@@ -504,12 +476,7 @@
 
     </div>
 
-    <button
-      type="button"
-      id="payBtn"
-      class="pay"
-      disabled
-    >
+    <button type="button" id="payBtn" class="pay" disabled>
       <i class="fa-solid fa-lock"></i>
       Loading account…
     </button>
@@ -521,7 +488,6 @@
 
     <div class="security">
       <i class="fa-solid fa-shield-halved"></i>
-
       <span>
         Your subscription will only be updated after the backend confirms
         your payment with Paystack.
@@ -549,9 +515,7 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-/* =========================================================
-   1. FIREBASE CONFIGURATION
-========================================================= */
+/* Firebase configuration: same project used by page3.html. */
 
 const firebaseConfig = {
   apiKey: "AIzaSyCoGXb2XlvuwcJY8oyW6_J42fgxfH5vZao",
@@ -563,14 +527,9 @@ const firebaseConfig = {
 };
 
 /*
- * Keep these values synchronized with your existing page3.html
- * and your Paystack dashboard.
- *
- * IMPORTANT:
- * The key currently shown is a test key. Replace it with your
- * verified LIVE public key when you are ready for live payments.
+ * Keep the Paystack key and split codes synchronized with
+ * the working payment configuration in your project.
  */
-
 const PAYSTACK_PUBLIC_KEY =
   "pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35";
 
@@ -580,17 +539,8 @@ const PAYSTACK_SPLIT_CODES = {
   Science: "SPL_oIR8KSbPBO"
 };
 
-/*
- * Existing backend deployment.
- * Do not add a trailing slash.
- */
-
 const API_BASE_URL =
   "https://flexi-lessons-payment-api-virid.vercel.app";
-
-/* =========================================================
-   2. SUBSCRIPTION PACKAGES
-========================================================= */
 
 const PLANS = {
   monthly: {
@@ -598,23 +548,17 @@ const PLANS = {
     months: 1,
     amount: 4000
   },
-
   twoMonths: {
     label: "2 Months",
     months: 2,
     amount: 7500
   },
-
   threeMonths: {
     label: "3 Months",
     months: 3,
     amount: 10000
   }
 };
-
-/* =========================================================
-   3. INITIAL SETUP
-========================================================= */
 
 const $ = id => document.getElementById(id);
 
@@ -636,10 +580,6 @@ let registration = null;
 let selectedPlanKey = "monthly";
 let busy = false;
 
-/* =========================================================
-   4. GENERAL HELPERS
-========================================================= */
-
 function showNotice(message, type = "info") {
   notice.className = "notice " + type;
   notice.textContent = message;
@@ -654,34 +594,31 @@ function formatNaira(amount) {
 }
 
 /*
- * Must match the gross-amount calculation in the backend.
+ * This is the same estimated gross amount calculation used
+ * by the existing payment flow. The backend remains responsible
+ * for validating the actual expected amount.
  */
-
 function calculateGrossAmount(netAmount) {
   return Math.ceil((netAmount + 100) / (1 - 0.015));
 }
 
-function dateValue(value) {
+function toDate(value) {
   if (!value) return null;
 
   if (typeof value.toDate === "function") {
     return value.toDate();
   }
 
-  if (
-    typeof value === "object" &&
-    typeof value.seconds === "number"
-  ) {
+  if (typeof value === "object" && typeof value.seconds === "number") {
     return new Date(value.seconds * 1000);
   }
 
   const date = new Date(value);
-
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
 function displayDate(value) {
-  const date = dateValue(value);
+  const date = toDate(value);
 
   if (!date) return "Not recorded";
 
@@ -690,44 +627,6 @@ function displayDate(value) {
     month: "short",
     year: "numeric"
   });
-}
-
-function getCurrentExpiry(data) {
-  const direct = dateValue(
-    data.subscriptionExpiryDate ||
-    data.expiryDate ||
-    data.expiresAt ||
-    data.subscriptionEndDate
-  );
-
-  if (direct) return direct;
-
-  const months = Number(
-    data.subscriptionMonths ||
-    data.months ||
-    0
-  );
-
-  const start = dateValue(
-    data.subscriptionStartDate ||
-    data.paymentVerifiedAt ||
-    data.paidAt ||
-    data.createdAt
-  );
-
-  const confirmed =
-    data.paymentStatus === true ||
-    String(data.paymentStatus || "").toLowerCase() === "paid";
-
-  if (
-    !start ||
-    ![1, 2, 3].includes(months) ||
-    !confirmed
-  ) {
-    return null;
-  }
-
-  return addMonths(start, months);
 }
 
 function addMonths(date, months) {
@@ -748,19 +647,46 @@ function addMonths(date, months) {
   return result;
 }
 
-function makeRenewalId() {
-  /*
-   * Use only characters accepted in Paystack references:
-   * letters, numbers, hyphens, periods and equals signs.
-   */
-  const randomPart =
-    Math.random().toString(36).slice(2, 10).toUpperCase();
+function getCurrentExpiry(data) {
+  const direct = toDate(
+    data.subscriptionExpiryDate ||
+    data.expiryDate ||
+    data.expiresAt ||
+    data.subscriptionEndDate
+  );
 
+  if (direct) return direct;
+
+  const months = Number(
+    data.subscriptionMonths ||
+    data.months ||
+    0
+  );
+
+  const start = toDate(
+    data.subscriptionStartDate ||
+    data.paymentVerifiedAt ||
+    data.paidAt ||
+    data.createdAt
+  );
+
+  const confirmed =
+    data.paymentStatus === true ||
+    String(data.paymentStatus || "").toLowerCase() === "paid";
+
+  if (!start || ![1, 2, 3].includes(months) || !confirmed) {
+    return null;
+  }
+
+  return addMonths(start, months);
+}
+
+function makeRenewalId() {
   return (
     "FLEXIRENEW-" +
     Date.now() +
     "-" +
-    randomPart
+    Math.random().toString(36).slice(2, 10).toUpperCase()
   );
 }
 
@@ -775,15 +701,10 @@ function getStudentName(data) {
 }
 
 function getStudentEmail(data) {
-  return safe(
-    data.studentEmail ||
-    data.email
-  );
+  return safe(data.studentEmail || data.email);
 }
 
-/* =========================================================
-   5. PACKAGE SUMMARY AND PAYMENT BUTTON
-========================================================= */
+/* Update the summary and button amount whenever the selected plan changes. */
 
 function renderPlan() {
   const plan = PLANS[selectedPlanKey];
@@ -796,16 +717,13 @@ function renderPlan() {
   $("totalPayable").textContent = formatNaira(gross);
 
   document.querySelectorAll(".plan").forEach(button => {
-    const selected =
-      button.dataset.plan === selectedPlanKey;
-
     button.setAttribute(
       "aria-checked",
-      String(selected)
+      String(button.dataset.plan === selectedPlanKey)
     );
   });
 
-  if (!busy) {
+  if (!busy && registration) {
     payBtn.innerHTML =
       '<i class="fa-solid fa-lock"></i> Pay ' +
       formatNaira(gross) +
@@ -822,25 +740,16 @@ document.querySelectorAll(".plan").forEach(button => {
   });
 });
 
-/* =========================================================
-   6. LOAD THE EXISTING STUDENT ACCOUNT
-========================================================= */
+/* Load the existing student registration. */
 
 async function loadRegistration() {
   let localData = {};
 
   try {
-    const raw = localStorage.getItem(
-      "flexiStudentRegistration"
-    );
-
-    if (raw) {
-      localData = JSON.parse(raw) || {};
-    }
+    const raw = localStorage.getItem("flexiStudentRegistration");
+    if (raw) localData = JSON.parse(raw) || {};
   } catch (error) {
-    console.warn(
-      "Could not read cached student details."
-    );
+    console.warn("Cached student details could not be read.");
   }
 
   if (!registrationId) {
@@ -848,17 +757,16 @@ async function loadRegistration() {
   }
 
   if (!registrationId) {
-    $("studentName").textContent = "Not signed in";
+    $("studentName").textContent = "Account not found";
 
     payBtn.disabled = true;
     payBtn.innerHTML =
-      '<i class="fa-solid fa-lock"></i> Sign in to continue';
+      '<i class="fa-solid fa-lock"></i> Account unavailable';
 
     showNotice(
       "Please sign in to your existing student account before renewing.",
       "error"
     );
-
     return;
   }
 
@@ -870,9 +778,7 @@ async function loadRegistration() {
     );
 
     if (!snapshot.exists()) {
-      throw new Error(
-        "The student registration could not be found."
-      );
+      throw new Error("Student registration not found.");
     }
 
     registration = {
@@ -880,32 +786,18 @@ async function loadRegistration() {
       ...snapshot.data()
     };
 
-    $("studentName").textContent =
-      getStudentName(registration);
-
+    $("studentName").textContent = getStudentName(registration);
     $("studentEmail").textContent =
-      getStudentEmail(registration) ||
-      "Not recorded";
-
+      getStudentEmail(registration) || "Not recorded";
     $("studentDepartment").textContent =
-      safe(registration.department) ||
-      "Not recorded";
-
+      safe(registration.department) || "Not recorded";
     $("currentPlan").textContent =
-      safe(
-        registration.subscriptionLabel ||
-        registration.subscriptionPlan
-      ) || "Not recorded";
+      safe(registration.subscriptionLabel ||
+           registration.subscriptionPlan) || "Not recorded";
 
     const expiry = getCurrentExpiry(registration);
-
     $("currentExpiry").textContent =
       expiry ? displayDate(expiry) : "Not recorded";
-
-    /*
-     * Do not enable the payment button until the existing
-     * registration has been successfully loaded.
-     */
 
     renderPlan();
 
@@ -917,18 +809,12 @@ async function loadRegistration() {
     );
 
   } catch (error) {
-    console.error(
-      "Unable to load student registration:",
-      error
-    );
+    console.error("Unable to load student registration:", error);
 
     registration = null;
-
-    $("studentName").textContent =
-      "Unable to load account";
+    $("studentName").textContent = "Unable to load account";
 
     payBtn.disabled = true;
-
     payBtn.innerHTML =
       '<i class="fa-solid fa-lock"></i> Account unavailable';
 
@@ -939,53 +825,35 @@ async function loadRegistration() {
   }
 }
 
-/* =========================================================
-   7. PAYSTACK INITIALIZATION
-========================================================= */
-
 function getPaystackConstructor() {
   if (typeof window.PaystackPop !== "function") {
-    throw new Error(
-      "Paystack did not load. Check your internet connection and reload the page."
-    );
+    throw new Error("Paystack did not load.");
   }
 
   return window.PaystackPop;
 }
 
-/* =========================================================
-   8. BACKEND RENEWAL VERIFICATION
-
-   IMPORTANT:
-   This calls /api/verify-renewal, NOT /api/verify-payment.
-
-   The backend must verify the Paystack transaction and update
-   the existing registration before the page reports success.
-========================================================= */
-
+/*
+ * Backend verification.
+ * The browser callback is never treated as proof of payment.
+ */
 async function verifyRenewal(reference, renewalId) {
   const controller = new AbortController();
-
-  const timeout = setTimeout(() => {
-    controller.abort();
-  }, 25000);
+  const timeout = setTimeout(() => controller.abort(), 25000);
 
   try {
     const response = await fetch(
       API_BASE_URL + "/api/verify-renewal",
       {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json"
         },
-
         body: JSON.stringify({
-          registrationId: registrationId,
-          renewalId: renewalId,
-          reference: reference
+          registrationId,
+          renewalId,
+          reference
         }),
-
         signal: controller.signal
       }
     );
@@ -995,16 +863,8 @@ async function verifyRenewal(reference, renewalId) {
     try {
       result = await response.json();
     } catch {
-      throw new Error(
-        "The verification service returned an invalid response."
-      );
+      throw new Error("Payment verification could not be completed.");
     }
-
-    /*
-     * Both the HTTP response and verification result must
-     * indicate success. A successful Paystack popup alone
-     * is not sufficient.
-     */
 
     if (
       !response.ok ||
@@ -1012,9 +872,9 @@ async function verifyRenewal(reference, renewalId) {
       result.verified !== true
     ) {
       throw new Error(
-        result.error ||
         result.message ||
-        "The backend has not confirmed this payment."
+        result.error ||
+        "Payment verification is still pending."
       );
     }
 
@@ -1025,10 +885,11 @@ async function verifyRenewal(reference, renewalId) {
   }
 }
 
-/* =========================================================
-   9. SAVE PENDING RENEWAL ON THE EXISTING REGISTRATION
-========================================================= */
-
+/*
+ * Store a pending renewal against the existing student record.
+ * This does not extend the subscription; the backend does that
+ * after independently verifying the Paystack transaction.
+ */
 async function savePendingRenewal({
   renewalId,
   reference,
@@ -1039,56 +900,33 @@ async function savePendingRenewal({
   status
 }) {
   const pendingRenewal = {
-    renewalId: renewalId,
-
-    planKey: planKey,
-
+    renewalId,
+    planKey,
     subscriptionLabel: plan.label,
-
     subscriptionMonths: plan.months,
-
     amountPaid: plan.amount,
-
     grossAmountPaid: gross,
-
     expectedAmountKobo: gross * 100,
-
     currency: "NGN",
-
     department: safe(registration.department),
-
     splitCodeUsed: splitCode,
-
-    expectedPaystackReference: reference,
-
+    expectedPaystackReference: renewalId,
     paystackReference: reference,
-
-    status: status,
-
+    status,
     updatedAt: new Date().toISOString()
   };
-
-  /*
-   * This merge updates the pending-renewal field on the
-   * existing registration. It does not create a new account.
-   *
-   * Firestore security rules must restrict who can modify
-   * registration and payment fields.
-   */
 
   await setDoc(
     doc(db, "registrations", registrationId),
     {
-      pendingRenewal: pendingRenewal,
+      pendingRenewal,
       updatedAt: serverTimestamp()
     },
     { merge: true }
   );
 }
 
-/* =========================================================
-   10. START PAYMENT
-========================================================= */
+/* Start Paystack checkout. */
 
 payBtn.addEventListener("click", async () => {
   if (busy || !registration) return;
@@ -1097,31 +935,18 @@ payBtn.addEventListener("click", async () => {
   const plan = PLANS[planKey];
 
   if (!plan) {
-    showNotice(
-      "Please select a valid subscription package.",
-      "error"
-    );
-
+    showNotice("Please select a valid subscription package.", "error");
     return;
   }
 
-  /*
-   * The department-to-split mapping is preserved from the
-   * existing renewal page. The department must match one
-   * of these configured keys.
-   */
-
   const department = safe(registration.department);
-
-  const splitCode =
-    PAYSTACK_SPLIT_CODES[department];
+  const splitCode = PAYSTACK_SPLIT_CODES[department];
 
   if (!splitCode) {
     showNotice(
-      "Your department does not have a configured payment split. Please contact Flexi support.",
+      "Your department payment details could not be loaded. Please contact support.",
       "error"
     );
-
     return;
   }
 
@@ -1132,50 +957,33 @@ payBtn.addEventListener("click", async () => {
       "Your student account does not have a valid email address. Please contact support.",
       "error"
     );
-
     return;
   }
 
-  if (
-    !PAYSTACK_PUBLIC_KEY ||
-    !PAYSTACK_PUBLIC_KEY.startsWith("pk_")
-  ) {
-    showNotice(
-      "The payment service is not configured correctly. Please contact support.",
-      "error"
-    );
-
-    return;
-  }
-
-  let PaystackPop;
+  let popup;
 
   try {
-    PaystackPop = getPaystackConstructor();
+    const PaystackPop = getPaystackConstructor();
+    popup = new PaystackPop();
   } catch (error) {
-    showNotice(error.message, "error");
+    console.error("Paystack initialization failed:", error);
+
+    showNotice(
+      "We're unable to start payment right now. Please contact Flexi support for assistance.",
+      "error"
+    );
     return;
   }
 
-  const popup = new PaystackPop();
-
   const gross = calculateGrossAmount(plan.amount);
-  const expectedAmountKobo = gross * 100;
-
   const renewalId = makeRenewalId();
 
   busy = true;
   payBtn.disabled = true;
-
   payBtn.innerHTML =
     '<i class="fa-solid fa-spinner fa-spin"></i> Preparing payment…';
 
   try {
-    /*
-     * Create a pending renewal before opening checkout.
-     * No subscription is extended at this stage.
-     */
-
     await savePendingRenewal({
       renewalId,
       reference: renewalId,
@@ -1186,25 +994,18 @@ payBtn.addEventListener("click", async () => {
       status: "pending"
     });
 
-    localStorage.setItem(
-      "flexiCurrentRegId",
-      registrationId
-    );
+    localStorage.setItem("flexiCurrentRegId", registrationId);
+    localStorage.setItem("flexiCurrentRenewalId", renewalId);
 
     payBtn.innerHTML =
       '<i class="fa-solid fa-credit-card"></i> Opening Paystack…';
 
     popup.newTransaction({
       key: PAYSTACK_PUBLIC_KEY,
-
-      email: email,
-
-      amount: expectedAmountKobo,
-
+      email,
+      amount: gross * 100,
       currency: "NGN",
-
       reference: renewalId,
-
       split_code: splitCode,
 
       metadata: {
@@ -1214,25 +1015,21 @@ payBtn.addEventListener("click", async () => {
             variable_name: "student_name",
             value: getStudentName(registration)
           },
-
           {
             display_name: "Registration ID",
             variable_name: "registration_id",
             value: registrationId
           },
-
           {
             display_name: "Renewal ID",
             variable_name: "renewal_id",
             value: renewalId
           },
-
           {
             display_name: "Subscription Plan",
             variable_name: "subscription_plan",
             value: plan.label
           },
-
           {
             display_name: "Department",
             variable_name: "department",
@@ -1242,44 +1039,30 @@ payBtn.addEventListener("click", async () => {
       },
 
       onSuccess: async function(transaction) {
-        /*
-         * The Paystack callback is not the final authority.
-         * The backend must independently verify the transaction.
-         */
-
-        const reference = safe(
-          transaction && transaction.reference
-        );
+        const reference = safe(transaction && transaction.reference);
 
         if (!reference) {
           showNotice(
-            "Paystack returned no transaction reference. Do not pay again. Contact support to check your transaction.",
+            "We could not confirm the transaction reference. Please do not pay again; contact support to check your transaction.",
             "error"
           );
 
           busy = false;
           payBtn.disabled = false;
           renderPlan();
-
           return;
         }
 
         payBtn.disabled = true;
-
         payBtn.innerHTML =
           '<i class="fa-solid fa-spinner fa-spin"></i> Verifying payment…';
 
         showNotice(
-          "Payment response received. We are verifying your transaction with Paystack.",
+          "Your transaction is being verified. Please wait.",
           "info"
         );
 
         try {
-          /*
-           * Store the actual Paystack reference against the
-           * pending renewal. Keep the same renewal ID and package.
-           */
-
           await savePendingRenewal({
             renewalId,
             reference,
@@ -1291,55 +1074,54 @@ payBtn.addEventListener("click", async () => {
           });
 
           /*
-           * The backend validates:
-           * - registration ID
-           * - renewal ID and stored reference
-           * - selected package and expected amount
-           * - Paystack transaction status
-           * - actual transaction reference
-           * - NGN currency and exact amount
-           *
-           * It then updates the existing student's subscription.
+           * The backend independently verifies the transaction
+           * and updates the existing subscription.
            */
+          const result = await verifyRenewal(reference, renewalId);
 
-          const result = await verifyRenewal(
-            reference,
-            renewalId
+          /*
+           * Save only navigation identifiers. The receipt page
+           * will verify the transaction again before unlocking
+           * the receipt. The backend must handle repeat checks
+           * idempotently for the same renewal ID.
+           */
+          sessionStorage.setItem(
+            "flexiVerifiedRenewal",
+            JSON.stringify({
+              registrationId,
+              renewalId,
+              reference
+            })
           );
+
+          localStorage.setItem("flexiCurrentRegId", registrationId);
+          localStorage.setItem("flexiCurrentRenewalId", renewalId);
 
           showNotice(
             result.message ||
-              "Payment verified and subscription renewed successfully.",
+            "Payment verified successfully. Preparing your receipt…",
             "success"
           );
 
-          payBtn.innerHTML =
-            '<i class="fa-solid fa-check"></i> Renewal Successful';
-
-          /*
-           * Give the success notice a moment to appear.
-           * The dashboard should read the updated registration.
-           */
+          const params = new URLSearchParams({
+            registrationId,
+            renewalId,
+            reference
+          });
 
           setTimeout(() => {
-            window.location.href = "student-dashboard.html";
-          }, 1200);
+            window.location.href =
+              "renewal-receipt.html?" + params.toString();
+          }, 700);
 
         } catch (error) {
-          console.error(
-            "Renewal verification failed:",
-            error
-          );
+          console.error("Renewal verification failed:", error);
 
           /*
-           * Do not tell the student to pay again automatically.
-           * The payment may have succeeded even if the verification
-           * request timed out or the API was temporarily unavailable.
+           * Never automatically ask the student to pay again.
            */
-
           showNotice(
-            "We could not confirm your renewal yet. Please do not pay again. Save this transaction reference and contact support: " +
-              reference,
+            "We could not confirm your renewal yet. Please do not pay again. Your transaction needs to be checked by Flexi support.",
             "error"
           );
 
@@ -1350,13 +1132,8 @@ payBtn.addEventListener("click", async () => {
       },
 
       onCancel: function() {
-        /*
-         * Closing checkout does not prove that no payment occurred.
-         * Leave the pending record available for reconciliation.
-         */
-
         showNotice(
-          "Checkout was closed. If you completed a payment before closing it, check the transaction status before trying again.",
+          "Checkout was closed. If you completed payment before closing it, please have the transaction checked before trying again.",
           "info"
         );
 
@@ -1366,13 +1143,10 @@ payBtn.addEventListener("click", async () => {
       },
 
       onError: function(error) {
-        console.error(
-          "Paystack transaction error:",
-          error
-        );
+        console.error("Paystack transaction error:", error);
 
         showNotice(
-          "Paystack could not complete the checkout. If you were charged, do not pay again until the transaction has been checked.",
+          "We're unable to start payment right now. Please contact Flexi support for assistance.",
           "error"
         );
 
@@ -1383,13 +1157,10 @@ payBtn.addEventListener("click", async () => {
     });
 
   } catch (error) {
-    console.error(
-      "Unable to start renewal:",
-      error
-    );
+    console.error("Unable to prepare renewal:", error);
 
     showNotice(
-      "We could not prepare your renewal. Please reload the page and try again. If a payment was already made, check its status before retrying.",
+      "We're unable to start payment right now. Please contact Flexi support for assistance.",
       "error"
     );
 
@@ -1399,13 +1170,8 @@ payBtn.addEventListener("click", async () => {
   }
 });
 
-/* =========================================================
-   11. INITIALIZE THE PAGE
-========================================================= */
-
 renderPlan();
 loadRegistration();
-
 </script>
 
 </body>
