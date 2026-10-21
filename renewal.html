@@ -138,6 +138,12 @@ function renderPlan() {
     const chosen = button.dataset.plan === selectedPlanKey;
     button.setAttribute("aria-checked", String(chosen));
   });
+
+  // Keep the payment button synchronized with the currently selected package.
+  // The old version only set its amount once during account loading.
+  if (registration && !busy) {
+    payBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay ' + formatNaira(gross) + ' and Renew';
+  }
 }
 document.querySelectorAll(".plan").forEach(button => button.addEventListener("click", () => {
   if (busy) return;
@@ -170,7 +176,7 @@ async function loadRegistration() {
     const expiry = getCurrentExpiry(registration);
     $("currentExpiry").textContent = expiry ? displayDate(expiry) : "Not recorded";
     payBtn.disabled = false;
-    payBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay ' + $("totalPayable").textContent + ' and Renew';
+    renderPlan();
     showNotice("Your existing registration has been loaded. Choose a package and continue when ready.", "success");
   } catch (error) {
     console.error("Unable to load renewal account:", error);
