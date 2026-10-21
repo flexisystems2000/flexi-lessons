@@ -3,17 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta name="theme-color" content="#1e40af">
-
   <title>Registration Complete - Flexi Educational Consult</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
   <style>
     :root {
       --primary-royal: #1e40af;
@@ -425,13 +420,26 @@
 
       <div class="actions-group">
 
+        <!-- General group: available to all students -->
         <a
-          href="https://chat.whatsapp.com/HHTe58HhyfoH6sCuD9e2lV"
+          href="https://chat.whatsapp.com/G2mYiVe3QnRHAgy3mfS3uR?s=cl&p=a&mlu=4"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-whatsapp">
           <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
-          Join Our WhatsApp Group
+          Join General WhatsApp Group
+        </a>
+
+        <!-- Department group: displayed automatically from the saved Firebase department -->
+        <a
+          id="departmentGroupBtn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-whatsapp"
+          hidden>
+          <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
+          <span id="departmentGroupBtnText">Join Department WhatsApp Group</span>
         </a>
 
         <button id="retryVerificationBtn" class="btn btn-retry" type="button">
@@ -608,13 +616,9 @@
 
           <span>Flexi Digital Technology</span>
         </div>
-
       </div>
-
     </div>
-
   </div>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
@@ -679,6 +683,45 @@
     function setStatus(text, color = '#b91c1c') {
       $('uiPaymentStatus').textContent = text;
       $('uiPaymentStatus').style.color = color;
+    }
+
+    // Department-specific WhatsApp invitations.
+    const DEPARTMENT_GROUPS = {
+      art: {
+        label: 'Art',
+        url: 'https://chat.whatsapp.com/IA9VpQmnIqeEF9Q1eZGcRk?s=cl&p=a&mlu=4&iam=0'
+      },
+      commercial: {
+        label: 'Commercial',
+        url: 'https://chat.whatsapp.com/KzDowxKmCNGBuEWS4rPxGr?s=cl&p=a&mlu=4&iam=0'
+      },
+      science: {
+        label: 'Science',
+        url: 'https://chat.whatsapp.com/CKWV12ICBwPCRduqV9B2XU?s=cl&p=a&mlu=4&iam=0'
+      }
+    };
+
+    function renderDepartmentGroup(department) {
+      const button = $('departmentGroupBtn');
+      const buttonText = $('departmentGroupBtnText');
+
+      const normalized = String(department || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\\s+department$/, '')
+        .replace(/\\s+/g, '');
+
+      const group = DEPARTMENT_GROUPS[normalized];
+
+      if (!group) {
+        button.hidden = true;
+        button.removeAttribute('href');
+        return;
+      }
+
+      button.href = group.url;
+      buttonText.textContent = `Join ${group.label} WhatsApp Group`;
+      button.hidden = false;
     }
 
     function showError(message) {
@@ -759,6 +802,7 @@
         'N/A';
 
       const dept = data.department || 'N/A';
+      renderDepartmentGroup(dept);
 
       $('uiStudentName').textContent = fullName;
       $('uiRegId').textContent = data.registrationId || regId;
