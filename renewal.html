@@ -72,9 +72,6 @@ const firebaseConfig = {
   appId: "1:868499596875:web:4bf592934f6086be8a4fce"
 };
 
-// Keep these aligned with the Paystack environment configured for the project.
-// The public key in the current page3.html on GitHub is a TEST key. Replace it
-// with the matching LIVE public key before using LIVE split codes in production.
 const PAYSTACK_PUBLIC_KEY = "pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35";
 const PAYSTACK_SPLIT_CODES = {
   Commercial: "SPL_ypWmeVjgFk",
@@ -138,12 +135,6 @@ function renderPlan() {
     const chosen = button.dataset.plan === selectedPlanKey;
     button.setAttribute("aria-checked", String(chosen));
   });
-
-  // Keep the payment button synchronized with the currently selected package.
-  // The old version only set its amount once during account loading.
-  if (registration && !busy) {
-    payBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay ' + formatNaira(gross) + ' and Renew';
-  }
 }
 document.querySelectorAll(".plan").forEach(button => button.addEventListener("click", () => {
   if (busy) return;
@@ -159,8 +150,7 @@ async function loadRegistration() {
   if (!registrationId) {
     showNotice("Your existing student registration could not be identified. Please log in again, then open the renewal page.", "error");
     payBtn.disabled = true;
-    payBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Return to Login';
-    payBtn.onclick = () => { window.location.href = "login.html"; };
+    showNotice("Please sign in again to continue with your subscription renewal.", "error");
     return;
   }
   $("registrationRef").textContent = registrationId;
@@ -176,7 +166,7 @@ async function loadRegistration() {
     const expiry = getCurrentExpiry(registration);
     $("currentExpiry").textContent = expiry ? displayDate(expiry) : "Not recorded";
     payBtn.disabled = false;
-    renderPlan();
+    payBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay ' + $("totalPayable").textContent + ' and Renew';
     showNotice("Your existing registration has been loaded. Choose a package and continue when ready.", "success");
   } catch (error) {
     console.error("Unable to load renewal account:", error);
@@ -232,7 +222,9 @@ payBtn.addEventListener("click", async () => {
     return;
   }
   if (PAYSTACK_PUBLIC_KEY.includes("_test_")) {
-    showNotice("Configuration warning: this page currently has a Paystack TEST public key, while the split codes supplied for this project are LIVE codes. Do not make a live payment until the matching LIVE public key is configured.", "error");
+    // Keep environment mismatch details out of the student-facing interface.
+    // Do not launch checkout when the configured key cannot support this payment.
+    showNotice("We’re unable to start payment right now. Please contact Flexi support for assistance.", "error");
     return;
   }
 
