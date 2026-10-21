@@ -96,7 +96,6 @@
   <div class="topbar">
     <div class="brand"><span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span><span>Flexi Educational Consult</span></div>
     <div class="top-actions">
-      <a class="btn light" href="page2.html"><i class="fa-solid fa-user-plus"></i> Create Account</a>
       <a class="btn light" href="page4.html"><i class="fa-solid fa-receipt"></i> Payment Receipt</a>
       <button class="btn" id="refreshBtn" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button>
       <button class="btn" id="logoutBtn" type="button" title="Sign out"><i class="fa-solid fa-right-from-bracket"></i> Log out</button>
@@ -130,7 +129,7 @@
       <div class="detail"><span>WhatsApp / Phone</span><strong id="studentPhone">—</strong></div>
       <div class="detail"><span>Department</span><strong id="studentDepartment">—</strong></div>
       <div class="detail"><span>Registration ID</span><strong id="registrationId">—</strong></div>
-      <div class="actions"><button class="btn secondary" type="button" id="editProfileBtn"><i class="fa-solid fa-user-pen"></i> Profile details</button></div>
+      <div class="actions"><a class="btn secondary" id="editProfileBtn" href="profile.html"><i class="fa-solid fa-user-pen"></i> Profile details</a></div>
     </article>
 
     <article class="card">
@@ -229,7 +228,7 @@ function renderScores(rows){const t=$('cbtScores');t.replaceChildren();if(!rows.
 async function loadScores(p){if(!p){renderScores([]);return}try{const ref=collection(cbtDb,'cbt_submissions'),nums=new Set([p,p.startsWith('234')?'0'+p.slice(3):p]),snaps=await Promise.all([...nums].flatMap(n=>[getDocs(query(ref,where('candidate.whatsapp','==',n))),getDocs(query(ref,where('whatsapp','==',n)))])),all=new Map();snaps.forEach(s=>s.forEach(d=>all.set(d.id,{id:d.id,...d.data()})));renderScores([...all.values()])}catch(e){console.error(e);$('cbtScores').className='empty';$('cbtScores').textContent='Could not read Weekly CBT Mock scores. Check that project’s Firestore rules and connection.';$('cbtBadge').textContent='Unavailable'}}
 function noLearning(){['classCount','completedLessons','learningProgress','attendanceRate','attendancePresent','attendanceTotal'].forEach(id=>$(id).textContent='—');$('learningNote').textContent='Class and lesson progress are not currently stored in the registrations record.';$('attendanceNote').textContent='Attendance data is not connected yet.';$('activityList').textContent='No learning activity source is connected yet.'}
 async function load(){ $('refreshBtn').disabled=true;$('refreshBtn').innerHTML='<span class="loading"></span> Loading';try{if(!regId){notice('No current registration ID was found in this browser. Sign in through the student login once it is connected to your existing registration.','warn');$('studentName').textContent='Registration not loaded';$('cbtScores').className='empty';$('cbtScores').textContent='Your existing registration record is required to load the dashboard.';return}notice('Loading your existing registration from Firestore…');const snap=await getDoc(doc(db,'registrations',regId));if(!snap.exists())throw Error('The registration record was not found in Firestore.');const d=snap.data();const p=render({...d,registrationId:d.registrationId||regId});noLearning();await loadScores(p)}catch(e){console.error(e);notice(e.message||'Unable to load the registration. Check connection and Firestore rules.','error');$('cbtScores').className='empty';$('cbtScores').textContent='CBT scores unavailable until the registration and Weekly CBT Mock connection can be read.'}finally{$('refreshBtn').disabled=false;$('refreshBtn').innerHTML='<i class="fa-solid fa-rotate"></i> Refresh'}}
-$('refreshBtn').addEventListener('click',load);$('logoutBtn').addEventListener('click',()=>{sessionStorage.removeItem('flexiStudentSessionToken');location.href='login.html'});$('editProfileBtn').addEventListener('click',()=>notice('Profile editing is not enabled yet. Your profile details are read from your existing registration.'));load();
+$('refreshBtn').addEventListener('click',load);$('logoutBtn').addEventListener('click',()=>{sessionStorage.removeItem('flexiStudentSessionToken');location.href='login.html'});load();
 })();
 </script>
 </body>
