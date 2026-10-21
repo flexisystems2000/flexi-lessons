@@ -433,6 +433,114 @@
       line-height:1.7;
     }
 
+    /* Registration subjects */
+
+    .exam-subject-group {
+      margin-top:15px;
+    }
+
+    .exam-subject-group:first-child {
+      margin-top:0;
+    }
+
+    .exam-type-title {
+      font-size:12px;
+      font-weight:800;
+      color:var(--blue-dark);
+      margin-bottom:9px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .subject-chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .subject-chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 10px;
+      border-radius:9px;
+      background:#eff6ff;
+      border:1px solid #dbeafe;
+      color:#1e40af;
+      font-size:11px;
+      font-weight:700;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+
+    .subject-chip i {
+      color:#16a34a;
+      font-size:10px;
+    }
+
+    .activity-item {
+      display:flex;
+      gap:12px;
+      padding:13px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .activity-item:first-child {
+      padding-top:0;
+    }
+
+    .activity-item:last-child {
+      border-bottom:0;
+      padding-bottom:0;
+    }
+
+    .activity-icon {
+      width:36px;
+      height:36px;
+      flex:0 0 36px;
+      border-radius:11px;
+      background:#eff6ff;
+      color:var(--blue);
+      display:grid;
+      place-items:center;
+    }
+
+    .activity-content {
+      min-width:0;
+      flex:1;
+    }
+
+    .activity-text {
+      font-size:12px;
+      font-weight:600;
+      line-height:1.65;
+      overflow-wrap:anywhere;
+      white-space:pre-wrap;
+    }
+
+    .activity-date {
+      color:var(--muted);
+      font-size:11px;
+      margin-top:6px;
+    }
+
+    .attendance-meter {
+      height:9px;
+      background:#e2e8f0;
+      border-radius:999px;
+      overflow:hidden;
+      margin:14px 0;
+    }
+
+    .attendance-meter-fill {
+      height:100%;
+      width:0;
+      background:var(--green);
+      border-radius:999px;
+      transition:width .3s ease;
+    }
+
     .quick-links {
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -524,7 +632,9 @@
   <section class="welcome">
     <div>
       <h1 id="welcomeTitle">Student Dashboard</h1>
-      <p class="subtext">Your subscription, registration information, and learning records in one place.</p>
+      <p class="subtext">
+        Your subscription, registration information, and learning records in one place.
+      </p>
     </div>
 
     <a class="btn" href="renewal.html">
@@ -539,6 +649,7 @@
 
   <section class="grid" aria-label="Student dashboard">
 
+    <!-- STUDENT PROFILE -->
     <article class="card">
       <h2><i class="fa-solid fa-user-graduate"></i> Student Profile</h2>
 
@@ -575,12 +686,15 @@
       </div>
     </article>
 
+    <!-- SUBSCRIPTION -->
     <article class="card">
       <h2><i class="fa-solid fa-calendar-check"></i> Subscription Status</h2>
 
       <div id="subscriptionBadge" class="pill">Awaiting account data</div>
       <div class="value" id="subscriptionPlan">—</div>
-      <p class="muted" id="subscriptionMessage">Your active subscription information will appear here.</p>
+      <p class="muted" id="subscriptionMessage">
+        Your active subscription information will appear here.
+      </p>
 
       <div class="detail">
         <span>Start date</span>
@@ -598,6 +712,7 @@
       </div>
     </article>
 
+    <!-- PAYMENT -->
     <article class="card">
       <h2><i class="fa-solid fa-wallet"></i> Payment Summary</h2>
 
@@ -626,6 +741,7 @@
       </div>
     </article>
 
+    <!-- WEEKLY CBT MOCK SCORES -->
     <article class="card wide">
       <div class="card-head">
         <h2><i class="fa-solid fa-clipboard-question"></i> Weekly CBT Mock Scores</h2>
@@ -642,56 +758,51 @@
       </div>
     </article>
 
+    <!-- CLASSES AND LEARNING -->
     <article class="card">
       <h2><i class="fa-solid fa-book-open"></i> Classes & Learning</h2>
 
       <div class="value" id="classCount">—</div>
-      <p class="muted">Classes available to your account</p>
+      <p class="muted">Subjects selected during registration</p>
 
-      <div class="detail">
-        <span>Completed lessons</span>
-        <strong id="completedLessons">—</strong>
+      <div id="subjectsContainer" style="margin-top:18px">
+        <div class="empty">
+          Loading your registered subjects…
+        </div>
       </div>
 
-      <div class="detail">
-        <span>Learning progress</span>
-        <strong id="learningProgress">—</strong>
-      </div>
-
-      <div id="learningNote" class="empty" style="margin-top:12px">
-        Learning-platform data will appear here when provided by the connected platform.
+      <div class="alert info" style="margin-top:14px;margin-bottom:0">
+        <i class="fa-brands fa-whatsapp"></i>
+        Your lessons take place through WhatsApp. This section displays your registered subjects and does not track video lessons or online course completion.
       </div>
     </article>
 
+    <!-- ATTENDANCE -->
     <article class="card">
       <h2><i class="fa-solid fa-calendar-days"></i> Attendance</h2>
 
       <div class="value" id="attendanceRate">—</div>
-      <p class="muted">Attendance summary</p>
+      <p class="muted">Attendance percentage recorded by the administrator</p>
 
-      <div class="detail">
-        <span>Sessions attended</span>
-        <strong id="attendancePresent">—</strong>
-      </div>
-
-      <div class="detail">
-        <span>Sessions recorded</span>
-        <strong id="attendanceTotal">—</strong>
+      <div class="attendance-meter" aria-label="Attendance percentage">
+        <div class="attendance-meter-fill" id="attendanceMeterFill"></div>
       </div>
 
       <div id="attendanceNote" class="empty" style="margin-top:12px">
-        Attendance data has not been provided by the connected learning platform.
+        Your attendance percentage will appear here when the administrator records it.
       </div>
     </article>
 
+    <!-- RECENT LEARNING ACTIVITY -->
     <article class="card wide">
       <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Learning Activity</h2>
 
       <div id="activityList" class="empty">
-        Your recent activity will appear here when available.
+        Your recent learning activity will appear here when the administrator records it.
       </div>
     </article>
 
+    <!-- RENEWAL -->
     <article class="card">
       <h2><i class="fa-solid fa-arrows-rotate"></i> Renew Your Plan</h2>
 
@@ -718,6 +829,7 @@
       </div>
     </article>
 
+    <!-- QUICK LINKS -->
     <article class="card full">
       <h2><i class="fa-solid fa-link"></i> Quick Links</h2>
 
@@ -739,6 +851,7 @@
       </div>
     </article>
 
+    <!-- SECURITY NOTICE -->
     <article class="card full">
       <h2><i class="fa-solid fa-shield-halved"></i> Account & Data Security</h2>
 
@@ -755,7 +868,10 @@
 </footer>
 
 <script type="module">
-import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import {
+  initializeApp,
+  getApps
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
 import {
   getFirestore,
@@ -784,7 +900,7 @@ import {
     appId: "1:868499596875:web:4bf592934f6086be8a4fce"
   };
 
-  // Weekly CBT Mock Firebase project.
+  // Separate Weekly CBT Mock Firebase project.
   const cbtConfig = {
     apiKey: "AIzaSyDIzP6OB7uLm5bn4js0C6b-4Ll10gV80-o",
     authDomain: "jambotron-ze1fo.firebaseapp.com",
@@ -826,11 +942,15 @@ import {
       return input.toDate();
     }
 
-    if (typeof input === 'object' && typeof input.seconds === 'number') {
+    if (
+      typeof input === 'object' &&
+      typeof input.seconds === 'number'
+    ) {
       return new Date(input.seconds * 1000);
     }
 
     const date = new Date(input);
+
     return Number.isNaN(date.getTime()) ? null : date;
   }
 
@@ -859,16 +979,6 @@ import {
         : '—';
   }
 
-  /*
-   * Normalize phone numbers into a consistent Nigerian format.
-   *
-   * Examples:
-   * 09034159839  -> 2349034159839
-   * +2349034159839 -> 2349034159839
-   * 2349034159839 -> 2349034159839
-   *
-   * Non-Nigerian numbers are retained as digit strings.
-   */
   function normalizePhone(input) {
     let digits = String(input || '').replace(/\D/g, '');
 
@@ -893,10 +1003,6 @@ import {
     return digits;
   }
 
-  /*
-   * Generate likely representations of the same phone number.
-   * These variants help find records saved by older CBT versions.
-   */
   function phoneVariants(input) {
     const normalized = normalizePhone(input);
     const variants = new Set();
@@ -929,7 +1035,9 @@ import {
     }
 
     const plan = String(
-      data.subscriptionPlan || data.subscriptionLabel || ''
+      data.subscriptionPlan ||
+      data.subscriptionLabel ||
+      ''
     ).toLowerCase();
 
     if (plan.includes('three') || plan.includes('3 month')) return 3;
@@ -969,6 +1077,7 @@ import {
 
     $('welcomeTitle').textContent = 'Welcome, ' + name;
     $('studentName').textContent = name;
+
     $('studentEmail').textContent = value(
       data.studentEmail || data.email
     );
@@ -983,18 +1092,21 @@ import {
 
     $('studentPhone').textContent = value(registeredPhone);
     $('studentDepartment').textContent = value(data.department);
+
     $('registrationId').textContent = value(
       data.registrationId || regId
     );
 
-    // Support the existing Base64 profile-image fields.
+    // Support existing Base64 profile-image fields.
     const photo =
       data.profilePhotoBase64 ||
       data.photoBase64 ||
       data.profileImageBase64 ||
       '';
 
-    if (/^data:image\/(png|jpeg|jpg|webp);base64,/i.test(photo)) {
+    if (
+      /^data:image\/(png|jpeg|jpg|webp);base64,/i.test(photo)
+    ) {
       const image = document.createElement('img');
       image.src = photo;
       image.alt = 'Student profile photo';
@@ -1009,7 +1121,11 @@ import {
 
     const label =
       data.subscriptionLabel ||
-      ({ 1: '1 Month', 2: '2 Months', 3: '3 Months' }[months]) ||
+      ({
+        1: '1 Month',
+        2: '2 Months',
+        3: '3 Months'
+      }[months]) ||
       data.subscriptionPlan ||
       'No package';
 
@@ -1077,24 +1193,342 @@ import {
       data.paymentVerifiedAt || data.paidAt
     );
 
-    notice(
-      active
-        ? 'Your existing registration and verified subscription loaded from Firestore.'
-        : verified
-          ? 'Payment is verified, but the subscription appears expired.'
-          : 'Your registration was found. Payment remains unconfirmed until both Firestore verification flags are true.',
-      active ? 'success' : 'warn'
-    );
-
     return normalizePhone(registeredPhone);
   }
 
   /*
-   * Convert subjectScores to a predictable list.
+   * page2.html stores selected subjects inside:
    *
-   * The CBT project may contain an array of subject results,
-   * an object keyed by subject name, or another supported shape.
+   * subjects: {
+   *   JAMB: [...],
+   *   SSCE: [...],
+   *   JUPEB: [...]
+   * }
+   *
+   * The function also tolerates older arrays and alternative
+   * exam-type capitalization without inventing subjects.
    */
+  function getRegisteredSubjects(data) {
+    const subjects = data.subjects;
+
+    if (!subjects) return [];
+
+    const groups = [];
+
+    if (Array.isArray(subjects)) {
+      const names = subjects
+        .map(item => {
+          if (typeof item === 'string') return item.trim();
+
+          if (item && typeof item === 'object') {
+            return String(
+              item.name ||
+              item.subject ||
+              ''
+            ).trim();
+          }
+
+          return '';
+        })
+        .filter(Boolean);
+
+      if (names.length) {
+        groups.push({
+          examType: 'Registered Subjects',
+          subjects: [...new Set(names)]
+        });
+      }
+
+      return groups;
+    }
+
+    if (typeof subjects !== 'object') {
+      return groups;
+    }
+
+    const examTypes = ['JAMB', 'SSCE', 'JUPEB'];
+
+    for (const examType of examTypes) {
+      const matchedKey = Object.keys(subjects).find(
+        key => key.toUpperCase() === examType
+      );
+
+      if (!matchedKey) continue;
+
+      const selected = subjects[matchedKey];
+
+      let names = [];
+
+      if (Array.isArray(selected)) {
+        names = selected.map(item => {
+          if (typeof item === 'string') {
+            return item.trim();
+          }
+
+          if (item && typeof item === 'object') {
+            return String(
+              item.name ||
+              item.subject ||
+              ''
+            ).trim();
+          }
+
+          return '';
+        });
+      } else if (selected && typeof selected === 'object') {
+        // Supports older objects whose subject fields are booleans.
+        names = Object.entries(selected)
+          .filter(([, enabled]) => enabled === true)
+          .map(([subject]) => subject.trim());
+      }
+
+      names = [...new Set(names.filter(Boolean))];
+
+      if (names.length) {
+        groups.push({
+          examType,
+          subjects: names
+        });
+      }
+    }
+
+    return groups;
+  }
+
+  function renderRegisteredSubjects(data) {
+    const container = $('subjectsContainer');
+    container.replaceChildren();
+
+    const groups = getRegisteredSubjects(data);
+
+    const allSubjects = [
+      ...new Set(
+        groups.flatMap(group => group.subjects)
+      )
+    ];
+
+    $('classCount').textContent = String(allSubjects.length);
+
+    if (!groups.length || !allSubjects.length) {
+      container.className = 'empty';
+      container.textContent =
+        'No selected subjects were found in your registration record. If you selected subjects during registration, please contact student support.';
+      return;
+    }
+
+    container.className = '';
+
+    groups.forEach(group => {
+      const groupElement = document.createElement('div');
+      groupElement.className = 'exam-subject-group';
+
+      const heading = document.createElement('div');
+      heading.className = 'exam-type-title';
+
+      const icon = document.createElement('i');
+      icon.className = 'fa-solid fa-book-open';
+
+      const title = document.createElement('span');
+      title.textContent = group.examType;
+
+      heading.append(icon, title);
+
+      const chips = document.createElement('div');
+      chips.className = 'subject-chips';
+
+      group.subjects.forEach(subject => {
+        const chip = document.createElement('span');
+        chip.className = 'subject-chip';
+
+        const check = document.createElement('i');
+        check.className = 'fa-solid fa-check';
+
+        const text = document.createElement('span');
+        text.textContent = subject;
+
+        chip.append(check, text);
+        chips.appendChild(chip);
+      });
+
+      groupElement.append(heading, chips);
+      container.appendChild(groupElement);
+    });
+  }
+
+  /*
+   * Render administrator-managed information from:
+   *
+   * student_dashboard_updates/{registrationId}
+   *
+   * Expected fields used by admin.html:
+   * attendancePercentage: number from 0 to 100
+   * recentLearningActivity: { text: string, date: timestamp/string }
+   */
+  function renderAdminUpdates(updateData) {
+    renderAttendance(updateData);
+    renderRecentActivity(updateData);
+  }
+
+  function renderAttendance(updateData) {
+    const rawPercentage =
+      updateData.attendancePercentage ??
+      updateData.attendanceRate ??
+      updateData.attendance ??
+      null;
+
+    const percentage = Number(rawPercentage);
+
+    const validPercentage =
+      rawPercentage !== null &&
+      rawPercentage !== '' &&
+      Number.isFinite(percentage) &&
+      percentage >= 0 &&
+      percentage <= 100;
+
+    if (!validPercentage) {
+      $('attendanceRate').textContent = '—';
+      $('attendanceMeterFill').style.width = '0%';
+
+      $('attendanceNote').className = 'empty';
+      $('attendanceNote').textContent =
+        'Your attendance percentage has not been recorded by the administrator yet.';
+
+      return;
+    }
+
+    $('attendanceRate').textContent =
+      Number.isInteger(percentage)
+        ? percentage + '%'
+        : percentage.toFixed(1) + '%';
+
+    $('attendanceMeterFill').style.width =
+      percentage + '%';
+
+    $('attendanceNote').className =
+      'alert ' +
+      (percentage >= 75
+        ? 'success'
+        : percentage >= 50
+          ? 'warn'
+          : 'error');
+
+    $('attendanceNote').style.marginTop = '12px';
+    $('attendanceNote').style.marginBottom = '0';
+
+    $('attendanceNote').textContent =
+      percentage >= 75
+        ? 'Your recorded attendance is looking good.'
+        : percentage >= 50
+          ? 'Your attendance has been recorded. Keep attending your scheduled lessons.'
+          : 'Your recorded attendance is low. Please attend your scheduled lessons regularly.';
+  }
+
+  function renderRecentActivity(updateData) {
+    const container = $('activityList');
+    container.replaceChildren();
+
+    /*
+     * The current admin.html format is an object:
+     * { text: "...", date: ... }
+     *
+     * A string is also supported for compatibility with older records.
+     */
+    const activity =
+      updateData.recentLearningActivity ??
+      updateData.learningActivity ??
+      updateData.recentActivity ??
+      null;
+
+    let activityText = '';
+    let activityDate = null;
+
+    if (typeof activity === 'string') {
+      activityText = activity.trim();
+    } else if (activity && typeof activity === 'object') {
+      activityText = String(
+        activity.text ||
+        activity.description ||
+        activity.activity ||
+        ''
+      ).trim();
+
+      activityDate =
+        activity.date ||
+        activity.createdAt ||
+        activity.updatedAt ||
+        null;
+    }
+
+    if (!activityText) {
+      container.className = 'empty';
+      container.textContent =
+        'No recent learning activity has been recorded by the administrator yet.';
+      return;
+    }
+
+    container.className = '';
+
+    const item = document.createElement('div');
+    item.className = 'activity-item';
+
+    const icon = document.createElement('div');
+    icon.className = 'activity-icon';
+
+    const iconElement = document.createElement('i');
+    iconElement.className = 'fa-solid fa-book-open';
+    icon.appendChild(iconElement);
+
+    const content = document.createElement('div');
+    content.className = 'activity-content';
+
+    const text = document.createElement('div');
+    text.className = 'activity-text';
+    text.textContent = activityText;
+
+    const date = document.createElement('div');
+    date.className = 'activity-date';
+
+    date.textContent = activityDate
+      ? 'Recorded: ' + dateText(activityDate)
+      : 'Recent learning activity';
+
+    content.append(text, date);
+    item.append(icon, content);
+    container.appendChild(item);
+  }
+
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+
+    if (className) {
+      element.className = className;
+    }
+
+    if (text !== undefined && text !== null) {
+      element.textContent = String(text);
+    }
+
+    return element;
+  }
+
+  function resultNumber(result, keys) {
+    for (const key of keys) {
+      if (
+        result[key] !== undefined &&
+        result[key] !== null &&
+        result[key] !== ''
+      ) {
+        const number = Number(result[key]);
+
+        if (Number.isFinite(number)) {
+          return number;
+        }
+      }
+    }
+
+    return null;
+  }
+
   function normalizeSubjectScores(input) {
     if (!input) return [];
 
@@ -1141,49 +1575,18 @@ import {
 
       return {
         name: raw.subject || raw.name || key,
-        score: scoreValue !== null &&
-               scoreValue !== '' &&
-               Number.isFinite(numericScore)
-                 ? numericScore
-                 : null,
+        score:
+          scoreValue !== null &&
+          scoreValue !== '' &&
+          Number.isFinite(numericScore)
+            ? numericScore
+            : null,
         maxScore: Number(raw.maxScore ?? raw.maximum ?? 100),
         correctCount: raw.correctCount,
         wrongCount: raw.wrongCount,
         unansweredCount: raw.unansweredCount
       };
     });
-  }
-
-  function createElement(tag, className, text) {
-    const element = document.createElement(tag);
-
-    if (className) {
-      element.className = className;
-    }
-
-    if (text !== undefined && text !== null) {
-      element.textContent = String(text);
-    }
-
-    return element;
-  }
-
-  function resultNumber(result, keys) {
-    for (const key of keys) {
-      if (
-        result[key] !== undefined &&
-        result[key] !== null &&
-        result[key] !== ''
-      ) {
-        const number = Number(result[key]);
-
-        if (Number.isFinite(number)) {
-          return number;
-        }
-      }
-    }
-
-    return null;
   }
 
   function renderOneResult(result) {
@@ -1282,9 +1685,12 @@ import {
           ? '—'
           : String(subject.score) +
             '/' +
-            (Number.isFinite(subject.maxScore) && subject.maxScore > 0
-              ? subject.maxScore
-              : 100);
+            (
+              Number.isFinite(subject.maxScore) &&
+              subject.maxScore > 0
+                ? subject.maxScore
+                : 100
+            );
 
         const score = createElement('strong', '', scoreText);
 
@@ -1343,8 +1749,11 @@ import {
     }
 
     results.sort((a, b) => {
-      const dateA = toDate(a.submittedAt || a.createdAt)?.getTime() || 0;
-      const dateB = toDate(b.submittedAt || b.createdAt)?.getTime() || 0;
+      const dateA =
+        toDate(a.submittedAt || a.createdAt)?.getTime() || 0;
+
+      const dateB =
+        toDate(b.submittedAt || b.createdAt)?.getTime() || 0;
 
       return dateB - dateA;
     });
@@ -1354,7 +1763,9 @@ import {
     container.className = 'score-list';
 
     badge.textContent =
-      results.length + ' result' + (results.length === 1 ? '' : 's');
+      results.length +
+      ' result' +
+      (results.length === 1 ? '' : 's');
 
     badge.className = 'pill good';
 
@@ -1367,19 +1778,16 @@ import {
         createElement(
           'div',
           'muted',
-          'Showing the latest ' + latest.length + ' of ' + results.length + ' saved results.'
+          'Showing the latest ' +
+          latest.length +
+          ' of ' +
+          results.length +
+          ' saved results.'
         )
       );
     }
   }
 
-  /*
-   * Query the CBT project using the registered phone number.
-   *
-   * We query both the current nested field and the legacy field.
-   * All retrieved documents are checked again against the normalized
-   * registered phone number before being rendered.
-   */
   async function loadScores(registeredPhone) {
     const container = $('cbtScores');
 
@@ -1460,26 +1868,47 @@ import {
     }
   }
 
-  function renderLearningPlaceholders() {
-    [
-      'classCount',
-      'completedLessons',
-      'learningProgress',
-      'attendanceRate',
-      'attendancePresent',
-      'attendanceTotal'
-    ].forEach(id => {
-      $(id).textContent = '—';
-    });
+  /*
+   * Fetch the administrator-managed document separately from
+   * the registration document. This matches admin.html's
+   * student_dashboard_updates/{registrationId} structure.
+   */
+  async function loadAdminUpdates() {
+    if (!regId) {
+      renderAdminUpdates({});
+      return;
+    }
 
-    $('learningNote').textContent =
-      'Class and lesson progress are not currently stored in the registrations record.';
+    try {
+      const updateRef = doc(
+        db,
+        'student_dashboard_updates',
+        regId
+      );
 
-    $('attendanceNote').textContent =
-      'Attendance data is not connected yet.';
+      const updateSnapshot = await getDoc(updateRef);
 
-    $('activityList').textContent =
-      'No learning activity source is connected yet.';
+      if (!updateSnapshot.exists()) {
+        renderAdminUpdates({});
+        return;
+      }
+
+      renderAdminUpdates(updateSnapshot.data());
+
+    } catch (error) {
+      console.error('Admin dashboard update loading error:', error);
+
+      $('attendanceRate').textContent = '—';
+      $('attendanceMeterFill').style.width = '0%';
+
+      $('attendanceNote').className = 'empty';
+      $('attendanceNote').textContent =
+        'Attendance could not be loaded. Please try refreshing the dashboard.';
+
+      $('activityList').className = 'empty';
+      $('activityList').textContent =
+        'Recent learning activity could not be loaded. Please try refreshing the dashboard.';
+    }
   }
 
   async function loadDashboard() {
@@ -1492,17 +1921,23 @@ import {
     try {
       if (!regId) {
         notice(
-          'No current registration ID was found in this browser. Sign in through the student login to establish the existing registration session.',
+          'No current registration ID was found in this browser. Sign in through the student login to establish your existing registration session.',
           'warn'
         );
 
         $('studentName').textContent = 'Registration not loaded';
+
+        $('subjectsContainer').className = 'empty';
+        $('subjectsContainer').textContent =
+          'Your registration record is required to display your selected subjects.';
 
         $('cbtScores').className = 'empty';
         $('cbtScores').textContent =
           'Your existing registration record is required to load your dashboard and match your CBT results.';
 
         $('cbtBadge').textContent = 'Registration required';
+
+        renderAdminUpdates({});
 
         return;
       }
@@ -1521,14 +1956,26 @@ import {
 
       const registrationData = registrationSnapshot.data();
 
-      const registeredPhone = renderRegistration({
+      const registration = {
         ...registrationData,
         registrationId: registrationData.registrationId || regId
-      });
+      };
 
-      renderLearningPlaceholders();
+      const registeredPhone = renderRegistration(registration);
 
+      // Display only subjects saved in the student's registration.
+      renderRegisteredSubjects(registration);
+
+      // Load attendance and activity saved by admin.html.
+      await loadAdminUpdates();
+
+      // Preserve the separate Weekly CBT Mock project and matching.
       await loadScores(registeredPhone);
+
+      notice(
+        'Your registration, selected subjects, attendance, learning activity, and CBT records have been checked.',
+        'success'
+      );
 
     } catch (error) {
       console.error('Student dashboard loading error:', error);
@@ -1546,6 +1993,10 @@ import {
       $('cbtBadge').textContent = 'Unavailable';
       $('cbtBadge').className = 'pill bad';
 
+      $('subjectsContainer').className = 'empty';
+      $('subjectsContainer').textContent =
+        'Your registered subjects could not be loaded.';
+
     } finally {
       refreshButton.disabled = false;
       refreshButton.innerHTML =
@@ -1558,8 +2009,7 @@ import {
   $('logoutBtn').addEventListener('click', () => {
     sessionStorage.removeItem('flexiStudentSessionToken');
 
-    // Keep existing registration and payment records unchanged.
-    // Redirect to the current login page.
+    // Preserve registration and payment records.
     window.location.href = 'login.html';
   });
 
