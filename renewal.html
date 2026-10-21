@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e40af">
+  <meta name="description" content="Renew your Flexi Educational Consult subscription.">
+  <title>Renew Subscription - Flexi Educational Consult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://js.paystack.co/v2/inline.js"></script>
+  <style>
+    :root{--blue:#1e40af;--blue-dark:#1e3a8a;--green:#84cc16;--ink:#0f172a;--muted:#64748b;--bg:#f4f7fb;--line:#e2e8f0;--red:#991b1b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;line-height:1.6}
+    a{color:inherit}.top{background:linear-gradient(120deg,var(--blue-dark),var(--blue));color:#fff;padding:16px 5%}.top-inner{max-width:900px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-weight:800;font-size:17px}.back{color:#fff;text-decoration:none;font-size:13px;font-weight:700;background:#ffffff1c;padding:9px 12px;border-radius:9px}
+    main{max-width:760px;margin:28px auto;padding:0 14px 36px}.panel{background:#fff;border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:17px;padding:clamp(18px,4vw,30px);box-shadow:0 8px 30px #0f172a0a}
+    h1{margin:0;color:var(--blue);font-size:clamp(24px,5vw,32px);line-height:1.2}.intro{margin:9px 0 22px;color:var(--muted);font-size:14px}
+    .notice{display:none;padding:12px 14px;border-radius:10px;margin:0 0 17px;font-size:13px;overflow-wrap:anywhere}.notice.info{display:block;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}.notice.error{display:block;background:#fef2f2;color:var(--red);border:1px solid #fecaca}.notice.success{display:block;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+    .student{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:15px;margin-bottom:22px}.student h2{font-size:14px;margin:0 0 10px;color:var(--blue)}.student-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}.field-label{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.5px}.field-value{font-size:13px;font-weight:700;overflow-wrap:anywhere}
+    .section-title{font-size:16px;margin:0 0 12px}.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:20px}.plan{position:relative;border:1.5px solid #cbd5e1;border-radius:12px;padding:14px 10px;text-align:left;background:#fff;cursor:pointer;color:var(--ink);min-width:0}.plan:hover{border-color:var(--blue)}.plan[aria-checked="true"]{border-color:var(--blue);background:#eff6ff;box-shadow:0 0 0 2px #1e40af16}.plan .duration{font-weight:800;font-size:13px;display:block}.plan .price{font-size:20px;font-weight:800;color:var(--blue);display:block;margin-top:5px}.plan .hint{font-size:10px;color:var(--muted);display:block;margin-top:4px}.plan .tick{display:none;position:absolute;right:9px;top:8px;color:var(--blue)}.plan[aria-checked="true"] .tick{display:block}
+    .summary{background:var(--ink);color:#e2e8f0;border-radius:12px;padding:17px;margin:18px 0}.row{display:flex;justify-content:space-between;gap:14px;font-size:13px;margin:5px 0}.row strong{text-align:right}.row.total{border-top:1px solid #334155;padding-top:12px;margin-top:12px;font-size:15px;font-weight:800;color:#fff}.row.total strong{font-size:21px;color:var(--green)}
+    .pay{width:100%;border:0;border-radius:10px;background:var(--green);color:var(--ink);font-weight:800;font-size:15px;padding:15px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:10px}.pay:hover{filter:brightness(.96)}.pay:disabled{opacity:.55;cursor:not-allowed}.small{font-size:11px;color:var(--muted);margin:12px 0 0;line-height:1.65}.security{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--muted);margin-top:15px}.security i{color:var(--blue);margin-top:3px}
+    footer{text-align:center;color:var(--muted);font-size:11px;padding:0 14px 24px}@media(max-width:520px){.plans{grid-template-columns:1fr}.plan{display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 10px;padding:12px 14px}.plan .duration{grid-column:1}.plan .price{grid-column:2;grid-row:1/3;margin:0}.plan .hint{grid-column:1}.plan .tick{right:10px;top:7px}.student-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="top"><div class="top-inner"><div class="brand"><i class="fa-solid fa-graduation-cap"></i> Flexi Educational Consult</div><a class="back" href="student-dashboard.html"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a></div></header>
+<main>
+  <section class="panel">
+    <h1>Renew Your Subscription</h1>
+    <p class="intro">Choose a package to extend access on your existing student account. You do not need to register again.</p>
+    <div id="notice" class="notice" role="status" aria-live="polite"></div>
+    <section class="student">
+      <h2><i class="fa-solid fa-user-graduate"></i> Student account</h2>
+      <div class="student-grid">
+        <div><div class="field-label">Student name</div><div class="field-value" id="studentName">Loading…</div></div>
+        <div><div class="field-label">Email address</div><div class="field-value" id="studentEmail">—</div></div>
+        <div><div class="field-label">Department</div><div class="field-value" id="studentDepartment">—</div></div>
+        <div><div class="field-label">Current subscription</div><div class="field-value" id="currentPlan">Checking…</div></div>
+        <div><div class="field-label">Current expiry date</div><div class="field-value" id="currentExpiry">—</div></div>
+        <div><div class="field-label">Registration reference</div><div class="field-value" id="registrationRef">—</div></div>
+      </div>
+    </section>
+    <h2 class="section-title">Select your renewal package</h2>
+    <div class="plans" id="plans" role="radiogroup" aria-label="Subscription package">
+      <button type="button" class="plan" data-plan="monthly" aria-checked="true" role="radio"><i class="fa-solid fa-circle-check tick"></i><span class="duration">1 Month</span><span class="price">₦4,000</span><span class="hint">Monthly access</span></button>
+      <button type="button" class="plan" data-plan="twoMonths" aria-checked="false" role="radio"><i class="fa-solid fa-circle-check tick"></i><span class="duration">2 Months</span><span class="price">₦7,500</span><span class="hint">Two-month access</span></button>
+      <button type="button" class="plan" data-plan="threeMonths" aria-checked="false" role="radio"><i class="fa-solid fa-circle-check tick"></i><span class="duration">3 Months</span><span class="price">₦10,000</span><span class="hint">Three-month access</span></button>
+    </div>
+    <div class="summary" aria-live="polite">
+      <div class="row"><span>Selected package</span><strong id="packageLabel">1 Month</strong></div>
+      <div class="row"><span>Subscription fee</span><strong id="packageFee">₦4,000</strong></div>
+      <div class="row"><span>Estimated electronic charges</span><strong id="processingFee">—</strong></div>
+      <div class="row total"><span>Total payable</span><strong id="totalPayable">—</strong></div>
+    </div>
+    <button type="button" id="payBtn" class="pay" disabled><i class="fa-solid fa-lock"></i> Loading account…</button>
+    <p class="small">Electronic charges are estimates and may vary. If you have already completed a payment, do not pay again until its status has been checked.</p>
+    <div class="security"><i class="fa-solid fa-shield-halved"></i><span>Payment status must be confirmed by the payment verification service. This page does not mark a payment as verified just because Paystack returns a success callback.</span></div>
+  </section>
+</main>
+<footer>© <span id="year"></span> Flexi Educational Consult. All rights reserved.</footer>
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCoGXb2XlvuwcJY8oyW6_J42fgxfH5vZao",
+  authDomain: "jarvisai-1a594.firebaseapp.com",
+  projectId: "jarvisai-1a594",
+  storageBucket: "jarvisai-1a594.firebasestorage.app",
+  messagingSenderId: "868499596875",
+  appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+};
+
+// Keep these aligned with the Paystack environment configured for the project.
+// The public key in the current page3.html on GitHub is a TEST key. Replace it
+// with the matching LIVE public key before using LIVE split codes in production.
+const PAYSTACK_PUBLIC_KEY = "pk_test_9408761e58ce1fe7a3a57c0df2422d887c3d4b35";
+const PAYSTACK_SPLIT_CODES = {
+  Commercial: "SPL_ypWmeVjgFk",
+  Art: "SPL_vTxHE8YySd",
+  Science: "SPL_oIR8KSbPBO"
+};
+const API_BASE_URL = "https://flexi-lessons-payment-api-virid.vercel.app";
+const PLANS = {
+  monthly: { label: "1 Month", months: 1, amount: 4000 },
+  twoMonths: { label: "2 Months", months: 2, amount: 7500 },
+  threeMonths: { label: "3 Months", months: 3, amount: 10000 }
+};
+
+const $ = id => document.getElementById(id);
+$("year").textContent = new Date().getFullYear();
+const app = getApps().find(a => a.name === "flexi-renewal") || initializeApp(firebaseConfig, "flexi-renewal");
+const db = getFirestore(app);
+const notice = $("notice");
+const payBtn = $("payBtn");
+let registrationId = localStorage.getItem("flexiCurrentRegId") || "";
+let registration = null;
+let selectedPlanKey = "monthly";
+let busy = false;
+
+function showNotice(message, type = "info") {
+  notice.className = "notice " + type;
+  notice.textContent = message;
+}
+function safe(value) { return value == null ? "" : String(value).trim(); }
+function formatNaira(amount) { return "₦" + Number(amount).toLocaleString("en-NG"); }
+function calculateGrossAmount(net) { return Math.ceil((net + 100) / (1 - 0.015)); }
+function dateValue(value) {
+  if (!value) return null;
+  if (typeof value.toDate === "function") return value.toDate();
+  if (typeof value === "object" && typeof value.seconds === "number") return new Date(value.seconds * 1000);
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+function displayDate(value) {
+  const date = dateValue(value);
+  return date ? date.toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" }) : "Not recorded";
+}
+function getCurrentExpiry(data) {
+  const direct = dateValue(data.subscriptionExpiryDate || data.expiryDate || data.expiresAt || data.subscriptionEndDate);
+  if (direct) return direct;
+  const months = Number(data.subscriptionMonths || data.months || 0);
+  const start = dateValue(data.subscriptionStartDate || data.paymentVerifiedAt || data.paidAt || data.createdAt);
+  if (!start || ![1, 2, 3].includes(months) || data.paymentStatus !== true || data.paymentVerified !== true) return null;
+  const expiry = new Date(start);
+  expiry.setMonth(expiry.getMonth() + months);
+  return expiry;
+}
+function renderPlan() {
+  const plan = PLANS[selectedPlanKey];
+  const gross = calculateGrossAmount(plan.amount);
+  $("packageLabel").textContent = plan.label;
+  $("packageFee").textContent = formatNaira(plan.amount);
+  $("processingFee").textContent = formatNaira(gross - plan.amount);
+  $("totalPayable").textContent = formatNaira(gross);
+  document.querySelectorAll(".plan").forEach(button => {
+    const chosen = button.dataset.plan === selectedPlanKey;
+    button.setAttribute("aria-checked", String(chosen));
+  });
+}
+document.querySelectorAll(".plan").forEach(button => button.addEventListener("click", () => {
+  if (busy) return;
+  selectedPlanKey = button.dataset.plan;
+  renderPlan();
+}));
+
+async function loadRegistration() {
+  const raw = localStorage.getItem("flexiStudentRegistration");
+  let localData = {};
+  try { if (raw) localData = JSON.parse(raw) || {}; } catch (_) {}
+  if (!registrationId) registrationId = safe(localData.registrationId);
+  if (!registrationId) {
+    showNotice("Your existing student registration could not be identified. Please log in again, then open the renewal page.", "error");
+    payBtn.disabled = true;
+    payBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Return to Login';
+    payBtn.onclick = () => { window.location.href = "login.html"; };
+    return;
+  }
+  $("registrationRef").textContent = registrationId;
+  try {
+    const snapshot = await getDoc(doc(db, "registrations", registrationId));
+    if (!snapshot.exists()) throw new Error("The student registration was not found in Firestore.");
+    registration = { ...localData, ...snapshot.data() };
+    const fullName = [registration.firstName, registration.surname].filter(Boolean).join(" ") || registration.studentName || "Student";
+    $("studentName").textContent = fullName;
+    $("studentEmail").textContent = safe(registration.studentEmail || registration.email) || "Not recorded";
+    $("studentDepartment").textContent = safe(registration.department) || "Not recorded";
+    $("currentPlan").textContent = safe(registration.subscriptionLabel || registration.subscriptionPlan) || "Not recorded";
+    const expiry = getCurrentExpiry(registration);
+    $("currentExpiry").textContent = expiry ? displayDate(expiry) : "Not recorded";
+    payBtn.disabled = false;
+    payBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay ' + $("totalPayable").textContent + ' and Renew';
+    showNotice("Your existing registration has been loaded. Choose a package and continue when ready.", "success");
+  } catch (error) {
+    console.error("Unable to load renewal account:", error);
+    showNotice("We could not load your existing registration from Firestore. Check your connection or sign in again. " + (error.message || ""), "error");
+    payBtn.disabled = true;
+  }
+}
+
+function addMonths(date, months) {
+  const result = new Date(date);
+  const day = result.getDate();
+  result.setDate(1);
+  result.setMonth(result.getMonth() + months);
+  const lastDay = new Date(result.getFullYear(), result.getMonth() + 1, 0).getDate();
+  result.setDate(Math.min(day, lastDay));
+  return result;
+}
+function paystackConstructor() {
+  if (typeof window.PaystackPop !== "function") throw new Error("Paystack has not loaded. Check your internet connection and reload.");
+  return new window.PaystackPop();
+}
+async function verifyPayment(reference, renewalId) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(API_BASE_URL + "/api/verify-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ registrationId, reference, paymentType: "renewal", renewalId }),
+      signal: controller.signal
+    });
+    let result = null;
+    try { result = await response.json(); } catch (_) {}
+    if (!response.ok || !result || result.success !== true) {
+      throw new Error((result && (result.message || result.error)) || "The server has not confirmed this renewal payment.");
+    }
+    return result;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+payBtn.addEventListener("click", async () => {
+  if (busy || !registration) return;
+  const plan = PLANS[selectedPlanKey];
+  const splitCode = PAYSTACK_SPLIT_CODES[safe(registration.department)];
+  if (!splitCode) {
+    showNotice("No Paystack split is configured for this department. Please contact Flexi support.", "error");
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safe(registration.studentEmail || registration.email))) {
+    showNotice("The email address on this student record is missing or invalid. Contact support before paying.", "error");
+    return;
+  }
+  if (PAYSTACK_PUBLIC_KEY.includes("_test_")) {
+    showNotice("Configuration warning: this page currently has a Paystack TEST public key, while the split codes supplied for this project are LIVE codes. Do not make a live payment until the matching LIVE public key is configured.", "error");
+    return;
+  }
+
+  busy = true;
+  payBtn.disabled = true;
+  payBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing payment…';
+  const gross = calculateGrossAmount(plan.amount);
+  const expectedAmountKobo = gross * 100;
+  const renewalId = "FLEXIRENEW_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8).toUpperCase();
+  const previousExpiry = getCurrentExpiry(registration);
+  const now = new Date();
+  const startDate = previousExpiry && previousExpiry > now ? previousExpiry : now;
+  const endDate = addMonths(startDate, plan.months);
+
+  try {
+    // Save a pending renewal separately on the existing registration document.
+    // Do not change the current active plan or mark payment as paid before verification.
+    await setDoc(doc(db, "registrations", registrationId), {
+      pendingRenewal: {
+        renewalId,
+        planKey: selectedPlanKey,
+        subscriptionLabel: plan.label,
+        subscriptionMonths: plan.months,
+        amountPaid: plan.amount,
+        grossAmountPaid: gross,
+        expectedAmountKobo,
+        currency: "NGN",
+        department: registration.department,
+        splitCodeUsed: splitCode,
+        expectedPaystackReference: renewalId,
+        paystackReference: renewalId,
+        status: "pending",
+        proposedStartDate: startDate.toISOString(),
+        proposedExpiryDate: endDate.toISOString(),
+        createdAt: new Date().toISOString()
+      },
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+
+    localStorage.setItem("flexiCurrentRegId", registrationId);
+    const popup = paystackConstructor();
+    payBtn.innerHTML = '<i class="fa-solid fa-credit-card"></i> Opening Paystack…';
+
+    popup.newTransaction({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: safe(registration.studentEmail || registration.email),
+      amount: expectedAmountKobo,
+      currency: "NGN",
+      reference: renewalId,
+      split_code: splitCode,
+      metadata: {
+        custom_fields: [
+          { display_name: "Student Name", variable_name: "student_name", value: [registration.firstName, registration.surname].filter(Boolean).join(" ") },
+          { display_name: "Registration ID", variable_name: "registration_id", value: registrationId },
+          { display_name: "Renewal ID", variable_name: "renewal_id", value: renewalId },
+          { display_name: "Subscription Plan", variable_name: "subscription_plan", value: plan.label },
+          { display_name: "Department", variable_name: "department", value: safe(registration.department) }
+        ]
+      },
+      onSuccess: async transaction => {
+        const reference = safe(transaction && transaction.reference);
+        if (!reference) {
+          showNotice("Paystack did not return a transaction reference. Do not pay again yet; contact support to check the transaction.", "error");
+          busy = false; payBtn.disabled = false; renderPlan();
+          return;
+        }
+        try {
+          showNotice("Payment response received. Asking the verification service to confirm the transaction…", "info");
+          payBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying payment…';
+          await setDoc(doc(db, "registrations", registrationId), {
+            pendingRenewal: {
+              renewalId,
+              planKey: selectedPlanKey,
+              subscriptionLabel: plan.label,
+              subscriptionMonths: plan.months,
+              amountPaid: plan.amount,
+              grossAmountPaid: gross,
+              expectedAmountKobo,
+              currency: "NGN",
+              department: registration.department,
+              splitCodeUsed: splitCode,
+              expectedPaystackReference: reference,
+              paystackReference: reference,
+              status: "verification_pending",
+              proposedStartDate: startDate.toISOString(),
+              proposedExpiryDate: endDate.toISOString(),
+              callbackReceivedAt: new Date().toISOString()
+            }
+          }, { merge: true });
+
+          await verifyPayment(reference, renewalId);
+
+          // Reload the persisted record. The page never treats the browser callback as proof.
+          const refreshed = await getDoc(doc(db, "registrations", registrationId));
+          const updated = refreshed.exists() ? refreshed.data() : null;
+          const renewal = updated && updated.pendingRenewal;
+          const serverConfirmed = updated && (
+            (renewal && renewal.renewalId === renewalId && ["verified", "complete", "completed", "success"].includes(String(renewal.status).toLowerCase())) ||
+            (updated.lastRenewalId === renewalId && updated.lastRenewalStatus === "verified")
+          );
+          if (!serverConfirmed) {
+            showNotice("The verification request was sent, but Firestore has not recorded this renewal as verified. Do not pay again. Contact support or retry verification from the dashboard.", "error");
+            busy = false; payBtn.disabled = false; renderPlan();
+            return;
+          }
+          showNotice("Your renewal has been verified. Returning to your dashboard…", "success");
+          window.location.href = "student-dashboard.html";
+        } catch (error) {
+          console.error("Renewal verification failed:", error);
+          showNotice("We could not confirm this renewal yet. Do not pay again. Your reference is " + reference + ". " + (error.message || "Please contact support."), "error");
+          busy = false; payBtn.disabled = false; renderPlan();
+        }
+      },
+      onCancel: () => {
+        showNotice("Checkout was closed. If you completed payment, check its status before attempting another payment.", "info");
+        busy = false; payBtn.disabled = false; renderPlan();
+      },
+      onError: error => {
+        console.error("Paystack checkout error:", error);
+        showNotice("Paystack reported a checkout error. Confirm transaction status before attempting another payment.", "error");
+        busy = false; payBtn.disabled = false; renderPlan();
+      }
+    });
+  } catch (error) {
+    console.error("Could not start renewal:", error);
+    showNotice("We could not start the renewal payment. " + (error.message || "Please try again."), "error");
+    busy = false; payBtn.disabled = false; renderPlan();
+  }
+});
+
+renderPlan();
+loadRegistration();
+</script>
+</body>
+</html>
