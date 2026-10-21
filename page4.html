@@ -616,9 +616,13 @@
 
           <span>Flexi Digital Technology</span>
         </div>
+
       </div>
+
     </div>
+
   </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
@@ -708,8 +712,8 @@
       const normalized = String(department || '')
         .trim()
         .toLowerCase()
-        .replace(/\\s+department$/, '')
-        .replace(/\\s+/g, '');
+        .replace(/\s+department$/, '')
+        .replace(/\s+/g, '');
 
       const group = DEPARTMENT_GROUPS[normalized];
 
@@ -1155,7 +1159,20 @@
             scale: 2,
             useCORS: true,
             allowTaint: false,
-            logging: false
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+            onclone: (clonedDocument) => {
+              // The receipt is kept off-screen on the live page. Place its cloned
+              // wrapper at the origin during PDF capture to prevent a large offset.
+              const clonedWrapper = clonedDocument.querySelector('.pdf-hidden-wrapper');
+              if (clonedWrapper) {
+                clonedWrapper.style.position = 'static';
+                clonedWrapper.style.left = 'auto';
+                clonedWrapper.style.top = 'auto';
+                clonedWrapper.style.transform = 'none';
+              }
+            }
           },
 
           jsPDF: {
