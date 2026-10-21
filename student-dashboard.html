@@ -4,150 +4,502 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1e40af">
+  <meta name="description" content="Student dashboard for Flexi Educational Consult.">
   <title>Student Dashboard - Flexi Educational Consult</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    :root{--blue:#1e40af;--green:#84cc16;--ink:#0f172a;--muted:#64748b;--bg:#f4f7fb;--card:#fff;--line:#e2e8f0}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-    header{background:linear-gradient(120deg,#1e40af,#1d4ed8);color:white;padding:24px 18px}
-    .top{max-width:1120px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-    .brand{font-weight:800;font-size:20px}.subtitle{opacity:.9;font-size:13px;margin-top:6px}
-    .wrap{max-width:1120px;margin:24px auto;padding:0 16px 40px}
-    .welcome{margin-bottom:20px}.welcome h1{font-size:clamp(24px,4vw,32px);margin:0 0 8px}.welcome p{color:var(--muted);margin:0;line-height:1.6}
+    :root {
+      --blue:#1e40af; --blue-dark:#1e3a8a; --green:#84cc16;
+      --ink:#0f172a; --muted:#64748b; --bg:#f4f7fb;
+      --card:#fff; --line:#e2e8f0; --good:#166534; --good-bg:#f0fdf4;
+      --warn:#92400e; --warn-bg:#fffbeb; --bad:#991b1b; --bad-bg:#fef2f2;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+    button,input{font:inherit}
+    a{color:inherit}
+    .site-header{background:linear-gradient(120deg,var(--blue-dark),var(--blue));color:#fff;padding:18px 16px}
+    .topbar{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:800}
+    .brand-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#ffffff20;font-size:20px}
+    .top-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+    .wrap{max-width:1180px;margin:25px auto;padding:0 16px 38px}
+    .welcome{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+    h1{font-size:clamp(24px,4vw,32px);margin:0 0 7px;letter-spacing:-.6px}
+    .subtext{color:var(--muted);font-size:14px;line-height:1.65;margin:0}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 14px;border:1px solid transparent;border-radius:10px;background:var(--blue);color:#fff;text-decoration:none;font-size:13px;font-weight:700;cursor:pointer}
+    .btn:hover{filter:brightness(.96)}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+    .btn.light{background:#fff;color:var(--blue)}
+    .btn.secondary{background:#eef2ff;color:var(--blue)}
+    .btn.outline{background:transparent;border-color:#cbd5e1;color:var(--ink)}
+    .alert{border-radius:12px;padding:13px 15px;font-size:13px;line-height:1.6;margin:0 0 16px}
+    .alert.info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+    .alert.warn{background:var(--warn-bg);color:var(--warn);border:1px solid #fde68a}
+    .alert.error{background:var(--bad-bg);color:var(--bad);border:1px solid #fecaca}
+    .alert.success{background:var(--good-bg);color:var(--good);border:1px solid #bbf7d0}
     .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
-    .card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 4px 18px rgba(15,23,42,.04);min-width:0}
+    .card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 4px 18px rgba(15,23,42,.035);min-width:0}
     .card.wide{grid-column:span 8}.card.full{grid-column:1/-1}
-    .card h2{font-size:16px;margin:0 0 14px}.icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#eff6ff;color:var(--blue);margin-bottom:12px}
-    .value{font-weight:800;font-size:20px;overflow-wrap:anywhere}.muted{color:var(--muted);font-size:13px;line-height:1.6}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#f1f5f9;color:#334155;font-size:12px;font-weight:700}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 15px;border:0;border-radius:10px;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;cursor:pointer;font:inherit;font-size:13px}.btn.secondary{background:#eef2ff;color:var(--blue)}
-    .detail{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}.detail:last-child{border-bottom:0}.detail span:first-child{color:var(--muted)}
-    .notice{background:#fffbeb;border:1px solid #fde68a;color:#92400e;padding:13px 14px;border-radius:12px;font-size:13px;line-height:1.6}
-    .error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:13px;border-radius:12px;font-size:13px;line-height:1.6}
-    footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}
-    @media(max-width:800px){.card,.card.wide{grid-column:span 6}}@media(max-width:560px){.card,.card.wide,.card.full{grid-column:1/-1}.wrap{margin-top:18px}.card{padding:17px}}
+    .card h2{font-size:15px;margin:0 0 15px;display:flex;align-items:center;gap:9px}
+    .card h2 i{color:var(--blue)}
+    .card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .profile-line{display:flex;align-items:center;gap:13px;margin-bottom:15px;min-width:0}
+    .avatar{width:58px;height:58px;flex:0 0 58px;border-radius:50%;display:grid;place-items:center;background:#dbeafe;color:var(--blue);font-size:23px;font-weight:800;overflow:hidden}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .student-name{font-size:17px;font-weight:800;overflow-wrap:anywhere}
+    .student-email{font-size:12px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
+    .value{font-size:22px;font-weight:800;overflow-wrap:anywhere;margin:4px 0 7px}
+    .muted{color:var(--muted);font-size:12px;line-height:1.65;margin:0}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:#f1f5f9;color:#334155;font-size:11px;font-weight:800}
+    .pill.good{background:#dcfce7;color:#166534}.pill.warn{background:#fef3c7;color:#92400e}.pill.bad{background:#fee2e2;color:#991b1b}
+    .detail{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px;align-items:flex-start}
+    .detail:last-child{border-bottom:0}
+    .detail span:first-child{color:var(--muted);flex:0 0 auto}
+    .detail strong{text-align:right;overflow-wrap:anywhere}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+    .plan-price{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+    .plan-price:last-of-type{border-bottom:0}
+    .empty{padding:16px;border:1px dashed #cbd5e1;border-radius:12px;color:var(--muted);font-size:13px;line-height:1.6;background:#f8fafc}
+    .table-wrap{width:100%;overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:12px;min-width:480px}
+    th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+    th{color:var(--muted);font-weight:700;background:#f8fafc}
+    td{overflow-wrap:anywhere}
+    .score-list{display:grid;gap:10px}
+    .score-item{border:1px solid var(--line);border-radius:11px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .score-item strong{font-size:13px}.score-item small{display:block;color:var(--muted);margin-top:4px}
+    .score-mark{font-size:17px;font-weight:800;color:var(--blue);white-space:nowrap}
+    .quick-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .quick-link{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:12px;font-weight:700;background:#fff}
+    .quick-link i{color:var(--blue);font-size:17px}
+    .quick-link:hover{background:#f8fafc}
+    .loading{display:inline-block;width:14px;height:14px;border:2px solid #cbd5e1;border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    footer{text-align:center;padding:24px 16px;color:var(--muted);font-size:12px}
+    .hidden{display:none!important}
+    @media(max-width:850px){.card,.card.wide{grid-column:span 6}}
+    @media(max-width:600px){
+      .card,.card.wide,.card.full{grid-column:1/-1}
+      .wrap{margin-top:18px;padding-inline:12px}
+      .card{padding:16px}
+      .quick-links{grid-template-columns:1fr}
+      .topbar{align-items:flex-start}
+      .top-actions{width:100%}.top-actions .btn{flex:1}
+      .welcome .btn{width:100%}
+    }
   </style>
 </head>
 <body>
-<header><div class="top">
-  <div><div class="brand"><i class="fa-solid fa-graduation-cap"></i> Flexi Educational Consult</div><div class="subtitle">Student learning dashboard</div></div>
-  <a class="btn secondary" href="page4.html" style="background:white;color:#1e40af"><i class="fa-solid fa-receipt"></i> Payment Receipt</a>
-</div></header>
+<header class="site-header">
+  <div class="topbar">
+    <div class="brand"><span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span><span>Flexi Educational Consult</span></div>
+    <div class="top-actions">
+      <a class="btn light" href="page4.html"><i class="fa-solid fa-receipt"></i> Payment Receipt</a>
+      <button class="btn" id="refreshBtn" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button>
+      <button class="btn" id="logoutBtn" type="button" title="Sign out"><i class="fa-solid fa-right-from-bracket"></i> Log out</button>
+    </div>
+  </div>
+</header>
+
 <main class="wrap">
   <section class="welcome">
-    <h1 id="welcomeTitle">Welcome to your dashboard</h1>
-    <p>View your registration and subscription information here. Information is shown only when available in this browser or the connected registration record.</p>
+    <div>
+      <h1 id="welcomeTitle">Student Dashboard</h1>
+      <p class="subtext">Your subscription, registration information, and learning records in one place.</p>
+    </div>
+    <a class="btn" href="renewal.html"><i class="fa-solid fa-arrows-rotate"></i> Renew Subscription</a>
   </section>
-  <div id="loadMessage" class="notice">Loading your saved registration details…</div>
-  <section class="grid" style="margin-top:16px">
+
+  <div id="pageNotice" class="alert info" role="status" aria-live="polite">
+    <span class="loading" aria-hidden="true"></span> Checking your student session and loading your dashboard…
+  </div>
+
+  <section class="grid" aria-label="Student dashboard">
     <article class="card">
-      <div class="icon"><i class="fa-solid fa-user-graduate"></i></div><h2>Student Profile</h2>
-      <div class="value" id="studentName">Not loaded</div>
-      <p class="muted" id="studentEmail">Email not available</p>
+      <h2><i class="fa-solid fa-user-graduate"></i> Student Profile</h2>
+      <div class="profile-line">
+        <div class="avatar" id="avatar"><i class="fa-solid fa-user"></i></div>
+        <div style="min-width:0">
+          <div class="student-name" id="studentName">Loading…</div>
+          <div class="student-email" id="studentEmail">—</div>
+        </div>
+      </div>
       <div class="detail"><span>WhatsApp / Phone</span><strong id="studentPhone">—</strong></div>
       <div class="detail"><span>Department</span><strong id="studentDepartment">—</strong></div>
+      <div class="detail"><span>Registration ID</span><strong id="registrationId">—</strong></div>
+      <div class="actions"><button class="btn secondary" type="button" id="editProfileBtn"><i class="fa-solid fa-user-pen"></i> Profile details</button></div>
     </article>
+
     <article class="card">
-      <div class="icon"><i class="fa-solid fa-calendar-check"></i></div><h2>Subscription</h2>
-      <div class="value" id="subscriptionPlan">Not available</div>
-      <p class="muted">Package information from this browser's saved registration.</p>
+      <h2><i class="fa-solid fa-calendar-check"></i> Subscription Status</h2>
+      <div id="subscriptionBadge" class="pill">Awaiting account data</div>
+      <div class="value" id="subscriptionPlan">—</div>
+      <p class="muted" id="subscriptionMessage">Your active subscription information will appear here.</p>
       <div class="detail"><span>Start date</span><strong id="startDate">—</strong></div>
       <div class="detail"><span>Expiry date</span><strong id="expiryDate">—</strong></div>
-      <div class="detail"><span>Payment status</span><strong id="paymentStatus">Not verified here</strong></div>
+      <div class="detail"><span>Days remaining</span><strong id="daysRemaining">—</strong></div>
     </article>
+
     <article class="card">
-      <div class="icon"><i class="fa-solid fa-wallet"></i></div><h2>Package & Renewal</h2>
-      <div class="value" id="packageAmount">—</div>
-      <p class="muted">Package prices</p>
-      <div class="detail"><span>1 Month</span><strong>₦4,000</strong></div>
-      <div class="detail"><span>2 Months</span><strong>₦7,500</strong></div>
-      <div class="detail"><span>3 Months</span><strong>₦10,000</strong></div>
-      <div class="actions"><a class="btn" href="page2.html"><i class="fa-solid fa-rotate"></i> Renew / Choose Plan</a></div>
+      <h2><i class="fa-solid fa-wallet"></i> Payment Summary</h2>
+      <div class="value" id="amountPaid">—</div>
+      <p class="muted">Recorded subscription payment</p>
+      <div class="detail"><span>Payment status</span><strong id="paymentStatus">Not loaded</strong></div>
+      <div class="detail"><span>Payment reference</span><strong id="paymentReference">—</strong></div>
+      <div class="detail"><span>Last updated</span><strong id="paymentDate">—</strong></div>
+      <div class="actions"><a class="btn secondary" href="page4.html"><i class="fa-solid fa-file-invoice"></i> View receipt</a></div>
     </article>
+
     <article class="card wide">
-      <div class="icon"><i class="fa-solid fa-book-open"></i></div><h2>My Classes & Learning Progress</h2>
-      <p class="muted">Your classes, completed lessons, and progress will appear here when the learning platform provides those records. This page does not invent progress data.</p>
-      <span class="pill">Awaiting learning-platform data</span>
+      <div class="card-head">
+        <h2><i class="fa-solid fa-clipboard-question"></i> Weekly CBT Mock Scores</h2>
+        <span class="pill" id="cbtBadge">CBT records</span>
+      </div>
+      <p class="muted" style="margin-bottom:12px">Scores matched to your registered WhatsApp number from the Weekly CBT Mock platform.</p>
+      <div id="cbtScores" class="empty"><span class="loading" aria-hidden="true"></span> Loading CBT scores…</div>
     </article>
+
     <article class="card">
-      <div class="icon"><i class="fa-solid fa-clipboard-question"></i></div><h2>Weekly CBT Mock Scores</h2>
-      <p class="muted">CBT scores from the separate Weekly CBT Mock Firebase project are not yet connected to this dashboard. No scores are displayed until that data connection is implemented.</p>
-      <span class="pill">Connection pending</span>
+      <h2><i class="fa-solid fa-book-open"></i> Classes & Learning</h2>
+      <div class="value" id="classCount">—</div>
+      <p class="muted">Classes available to your account</p>
+      <div class="detail"><span>Completed lessons</span><strong id="completedLessons">—</strong></div>
+      <div class="detail"><span>Learning progress</span><strong id="learningProgress">—</strong></div>
+      <div id="learningNote" class="empty" style="margin-top:12px">Learning-platform data will appear here when provided by the connected platform.</div>
     </article>
+
     <article class="card">
-      <div class="icon"><i class="fa-solid fa-calendar-days"></i></div><h2>Attendance</h2>
-      <p class="muted">Attendance records will appear after the attendance source is connected.</p>
-      <span class="pill">No attendance feed connected</span>
+      <h2><i class="fa-solid fa-calendar-days"></i> Attendance</h2>
+      <div class="value" id="attendanceRate">—</div>
+      <p class="muted">Attendance summary</p>
+      <div class="detail"><span>Sessions attended</span><strong id="attendancePresent">—</strong></div>
+      <div class="detail"><span>Sessions recorded</span><strong id="attendanceTotal">—</strong></div>
+      <div id="attendanceNote" class="empty" style="margin-top:12px">Attendance data has not been provided by the connected learning platform.</div>
     </article>
+
+    <article class="card wide">
+      <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Learning Activity</h2>
+      <div id="activityList" class="empty">Your recent activity will appear here when available.</div>
+    </article>
+
+    <article class="card">
+      <h2><i class="fa-solid fa-arrows-rotate"></i> Renew Your Plan</h2>
+      <p class="muted" style="margin-bottom:10px">Choose a subscription package on the dedicated renewal page. Renewal does not send you back through new-student registration.</p>
+      <div class="plan-price"><span>1 Month</span><strong>₦4,000</strong></div>
+      <div class="plan-price"><span>2 Months</span><strong>₦7,500</strong></div>
+      <div class="plan-price"><span>3 Months</span><strong>₦10,000</strong></div>
+      <div class="actions"><a class="btn" href="renewal.html"><i class="fa-solid fa-credit-card"></i> Continue to Renewal</a></div>
+    </article>
+
     <article class="card full">
-      <h2><i class="fa-solid fa-circle-info" style="color:#1e40af"></i> Important</h2>
-      <div class="notice">This first dashboard version reads registration details saved in your current browser. It is not a replacement for secure student login or server-side payment verification. Subscription expiry enforcement and automatic removal from the eLearning WhatsApp group must be handled by the connected JARVISAIserver, not by this page alone.</div>
-      <div class="actions"><a class="btn secondary" href="page4.html"><i class="fa-solid fa-arrow-left"></i> Back to Page 4</a></div>
+      <h2><i class="fa-solid fa-link"></i> Quick Links</h2>
+      <div class="quick-links">
+        <a class="quick-link" href="page4.html"><i class="fa-solid fa-receipt"></i> Payment receipt & instructions</a>
+        <a class="quick-link" href="renewal.html"><i class="fa-solid fa-arrows-rotate"></i> Renew subscription</a>
+        <a class="quick-link" href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult%2C%20I%20need%20student%20dashboard%20support." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> Contact student support</a>
+      </div>
+    </article>
+
+    <article class="card full">
+      <h2><i class="fa-solid fa-shield-halved"></i> Account & Data Security</h2>
+      <div class="alert warn" style="margin:0">This dashboard is designed to receive student-specific data from a protected backend endpoint. It does not mark payments as verified, calculate an authoritative expiry date from browser storage, or use localStorage registration details as proof of account access. The login endpoint and dashboard-data endpoint must be deployed and configured before live account data can load.</div>
     </article>
   </section>
 </main>
-<footer>© <span id="year"></span> Flexi Educational Consult</footer>
+
+<footer>© <span id="year"></span> Flexi Educational Consult. All rights reserved.</footer>
+
 <script>
 (() => {
+  'use strict';
+
+  /*
+   * BACKEND INTEGRATION CONTRACT
+   * ----------------------------
+   * This page intentionally does not query the registrations collection directly
+   * from the browser. The backend must authenticate the student, validate the
+   * session, and return only that student's data.
+   *
+   * Expected endpoint:
+   *   GET https://flexi-lessons-payment-api-virid.vercel.app/api/student-dashboard
+   *
+   * Expected authentication:
+   *   A session token created by login.html and stored as
+   *   sessionStorage["flexiStudentSessionToken"].
+   *
+   * Expected JSON response shape:
+   * {
+   *   "student": {
+   *     "firstName": "...", "surname": "...", "studentEmail": "...",
+   *     "studentPhone": "...", "department": "...", "registrationId": "...",
+   *     "profilePhotoBase64": "data:image/jpeg;base64,..."
+   *   },
+   *   "subscription": {
+   *     "label": "1 Month", "status": "active|expired|pending",
+   *     "startDate": "ISO date", "expiryDate": "ISO date",
+   *     "daysRemaining": 12
+   *   },
+   *   "payment": {
+   *     "status": "verified|pending|failed", "amountPaid": 4000,
+   *     "reference": "...", "paidAt": "ISO date"
+   *   },
+   *   "cbtScores": [
+   *     {"subject":"Mathematics","score":42,"total":60,"submittedAt":"ISO date"}
+   *   ],
+   *   "learning": {
+   *     "classCount": 0, "completedLessons": 0, "progressPercent": 0,
+   *     "attendanceRate": 0, "attendancePresent": 0, "attendanceTotal": 0,
+   *     "activity": []
+   *   }
+   * }
+   *
+   * This endpoint is not assumed to exist yet. If it has not been deployed,
+   * the dashboard shows an explicit connection message instead of fake data.
+   */
+  const API_BASE_URL = 'https://flexi-lessons-payment-api-virid.vercel.app';
+  const DASHBOARD_ENDPOINT = `${API_BASE_URL}/api/student-dashboard`;
+  const SESSION_KEY = 'flexiStudentSessionToken';
   const $ = id => document.getElementById(id);
-  const money = v => '₦' + Number(v || 0).toLocaleString('en-NG');
+
   $('year').textContent = new Date().getFullYear();
 
-  let reg = null;
-  try {
-    const raw = localStorage.getItem('flexiStudentRegistration');
-    if (raw) reg = JSON.parse(raw);
-  } catch (e) {
-    console.warn('Could not parse saved registration:', e);
+  function showNotice(message, type = 'info') {
+    const node = $('pageNotice');
+    node.className = `alert ${type}`;
+    node.textContent = message;
   }
 
-  const currentRegId = localStorage.getItem('flexiCurrentRegId');
-  const first = reg?.firstName || '';
-  const surname = reg?.surname || '';
-  const fullName = [first, surname].filter(Boolean).join(' ').trim();
-  const email = reg?.studentEmail || reg?.email || '';
-  const phone = reg?.studentPhone || reg?.whatsapp || reg?.phone || '';
-  const dept = reg?.department || '';
-  const plan = reg?.subscriptionPlan || reg?.plan || '';
-  const planMap = {
-    monthly: {label:'1 Month', months:1, amount:4000},
-    twoMonths: {label:'2 Months', months:2, amount:7500},
-    threeMonths: {label:'3 Months', months:3, amount:10000}
-  };
-  const p = planMap[plan] || null;
+  function text(value, fallback = '—') {
+    if (value === null || value === undefined || value === '') return fallback;
+    return String(value);
+  }
 
-  $('studentName').textContent = fullName || 'Registration not found';
-  $('welcomeTitle').textContent = fullName ? `Welcome, ${fullName}` : 'Welcome to your dashboard';
-  $('studentEmail').textContent = email || 'Email not available';
-  $('studentPhone').textContent = phone || '—';
-  $('studentDepartment').textContent = dept || '—';
-  $('subscriptionPlan').textContent = p?.label || plan || 'Not available';
-  $('packageAmount').textContent = p ? money(p.amount) : 'Not available';
+  function dateText(value) {
+    if (!value) return '—';
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-NG', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+  }
 
-  const startRaw = reg?.paymentDate || reg?.paidAt || reg?.createdAt || reg?.registrationDate || null;
-  let start = startRaw ? new Date(startRaw) : null;
-  if (start && Number.isNaN(start.getTime())) start = null;
-  if (start) {
-    $('startDate').textContent = start.toLocaleDateString('en-NG');
-    if (p) {
-      const expiry = new Date(start);
-      expiry.setMonth(expiry.getMonth() + p.months);
-      $('expiryDate').textContent = expiry.toLocaleDateString('en-NG');
+  function money(value) {
+    const n = Number(value);
+    return Number.isFinite(n) ? '₦' + n.toLocaleString('en-NG') : '—';
+  }
+
+  function safeImageSource(value) {
+    // Only accept an image data URL or HTTPS URL supplied by the authenticated API.
+    if (typeof value !== 'string') return '';
+    if (/^data:image\/(png|jpeg|jpg|webp);base64,[a-z0-9+/=\s]+$/i.test(value)) return value;
+    if (/^https:\/\//i.test(value)) return value;
+    return '';
+  }
+
+  function renderCBT(scores) {
+    const target = $('cbtScores');
+    target.replaceChildren();
+    if (!Array.isArray(scores) || scores.length === 0) {
+      target.className = 'empty';
+      target.textContent = 'No CBT submissions were returned for your account yet. Scores will appear after the Weekly CBT Mock connection is configured and a matching submission exists.';
+      $('cbtBadge').textContent = 'No scores yet';
+      return;
+    }
+    target.className = 'score-list';
+    $('cbtBadge').textContent = `${scores.length} result${scores.length === 1 ? '' : 's'}`;
+    scores.slice(0, 12).forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'score-item';
+      const left = document.createElement('div');
+      const title = document.createElement('strong');
+      title.textContent = text(item.subject, 'CBT Mock');
+      const date = document.createElement('small');
+      date.textContent = dateText(item.submittedAt || item.createdAt);
+      left.append(title, date);
+      const mark = document.createElement('div');
+      mark.className = 'score-mark';
+      const score = Number(item.score);
+      const total = Number(item.total);
+      mark.textContent = Number.isFinite(score)
+        ? `${score}${Number.isFinite(total) && total > 0 ? ` / ${total}` : ''}`
+        : '—';
+      row.append(left, mark);
+      target.append(row);
+    });
+  }
+
+  function renderActivity(items) {
+    const target = $('activityList');
+    target.replaceChildren();
+    if (!Array.isArray(items) || !items.length) {
+      target.className = 'empty';
+      target.textContent = 'No recent learning activity was returned by the connected platform.';
+      return;
+    }
+    target.className = 'table-wrap';
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+    ['Activity', 'Date', 'Status'].forEach(label => {
+      const th = document.createElement('th'); th.textContent = label; headRow.append(th);
+    });
+    thead.append(headRow);
+    const tbody = document.createElement('tbody');
+    items.slice(0, 10).forEach(item => {
+      const tr = document.createElement('tr');
+      [text(item.title || item.activity, 'Learning activity'), dateText(item.date || item.createdAt), text(item.status)].forEach(value => {
+        const td = document.createElement('td'); td.textContent = value; tr.append(td);
+      });
+      tbody.append(tr);
+    });
+    table.append(thead, tbody);
+    target.append(table);
+  }
+
+  function renderDashboard(data) {
+    const student = data.student || {};
+    const subscription = data.subscription || {};
+    const payment = data.payment || {};
+    const learning = data.learning || {};
+    const name = [student.firstName, student.surname].filter(Boolean).join(' ').trim() || 'Student';
+
+    $('welcomeTitle').textContent = `Welcome, ${name}`;
+    $('studentName').textContent = name;
+    $('studentEmail').textContent = text(student.studentEmail || student.email);
+    $('studentPhone').textContent = text(student.studentPhone || student.whatsapp || student.phone);
+    $('studentDepartment').textContent = text(student.department);
+    $('registrationId').textContent = text(student.registrationId);
+
+    const photo = safeImageSource(student.profilePhotoBase64 || student.profilePhotoUrl);
+    if (photo) {
+      const img = document.createElement('img');
+      img.src = photo;
+      img.alt = 'Student profile photo';
+      $('avatar').replaceChildren(img);
+    }
+
+    $('subscriptionPlan').textContent = text(subscription.label || subscription.subscriptionLabel || subscription.subscriptionPlan, 'No package');
+    const status = String(subscription.status || 'unknown').toLowerCase();
+    const badge = $('subscriptionBadge');
+    badge.className = 'pill ' + (status === 'active' ? 'good' : (status === 'expired' ? 'bad' : 'warn'));
+    badge.textContent = status === 'active' ? 'Active subscription' :
+      status === 'expired' ? 'Subscription expired' :
+      status === 'pending' ? 'Payment pending' : 'Status unavailable';
+    $('subscriptionMessage').textContent = status === 'active'
+      ? 'Your subscription is currently marked active by the connected service.'
+      : status === 'expired'
+        ? 'Your subscription is marked expired. Use the renewal page to select a new package.'
+        : 'Subscription status is supplied by the connected service.';
+    $('startDate').textContent = dateText(subscription.startDate || subscription.startedAt);
+    $('expiryDate').textContent = dateText(subscription.expiryDate || subscription.expiresAt);
+    $('daysRemaining').textContent = subscription.daysRemaining === 0 || subscription.daysRemaining
+      ? String(subscription.daysRemaining) : '—';
+
+    $('amountPaid').textContent = money(payment.amountPaid);
+    const paymentStatus = String(payment.status || 'unknown').toLowerCase();
+    $('paymentStatus').textContent = paymentStatus === 'verified' ? 'Verified' :
+      paymentStatus === 'pending' ? 'Pending verification' :
+      paymentStatus === 'failed' ? 'Failed' : 'Unavailable';
+    $('paymentReference').textContent = text(payment.reference || payment.paystackReference);
+    $('paymentDate').textContent = dateText(payment.paidAt || payment.createdAt);
+
+    $('classCount').textContent = text(learning.classCount, '—');
+    $('completedLessons').textContent = text(learning.completedLessons, '—');
+    $('learningProgress').textContent = Number.isFinite(Number(learning.progressPercent))
+      ? `${Number(learning.progressPercent)}%` : '—';
+    $('attendanceRate').textContent = Number.isFinite(Number(learning.attendanceRate))
+      ? `${Number(learning.attendanceRate)}%` : '—';
+    $('attendancePresent').textContent = text(learning.attendancePresent, '—');
+    $('attendanceTotal').textContent = text(learning.attendanceTotal, '—');
+
+    if (learning.connected === true) $('learningNote').textContent = 'Learning data loaded from the connected platform.';
+    if (learning.attendanceConnected === true) $('attendanceNote').textContent = 'Attendance data loaded from the connected platform.';
+
+    renderCBT(data.cbtScores);
+    renderActivity(learning.activity);
+
+    if (status === 'expired') {
+      showNotice('Your account data loaded, but the connected service reports that your subscription has expired. Please use Renew Subscription.', 'warn');
+    } else {
+      showNotice('Your dashboard data has been loaded from the connected service.', 'success');
     }
   }
 
-  // Do not treat local browser data as proof that a payment was verified.
-  $('paymentStatus').textContent = 'Check verified receipt on Page 4';
-  if (reg && (fullName || email || phone)) {
-    $('loadMessage').className = 'notice';
-    $('loadMessage').textContent = currentRegId
-      ? `Saved registration details loaded (reference: ${currentRegId}). Payment verification remains on Page 4.`
-      : 'Saved registration details loaded from this browser. For payment verification, return to Page 4.';
-  } else {
-    $('loadMessage').className = 'error';
-    $('loadMessage').textContent = 'No saved registration was found in this browser. Open this dashboard from Page 4 on the same device/browser used during registration, or return to registration.';
+  async function loadDashboard() {
+    const token = sessionStorage.getItem(SESSION_KEY);
+    if (!token) {
+      showNotice('You are not logged in. Please sign in to view your student dashboard.', 'warn');
+      // Login page will establish the session token after the backend login is implemented.
+      window.setTimeout(() => { window.location.replace('login.html?next=student-dashboard.html'); }, 900);
+      return;
+    }
+
+    $('refreshBtn').disabled = true;
+    $('refreshBtn').innerHTML = '<span class="loading" aria-hidden="true"></span> Loading';
+    showNotice('Loading your secure student record…', 'info');
+
+    try {
+      const response = await fetch(DASHBOARD_ENDPOINT, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        credentials: 'include',
+        cache: 'no-store'
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        sessionStorage.removeItem(SESSION_KEY);
+        showNotice('Your login session has expired or is not valid. Please log in again.', 'warn');
+        window.setTimeout(() => { window.location.replace('login.html?next=student-dashboard.html'); }, 900);
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(response.status === 404
+          ? 'The secure dashboard endpoint is not deployed yet.'
+          : `The dashboard service returned HTTP ${response.status}.`);
+      }
+
+      const data = await response.json();
+      if (!data || !data.student) throw new Error('The dashboard service returned an unexpected response.');
+      renderDashboard(data);
+    } catch (error) {
+      console.error('Dashboard load error:', error);
+      showNotice(
+        `${error.message || 'Unable to load your dashboard.'} Your registration and payment records have not been changed. The protected dashboard API must be available before live data can be displayed.`,
+        'error'
+      );
+      $('cbtScores').className = 'empty';
+      $('cbtScores').textContent = 'CBT scores are unavailable until the secure dashboard API connects to the Weekly CBT Mock Firebase project.';
+    } finally {
+      $('refreshBtn').disabled = false;
+      $('refreshBtn').innerHTML = '<i class="fa-solid fa-rotate"></i> Refresh';
+    }
   }
+
+  $('refreshBtn').addEventListener('click', loadDashboard);
+  $('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    // Also ask the backend to invalidate its session, if that endpoint exists.
+    fetch(`${API_BASE_URL}/api/student-logout`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem(SESSION_KEY) || ''}`
+      },
+      credentials: 'include',
+      keepalive: true
+    }).catch(() => {});
+    window.location.replace('login.html');
+  });
+  $('editProfileBtn').addEventListener('click', () => {
+    showNotice('Profile editing is not enabled yet. Profile changes should be saved through a protected backend endpoint, not directly from this browser.', 'info');
+  });
+
+  loadDashboard();
 })();
 </script>
 </body>
