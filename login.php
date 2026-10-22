@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e40af">
+  <title>Student Login | Flexi Educational Consult</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--blue:#1e40af;--green:#84cc16;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f1f5f9}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Inter,system-ui,sans-serif;background:linear-gradient(135deg,#eff6ff,#f8fafc 55%,#ecfccb);color:var(--ink);display:flex;flex-direction:column}
+    .topbar{background:var(--blue);color:#fff;padding:17px 22px;display:flex;align-items:center;justify-content:center;gap:11px;font-weight:800;letter-spacing:.1px}
+    .brand-icon{width:38px;height:38px;border-radius:12px;background:#fff;color:var(--blue);display:grid;place-items:center}
+    main{width:min(100% - 28px,460px);margin:auto;padding:36px 0}
+    .card{background:#fff;border:1px solid rgba(226,232,240,.9);border-radius:22px;padding:clamp(23px,6vw,36px);box-shadow:0 18px 55px rgba(15,23,42,.09)}
+    .eyebrow{color:var(--blue);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}
+    h1{font-size:clamp(1.65rem,5vw,2rem);line-height:1.2;margin:0 0 10px}
+    .intro{color:var(--muted);font-size:.94rem;line-height:1.65;margin:0 0 25px}
+    label{display:block;font-size:.88rem;font-weight:700;margin:17px 0 8px}
+    .input-wrap{position:relative}
+    .input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#94a3b8}
+    input{width:100%;min-height:49px;border:1px solid #cbd5e1;border-radius:12px;padding:12px 14px 12px 42px;font:inherit;font-size:.95rem;outline:none;background:#fff}
+    input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,64,175,.12)}
+    .hint{color:var(--muted);font-size:.78rem;line-height:1.5;margin:7px 0 0}
+    button,.btn{width:100%;min-height:49px;border:0;border-radius:12px;background:var(--blue);color:#fff;font:inherit;font-weight:800;display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;cursor:pointer;margin-top:23px}
+    button:disabled{opacity:.65;cursor:wait}
+    .register{margin-top:12px;background:#f8fafc;border:1px solid var(--line);color:var(--blue)}
+    .notice{padding:12px 14px;border-radius:11px;font-size:.86rem;line-height:1.5;margin:0 0 16px;display:none;overflow-wrap:anywhere}
+    .notice.show{display:block}.notice.error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}.notice.success{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}.notice.info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+    .security-note{display:flex;gap:10px;color:var(--muted);font-size:.77rem;line-height:1.55;margin:20px 0 0}
+    .security-note i{color:var(--blue);margin-top:2px}
+    footer{text-align:center;color:#64748b;font-size:.78rem;padding:18px}
+    @media(max-width:380px){.card{padding:22px 18px}.topbar{font-size:.9rem}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+    <span>Flexi Educational Consult</span>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="loginHeading">
+      <p class="eyebrow">Student Portal</p>
+      <h1 id="loginHeading">Welcome back</h1>
+      <p class="intro">Sign in with the email address you registered with and your WhatsApp number. Enter the WhatsApp number in the password field.</p>
+
+      <div id="message" class="notice" role="status" aria-live="polite"></div>
+
+      <form id="loginForm">
+        <label for="email">Registered email address</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+
+        <label for="password">WhatsApp number (password)</label>
+        <div class="input-wrap">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          <input id="password" name="password" type="password" inputmode="tel" autocomplete="current-password" placeholder="Enter your registered WhatsApp number" required>
+        </div>
+        <p class="hint">Use the same WhatsApp number you entered during registration. You can type it with or without spaces or a leading +234.</p>
+
+        <button id="loginButton" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Sign in to dashboard</button>
+      </form>
+
+      <a class="btn register" href="page2.php"><i class="fa-solid fa-user-plus"></i> Create a student account</a>
+
+      <p class="security-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>Forgot-password recovery is not shown because it is not configured. If your registered details are not accepted, contact Flexi student support.</span></p>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Flexi Educational Consult. All rights reserved.</footer>
+
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoGXb2XlvuwcJY8oyW6_J42fgxfH5vZao",
+      authDomain: "jarvisai-1a594.firebaseapp.com",
+      projectId: "jarvisai-1a594",
+      storageBucket: "jarvisai-1a594.firebasestorage.app",
+      messagingSenderId: "868499596875",
+      appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+    };
+
+    const app = getApps().find(a => a.name === "flexi-student-login")
+      || initializeApp(firebaseConfig, "flexi-student-login");
+    const db = getFirestore(app);
+    const $ = id => document.getElementById(id);
+    $("year").textContent = new Date().getFullYear();
+
+    function normalizePhone(value) {
+      let digits = String(value || "").replace(/\D/g, "");
+      if (digits.startsWith("00")) digits = digits.slice(2);
+      if (digits.startsWith("0")) digits = "234" + digits.slice(1);
+      if (digits.length === 10) digits = "234" + digits;
+      return digits;
+    }
+
+    function showMessage(text, type = "info") {
+      const box = $("message");
+      box.textContent = text;
+      box.className = "notice show " + type;
+    }
+
+    $("loginForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      const email = $("email").value.trim().toLowerCase();
+      const enteredPhone = normalizePhone($("password").value);
+      const button = $("loginButton");
+
+      if (!email || !enteredPhone) {
+        showMessage("Enter your registered email address and WhatsApp number.", "error");
+        return;
+      }
+
+      button.disabled = true;
+      button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking details…';
+
+      try {
+        const registrations = collection(db, "registrations");
+        const result = await getDocs(query(registrations, where("studentEmail", "==", email)));
+
+        let matched = null;
+        result.forEach(snapshot => {
+          const data = snapshot.data();
+          const storedEmail = String(data.studentEmail || data.email || "").trim().toLowerCase();
+          const storedPhone = normalizePhone(data.studentPhone || data.whatsappNumber || data.whatsapp || data.phone || "");
+          if (!matched && storedEmail === email && storedPhone && storedPhone === enteredPhone) {
+            matched = { id: snapshot.id, data };
+          }
+        });
+
+        if (!matched) {
+          showMessage("We couldn't match those details to a registration. Check your email and registered WhatsApp number, then try again.", "error");
+          return;
+        }
+
+        // The dashboard reads this registration ID to load the matching Firestore record.
+        localStorage.setItem("flexiCurrentRegId", matched.id);
+        localStorage.setItem("flexiStudentRegistration", JSON.stringify({
+          ...matched.data,
+          registrationId: matched.data.registrationId || matched.id
+        }));
+
+        showMessage("Details matched. Opening your student dashboard…", "success");
+        window.location.href = "student-dashboard.php";
+      } catch (error) {
+        console.error("Student login lookup failed:", error);
+        showMessage("We couldn't check your details right now. Please check your internet connection and try again.", "error");
+      } finally {
+        button.disabled = false;
+        button.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign in to dashboard';
+      }
+    });
+  </script>
+</body>
+</html>

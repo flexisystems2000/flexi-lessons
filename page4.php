@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#1e40af">
+
+  <title>Registration Complete - Flexi Educational Consult</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --primary-royal: #1e40af;
+      --accent-green: #16a34a;
+      --dark-blue: #0f172a;
+      --light-bg: #f8fafc;
+      --card-bg: #fff;
+      --text: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, sans-serif;
+    }
+
+    body {
+      background: var(--light-bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .navbar {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--primary-royal);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--primary-royal);
+    }
+
+    .main-container {
+      max-width: 600px;
+      width: 90%;
+      margin: 40px auto;
+    }
+
+    .status-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px #00000014;
+      border-top: 6px solid var(--accent-green);
+    }
+
+    .icon-box {
+      width: 80px;
+      height: 80px;
+      background: #dcfce7;
+      color: var(--accent-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 20px;
+    }
+
+    .status-card h1 {
+      color: var(--dark-blue);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .status-card p {
+      color: #64748b;
+      font-size: .95rem;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .details-box {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .9rem;
+      margin-bottom: 8px;
+    }
+
+    .details-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .details-row .label {
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .details-row .value {
+      color: var(--dark-blue);
+      font-weight: 700;
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
+
+    .actions-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: transform .2s, background .2s;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+      box-shadow: 0 4px 12px #25d3664d;
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ea952;
+      transform: translateY(-2px);
+    }
+
+    .btn-download {
+      background: var(--primary-royal);
+      color: #fff;
+      box-shadow: 0 4px 12px #1e40af33;
+    }
+
+    .btn-download:hover {
+      background: #1e3a8a;
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .notice {
+      font-size: .82rem !important;
+      margin: 16px 0 0 !important;
+      color: #64748b;
+      overflow-wrap: anywhere;
+    }
+
+    .btn-retry {
+      background: #e2e8f0;
+      color: #0f172a;
+      box-shadow: none;
+    }
+
+    .btn-retry:hover {
+      background: #cbd5e1;
+    }
+
+    .pdf-hidden-wrapper {
+      position: fixed;
+      left: -10000px;
+      top: 0;
+      pointer-events: none;
+    }
+
+    .receipt-card {
+      background: #fff;
+      width: 750px;
+      padding: 40px;
+      position: relative;
+      color: #334155;
+    }
+
+    .watermark-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 350px;
+      opacity: .05;
+      pointer-events: none;
+    }
+
+    .receipt-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header-logo {
+      height: 55px;
+      margin-bottom: 6px;
+      object-fit: contain;
+    }
+
+    .receipt-header h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .receipt-header h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-top: 10px;
+      color: #1e293b;
+      text-transform: uppercase;
+    }
+
+    .info-section {
+      border: 1px solid #e2e8f0;
+      padding: 12px 16px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+
+    .student-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: .85rem;
+    }
+
+    .ref-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 12px;
+    }
+
+    .qr-link {
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .qr-container {
+      width: 80px;
+      height: 80px;
+    }
+
+    .qr-container img,
+    .qr-container canvas {
+      width: 80px !important;
+      height: 80px !important;
+      display: block;
+    }
+
+    .fee-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      font-size: .85rem;
+    }
+
+    .fee-table th,
+    .fee-table td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+    }
+
+    .fee-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .meta-notes {
+      font-size: .8rem;
+      color: #475569;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .signature-section {
+      margin-top: 15px;
+    }
+
+    .signature-img {
+      height: 40px;
+      object-fit: contain;
+      margin-bottom: 4px;
+    }
+
+    .receipt-footer-brand {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      font-size: .7rem;
+      color: #94a3b8;
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 10px;
+    }
+
+    .powered-by {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .powered-by img {
+      height: 16px;
+      object-fit: contain;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: .85rem;
+      color: #64748b;
+    }
+
+    @media(max-width:480px) {
+      .status-card {
+        padding: 28px 17px;
+      }
+
+      .details-row {
+        font-size: .82rem;
+      }
+
+      .brand {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="brand">Flexi Educational Consult</div>
+  </nav>
+
+  <main class="main-container">
+    <section class="status-card">
+
+      <div class="icon-box">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+      <h1 id="pageHeading">Registration Details</h1>
+
+      <p id="pageMessage">
+        Loading your registration and payment details...
+      </p>
+
+      <div class="details-box">
+        <div class="details-row">
+          <span class="label">Student Name:</span>
+          <span class="value" id="uiStudentName">Loading...</span>
+        </div>
+
+        <div class="details-row">
+          <span class="label">Registration ID:</span>
+          <span class="value" id="uiRegId">---</span>
+        </div>
+
+        <div class="details-row">
+          <span class="label">Amount Paid:</span>
+          <span class="value" id="uiAmountPaid">---</span>
+        </div>
+
+        <div class="details-row">
+          <span class="label">Department:</span>
+          <span class="value" id="uiDepartment">---</span>
+        </div>
+
+        <div class="details-row">
+          <span class="label">Package:</span>
+          <span class="value" id="uiSubscription">---</span>
+        </div>
+
+        <div class="details-row">
+          <span class="label">Payment Status:</span>
+          <span class="value" id="uiPaymentStatus">Checking...</span>
+        </div>
+      </div>
+
+      <div class="actions-group">
+
+        
+        <a
+          href="https://chat.whatsapp.com/G2mYiVe3QnRHAgy3mfS3uR?s=cl&p=a&mlu=4"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-whatsapp">
+          <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
+          Join General WhatsApp Group
+        </a>
+
+        
+        <a
+          id="departmentGroupBtn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-whatsapp"
+          hidden>
+          <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
+          <span id="departmentGroupBtnText">Join Department WhatsApp Group</span>
+        </a>
+
+        <button id="retryVerificationBtn" class="btn btn-retry" type="button">
+          <i class="fa-solid fa-rotate"></i>
+          Check Payment Again
+        </button>
+
+        <button id="downloadPdfBtn" class="btn btn-download" type="button" disabled>
+          <i class="fa-solid fa-file-arrow-down"></i>
+          Download Receipt (PDF)
+        </button>
+
+        <a href="student-dashboard.php" class="btn btn-download">
+          <i class="fa-solid fa-gauge-high"></i>
+          Open Student Dashboard
+        </a>
+
+      </div>
+
+      <p class="notice" id="receiptNotice">
+        Your receipt will be available after your payment is verified.
+      </p>
+
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Flexi Educational Consult. All rights reserved.
+  </footer>
+
+  <div class="pdf-hidden-wrapper" aria-hidden="true">
+
+    <div class="receipt-card" id="receiptTemplate">
+
+      <img
+        src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg"
+        alt=""
+        class="watermark-bg"
+        crossorigin="anonymous">
+
+      <div class="receipt-header">
+        <img
+          src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg"
+          alt="Flexi Logo"
+          class="header-logo"
+          crossorigin="anonymous">
+
+        <h2>FLEXI EDUCATIONAL CONSULT</h2>
+        <h3>BILL RECEIPT - MASTERCLASS REGISTRATION</h3>
+      </div>
+
+      <div class="info-section">
+        <div class="student-details">
+
+          <div style="grid-column:1/-1">
+            <strong id="rcpStudentName" style="font-size:1rem;color:#0f172a">---</strong>
+          </div>
+
+          <div><strong>REG ID:</strong> <span id="rcpRegId">---</span></div>
+          <div><strong>EMAIL:</strong> <span id="rcpEmail">---</span></div>
+          <div><strong>PHONE:</strong> <span id="rcpPhone">---</span></div>
+          <div><strong>DEPARTMENT:</strong> <span id="rcpDepartment">---</span></div>
+          <div><strong>PACKAGE:</strong> <span id="rcpSubscription">---</span></div>
+
+        </div>
+      </div>
+
+      <div class="ref-bar">
+
+        <a
+          href="https://www.flexieduconsult.com.ng"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="qr-link"
+          title="Visit Flexi Educational Consult">
+
+          <div id="qrcode" class="qr-container"></div>
+        </a>
+
+        <div style="text-align:right">
+          <div style="font-size:1.1rem;font-weight:800;color:#0f172a">
+            REF:
+            <span id="rcpRefNumber">FLEXI-000000</span>
+            <span id="rcpPaidStamp" style="color:#16a34a;margin-left:5px">PAID</span>
+          </div>
+        </div>
+
+      </div>
+
+      <table class="fee-table">
+
+        <thead>
+          <tr>
+            <th style="width:40px;text-align:center">#</th>
+            <th>FEES</th>
+            <th style="width:140px;text-align:right">AMOUNT (NGN)</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td style="text-align:center">1</td>
+            <td id="rcpPackageFeeLabel">SUBSCRIPTION FEE</td>
+            <td id="rcpPackageFee" style="text-align:right">—</td>
+          </tr>
+
+          <tr>
+            <td style="text-align:center">2</td>
+            <td>ELECTRONIC CHARGES FEE</td>
+            <td id="rcpProcessingFee" style="text-align:right">—</td>
+          </tr>
+
+          <tr style="font-weight:800;background:#f8fafc">
+            <td colspan="2" style="text-align:right">TOTAL</td>
+            <td id="rcpTotalPaid" style="text-align:right">—</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div class="meta-notes">
+
+        <div>
+          <strong>Date Initiated:</strong>
+          <span id="rcpDateInit" style="color:#16a34a;font-weight:600">---</span>
+        </div>
+
+        <div>
+          <strong>Payment Date:</strong>
+          <span id="rcpDatePaid" style="color:#16a34a;font-weight:600">---</span>
+        </div>
+
+        <p style="margin-top:8px">
+          <em>Please save a copy of this receipt as evidence of payment.</em>
+        </p>
+
+        <p>
+          For enquiries, call <strong>09034159839, 07033855206</strong>
+          OR email <strong>support@flexieduconsult.com.ng</strong>
+        </p>
+
+      </div>
+
+      <div class="signature-section">
+
+        <img
+          src="https://i.postimg.cc/RhgyvMfF/IMG-20260727-141301-416.jpg"
+          alt="Signature"
+          class="signature-img"
+          crossorigin="anonymous">
+
+        <br>
+
+        <strong style="font-size:.85rem;color:#0f172a;text-transform:uppercase">
+          DANIEL CHIEMERE OKEREKE
+        </strong>
+
+        <br>
+
+        <span style="font-size:.75rem;color:#64748b;font-weight:700;text-transform:uppercase;font-style:italic">
+          CHIEF BURSAR
+        </span>
+
+      </div>
+
+      <div class="receipt-footer-brand">
+
+        <div>
+          Generated at <span id="genTimestamp"></span>
+        </div>
+
+        <div class="powered-by">
+          <span>Powered by</span>
+
+          <img
+            src="https://i.postimg.cc/Jz1P4wKy/1785167021863.png"
+            alt="Flexi Digital Logo"
+            crossorigin="anonymous">
+
+          <span>Flexi Digital Technology</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+    import {
+      getFirestore,
+      doc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // =========================================================
+    // CONFIGURATION
+    // =========================================================
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoGXb2XlvuwcJY8oyW6_J42fgxfH5vZao",
+      authDomain: "jarvisai-1a594.firebaseapp.com",
+      projectId: "jarvisai-1a594",
+      storageBucket: "jarvisai-1a594.firebasestorage.app",
+      messagingSenderId: "868499596875",
+      appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const API_BASE_URL =
+      'https://flexi-lessons-payment-api-virid.vercel.app';
+
+    const $ = id => document.getElementById(id);
+
+    const money = value =>
+      `₦${Number(value || 0).toLocaleString('en-NG')}`;
+
+    const regId = localStorage.getItem('flexiCurrentRegId');
+
+    let verifiedRegistrationData = null;
+    let verificationInProgress = false;
+    let pdfInProgress = false;
+
+    $('year').textContent = new Date().getFullYear();
+    $('genTimestamp').textContent = new Date().toLocaleString('en-NG');
+
+    // =========================================================
+    // QR CODE
+    // =========================================================
+
+    if (window.QRCode) {
+      new QRCode($('qrcode'), {
+        text: 'https://www.flexieduconsult.com.ng',
+        width: 80,
+        height: 80,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // =========================================================
+    // HELPERS
+    // =========================================================
+
+    function setStatus(text, color = '#b91c1c') {
+      $('uiPaymentStatus').textContent = text;
+      $('uiPaymentStatus').style.color = color;
+    }
+
+    // Department-specific WhatsApp invitations.
+    const DEPARTMENT_GROUPS = {
+      art: {
+        label: 'Art',
+        url: 'https://chat.whatsapp.com/IA9VpQmnIqeEF9Q1eZGcRk?s=cl&p=a&mlu=4&iam=0'
+      },
+      commercial: {
+        label: 'Commercial',
+        url: 'https://chat.whatsapp.com/KzDowxKmCNGBuEWS4rPxGr?s=cl&p=a&mlu=4&iam=0'
+      },
+      science: {
+        label: 'Science',
+        url: 'https://chat.whatsapp.com/CKWV12ICBwPCRduqV9B2XU?s=cl&p=a&mlu=4&iam=0'
+      }
+    };
+
+    function renderDepartmentGroup(department) {
+      const button = $('departmentGroupBtn');
+      const buttonText = $('departmentGroupBtnText');
+
+      const normalized = String(department || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+department$/, '')
+        .replace(/\s+/g, '');
+
+      const group = DEPARTMENT_GROUPS[normalized];
+
+      if (!group) {
+        button.hidden = true;
+        button.removeAttribute('href');
+        return;
+      }
+
+      button.href = group.url;
+      buttonText.textContent = `Join ${group.label} WhatsApp Group`;
+      button.hidden = false;
+    }
+
+    function showError(message) {
+      $('pageHeading').textContent = 'Registration Details Unavailable';
+      $('pageMessage').textContent = message;
+
+      $('uiStudentName').textContent = 'Not available';
+      $('uiAmountPaid').textContent = 'Not confirmed';
+
+      setStatus('UNCONFIRMED');
+
+      $('receiptNotice').textContent =
+        'The receipt remains disabled until the payment can be verified.';
+
+      $('downloadPdfBtn').disabled = true;
+    }
+
+    function toDate(value) {
+      if (!value) return null;
+
+      if (typeof value.toDate === 'function') {
+        return value.toDate();
+      }
+
+      if (typeof value === 'object' && typeof value.seconds === 'number') {
+        return new Date(value.seconds * 1000);
+      }
+
+      const parsed = new Date(value);
+
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    /*
+     * IMPORTANT:
+     * Do not accept paymentStatus alone.
+     * A verified payment must have BOTH flags set by the backend.
+     */
+    function isVerifiedPayment(data) {
+      return data.paymentStatus === true &&
+             data.paymentVerified === true;
+    }
+
+    function setReceiptFields(data, isPaid) {
+      const first = data.firstName || data.firstname || '';
+      const surname = data.surname || data.lastName || data.lastname || '';
+
+      const fullName =
+        `${first} ${surname}`.trim().toUpperCase() ||
+        data.studentName ||
+        'N/A';
+
+      const baseAmount = Number(
+        data.amountPaid ??
+        data.subscriptionAmount ??
+        data.amount ??
+        0
+      );
+
+      const grossAmount = Number(
+        data.grossAmountPaid ??
+        data.grossAmount ??
+        baseAmount
+      );
+
+      const processingAmount = Math.max(0, grossAmount - baseAmount);
+
+      const planMap = {
+        monthly: '1 Month',
+        twoMonths: '2 Months',
+        threeMonths: '3 Months'
+      };
+
+      const planLabel =
+        data.subscriptionLabel ||
+        planMap[data.subscriptionPlan] ||
+        data.subscriptionPlan ||
+        'N/A';
+
+      const dept = data.department || 'N/A';
+      renderDepartmentGroup(dept);
+
+      $('uiStudentName').textContent = fullName;
+      $('uiRegId').textContent = data.registrationId || regId;
+
+      $('uiAmountPaid').textContent =
+        isPaid ? money(grossAmount) : 'Not confirmed';
+
+      $('uiAmountPaid').style.color =
+        isPaid ? '#16a34a' : '#b91c1c';
+
+      $('uiDepartment').textContent = dept;
+      $('uiSubscription').textContent = planLabel;
+
+      $('rcpStudentName').textContent = fullName;
+      $('rcpRegId').textContent = data.registrationId || regId;
+      $('rcpEmail').textContent = data.studentEmail || data.email || 'N/A';
+      $('rcpPhone').textContent = data.studentPhone || data.phone || 'N/A';
+      $('rcpDepartment').textContent = dept;
+      $('rcpSubscription').textContent = planLabel;
+
+      $('rcpPackageFeeLabel').textContent =
+        `${planLabel.toUpperCase()} SUBSCRIPTION`;
+
+      $('rcpPackageFee').textContent =
+        isPaid ? Number(baseAmount).toLocaleString('en-NG') : '—';
+
+      $('rcpProcessingFee').textContent =
+        isPaid ? Number(processingAmount).toLocaleString('en-NG') : '—';
+
+      $('rcpTotalPaid').textContent =
+        isPaid ? money(grossAmount) : 'NOT CONFIRMED';
+
+      $('rcpRefNumber').textContent =
+        data.paystackReference ||
+        data.paymentReference ||
+        data.reference ||
+        data.registrationId ||
+        regId;
+
+      $('rcpPaidStamp').textContent =
+        isPaid ? 'PAID' : 'NOT CONFIRMED';
+
+      $('rcpPaidStamp').style.color =
+        isPaid ? '#16a34a' : '#b91c1c';
+
+      $('rcpDateInit').textContent =
+        (toDate(data.createdAt) || new Date()).toLocaleString('en-NG');
+
+      const paymentDate =
+        toDate(data.paymentVerifiedAt) ||
+        toDate(data.paidAt);
+
+      $('rcpDatePaid').textContent =
+        isPaid && paymentDate
+          ? paymentDate.toLocaleString('en-NG')
+          : isPaid
+            ? 'Verified'
+            : 'Not confirmed';
+
+      return {
+        fullName,
+        baseAmount,
+        grossAmount,
+        processingAmount,
+        planLabel
+      };
+    }
+
+    function renderRegistration(data) {
+      const isPaid = isVerifiedPayment(data);
+
+      setReceiptFields(data, isPaid);
+
+      if (isPaid) {
+        verifiedRegistrationData = data;
+
+        $('pageHeading').textContent = 'Payment Successful!';
+
+        $('pageMessage').textContent =
+          'Your payment has been verified by Flexi Educational Consult. You can now download your receipt.';
+
+        setStatus('✓ VERIFIED PAID', '#16a34a');
+
+        $('downloadPdfBtn').disabled = false;
+
+        $('receiptNotice').textContent =
+          'Your payment has been verified. Keep your PDF receipt for your records.';
+
+      } else {
+        verifiedRegistrationData = null;
+
+        $('pageHeading').textContent = 'Registration Received';
+
+        $('pageMessage').textContent =
+          'Your registration record was found, but the payment has not yet been verified by our payment server.';
+
+        setStatus('PENDING VERIFICATION');
+
+        $('downloadPdfBtn').disabled = true;
+
+        $('receiptNotice').textContent =
+          'Your receipt will become available after the backend verifies your payment.';
+      }
+
+      return isPaid;
+    }
+
+    // =========================================================
+    // LOAD FIREBASE REGISTRATION
+    // =========================================================
+
+    async function readRegistration() {
+      if (!regId) {
+        throw new Error(
+          'No registration reference was found in this browser. Please contact support with your payment details.'
+        );
+      }
+
+      const snap = await getDoc(doc(db, 'registrations', regId));
+
+      if (!snap.exists()) {
+        throw new Error(
+          'No registration record was found for this reference. Please contact support before attempting payment again.'
+        );
+      }
+
+      return snap.data();
+    }
+
+    // =========================================================
+    // CALL BACKEND TO VERIFY PAYMENT
+    // =========================================================
+
+    async function requestPaymentVerification(data) {
+      const reference = String(
+        data.paystackReference ||
+        data.paymentReference ||
+        data.reference ||
+        ''
+      ).trim();
+
+      if (!reference) {
+        return {
+          attempted: false,
+          message: 'No Paystack transaction reference has been saved yet.'
+        };
+      }
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/verify-payment`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              registrationId: regId,
+              reference
+            }),
+            signal: controller.signal
+          }
+        );
+
+        let result;
+
+        try {
+          result = await response.json();
+        } catch {
+          result = null;
+        }
+
+        if (!response.ok) {
+          const message =
+            'We could not verify your payment right now. Please try again shortly.';
+
+          return {
+            attempted: true,
+            success: false,
+            message
+          };
+        }
+
+        return {
+          attempted: true,
+          success: Boolean(result && result.success),
+          message: result && result.success
+            ? 'Payment verification completed.'
+            : 'Payment verification is still pending.'
+        };
+
+      } catch (error) {
+        console.error('Backend verification request failed:', error);
+
+        return {
+          attempted: true,
+          success: false,
+          message: error.name === 'AbortError'
+            ? 'Payment verification timed out. Please try again.'
+            : 'We could not contact the payment verification server. Check your connection and try again.'
+        };
+
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    // =========================================================
+    // MAIN LOAD + VERIFICATION FLOW
+    // =========================================================
+
+    async function loadReceiptData({ retry = false } = {}) {
+      if (verificationInProgress) return;
+
+      verificationInProgress = true;
+
+      const retryButton = $('retryVerificationBtn');
+
+      retryButton.disabled = true;
+      retryButton.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Checking Payment...';
+
+      $('pageMessage').textContent =
+        'Loading your registration and checking payment status...';
+
+      try {
+        // First read the registration from Firebase.
+        let data = await readRegistration();
+
+        // If the backend already verified it, render the verified state.
+        if (isVerifiedPayment(data)) {
+          renderRegistration(data);
+          return;
+        }
+
+        // Otherwise request verification from the trusted backend.
+        const verification = await requestPaymentVerification(data);
+
+        /*
+         * CRITICAL:
+         * Never trust a successful browser API response alone.
+         * Read Firebase again and unlock only from the persisted record.
+         */
+        data = await readRegistration();
+
+        const isPaid = renderRegistration(data);
+
+        if (isPaid) {
+          $('pageMessage').textContent =
+            'Your payment has been verified successfully. Your receipt is ready.';
+          return;
+        }
+
+        if (!verification.attempted) {
+          $('pageMessage').textContent =
+            verification.message +
+            ' If you have completed payment, allow a moment for the transaction reference to become available and check again.';
+        } else if (!verification.success) {
+          $('pageMessage').textContent =
+            verification.message +
+            ' If you have completed payment, you can retry verification. Do not pay a second time until the first transaction has been checked.';
+        } else {
+          $('pageMessage').textContent =
+            'The verification request was processed, but Firebase has not yet recorded a verified payment. Please check again shortly. Do not pay again while this transaction is being checked.';
+        }
+
+        $('receiptNotice').textContent =
+          'The PDF receipt remains locked until Firebase records paymentStatus=true and paymentVerified=true.';
+
+      } catch (error) {
+        console.error('Could not load registration:', error);
+
+        showError(
+          'We could not load your registration right now. Please check your internet connection and try again.'
+        );
+
+      } finally {
+        verificationInProgress = false;
+
+        retryButton.disabled = false;
+
+        retryButton.innerHTML =
+          '<i class="fa-solid fa-rotate"></i> Check Payment Again';
+      }
+    }
+
+    // =========================================================
+    // PDF RECEIPT
+    // =========================================================
+
+    $('downloadPdfBtn').addEventListener('click', async () => {
+      const btn = $('downloadPdfBtn');
+
+      if (
+        btn.disabled ||
+        pdfInProgress ||
+        !window.html2pdf ||
+        !verifiedRegistrationData ||
+        !isVerifiedPayment(verifiedRegistrationData)
+      ) {
+        return;
+      }
+
+      pdfInProgress = true;
+      btn.disabled = true;
+
+      btn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Generating PDF...';
+
+      try {
+        /*
+         * Re-read Firebase immediately before generating the receipt.
+         * This helps avoid using stale client-side payment status.
+         */
+        const latestData = await readRegistration();
+
+        if (!isVerifiedPayment(latestData)) {
+          verifiedRegistrationData = null;
+          renderRegistration(latestData);
+
+          throw new Error(
+            'The payment is not currently verified. The receipt cannot be generated.'
+          );
+        }
+
+        verifiedRegistrationData = latestData;
+        renderRegistration(latestData);
+
+        const element = $('receiptTemplate');
+
+        await html2pdf().set({
+          margin: 0.3,
+
+          filename:
+            `Flexi_Receipt_${(regId || 'Registration').replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`,
+
+          image: {
+            type: 'jpeg',
+            quality: 0.98
+          },
+
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+            backgroundColor: '#ffffff',
+            onclone: (clonedDocument) => {
+              // Keep the live receipt hidden off-screen, but place the cloned
+              // receipt at the page origin so html2canvas avoids the large offset.
+              const clonedWrapper = clonedDocument.querySelector('.pdf-hidden-wrapper');
+              if (clonedWrapper) {
+                clonedWrapper.style.position = 'absolute';
+                clonedWrapper.style.left = '0';
+                clonedWrapper.style.top = '0';
+                clonedWrapper.style.width = '750px';
+                clonedWrapper.style.pointerEvents = 'none';
+                clonedWrapper.style.transform = 'none';
+                clonedWrapper.style.zIndex = 'auto';
+              }
+            }
+          },
+
+          jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'portrait'
+          },
+
+          pagebreak: {
+            mode: ['css', 'legacy']
+          }
+
+        }).from(element).save();
+
+      } catch (error) {
+        console.error('PDF generation error:', error);
+
+        alert(
+          'Your receipt could not be generated right now. Please try again shortly.'
+        );
+
+      } finally {
+        pdfInProgress = false;
+
+        btn.innerHTML =
+          '<i class="fa-solid fa-file-arrow-down"></i> Download Receipt (PDF)';
+
+        btn.disabled = !(
+          verifiedRegistrationData &&
+          isVerifiedPayment(verifiedRegistrationData)
+        );
+      }
+    });
+
+    // =========================================================
+    // RETRY VERIFICATION
+    // =========================================================
+
+    $('retryVerificationBtn').addEventListener('click', () => {
+      loadReceiptData({ retry: true });
+    });
+
+    // Start loading the registration as soon as the page opens.
+    loadReceiptData();
+  </script>
+</body>
+</html>

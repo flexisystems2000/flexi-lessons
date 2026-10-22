@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e40af">
+  <title>Flexi Educational Consult | JAMB &amp; WAEC Preparation Masterclass</title>
+  <meta name="description" content="Join Flexi Educational Consult for JAMB and WAEC preparation, expert tutoring, personalized mentorship, and Jarvis AI-powered academic drills. Choose a 1-month, 2-month, or 3-month subscription.">
+  <meta name="keywords" content="Flexi Educational Consult, Flexi Lessons, JAMB Mentorship, Guidance and Counseling, JAMB preparation, WAEC lessons, JAMB syllabus, Jarvis AI, WhatsApp online tutorial, Flexi Keypoint Series">
+  <meta name="author" content="Flexi Educational Consult">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://flexieduconsult.com.ng">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flexieduconsult.com.ng">
+  <meta property="og:title" content="Flexi Educational Consult | JAMB &amp; WAEC Online Tutorials">
+  <meta property="og:description" content="Prepare for JAMB and WAEC with expert tutors, Jarvis AI academic drills, and personalized mentorship. Choose a subscription package that works for you.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://flexieduconsult.com.ng">
+  <meta name="twitter:title" content="Flexi Educational Consult | JAMB &amp; WAEC Lessons">
+  <meta name="twitter:description" content="Prepare for JAMB and WAEC with Flexi Lessons, Jarvis AI drills, and expert guidance. Choose a subscription package.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{--primary-royal:#1e40af;--primary-royal-dark:#1e3a8a;--accent-lemon:#84cc16;--accent-lemon-hover:#65a30d;--dark-blue:#0f172a;--light-bg:#f8fafc;--card-bg:#fff;--text:#334155;--text-muted:#64748b}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
+    html{scroll-behavior:smooth}
+    body{background:var(--light-bg);color:var(--text);line-height:1.6}
+    .navbar{background:var(--card-bg);border-bottom:2px solid var(--primary-royal);padding:14px 5%;display:flex;justify-content:space-between;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+    .brand{font-weight:800;font-size:1.15rem;color:var(--primary-royal)}
+    .nav-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+    .nav-btn{background:var(--accent-lemon);color:var(--dark-blue);padding:10px 16px;border-radius:6px;text-decoration:none;font-weight:700;font-size:.88rem;display:inline-block;transition:background .2s}
+    .nav-btn:hover{background:var(--accent-lemon-hover)}
+    .nav-btn.dashboard{background:var(--primary-royal);color:#fff}
+    .nav-btn.dashboard:hover{background:var(--primary-royal-dark)}
+    .hero{background:linear-gradient(rgba(15,23,42,.85),rgba(30,64,175,.85)),url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;color:#fff;text-align:center;padding:84px 20px 70px}
+    .hero-content{max-width:850px;margin:0 auto}
+    .badge{background:var(--accent-lemon);color:var(--dark-blue);font-size:.85rem;font-weight:800;padding:6px 16px;border-radius:20px;display:inline-block;margin-bottom:20px;text-transform:uppercase;letter-spacing:.5px}
+    .hero h1{font-size:clamp(2rem,5vw,2.8rem);font-weight:800;line-height:1.25;margin-bottom:20px}
+    .hero p{font-size:1.1rem;color:#e2e8f0;margin-bottom:28px}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-main{display:inline-block;background:var(--accent-lemon);color:var(--dark-blue);font-size:1rem;font-weight:800;padding:14px 24px;border-radius:8px;text-decoration:none;box-shadow:0 8px 20px rgba(132,204,22,.3);transition:transform .2s,background .2s}
+    .btn-main:hover{transform:translateY(-2px);background:var(--accent-lemon-hover)}
+    .btn-outline{border:2px solid #fff;color:#fff;background:rgba(255,255,255,.08);box-shadow:none}
+    .btn-outline:hover{background:#fff;color:var(--primary-royal)}
+    .section-title{text-align:center;font-size:clamp(1.6rem,4vw,2rem);color:var(--primary-royal);margin:50px 20px 10px;font-weight:800}
+    .section-intro{text-align:center;color:var(--text-muted);max-width:760px;margin:0 auto;padding:0 20px}
+    .features{max-width:1100px;margin:30px auto 60px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
+    .feature-card{background:var(--card-bg);padding:28px;border-radius:12px;border-left:5px solid var(--accent-lemon);box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .feature-icon{font-size:1.8rem;margin-bottom:12px}
+    .feature-card h3{color:var(--primary-royal);font-size:1.15rem;margin-bottom:8px;font-weight:700}
+    .feature-card p{color:var(--text-muted);font-size:.95rem}
+    .pricing-section{background:#fff;padding:12px 20px 65px;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0}
+    .pricing-grid{max-width:1000px;margin:30px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+    .price-card{background:#fff;border:1px solid #dbeafe;border-radius:14px;padding:28px 24px;text-align:center;box-shadow:0 6px 18px rgba(15,23,42,.06);position:relative}
+    .price-card.featured{border:2px solid var(--primary-royal);transform:translateY(-4px)}
+    .price-card .popular{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent-lemon);color:var(--dark-blue);font-size:.75rem;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap}
+    .price-card h3{color:var(--primary-royal);font-size:1.2rem;margin-bottom:8px}
+    .price{font-size:2rem;color:var(--dark-blue);font-weight:800;margin:12px 0}
+    .price-card p{color:var(--text-muted);font-size:.92rem;margin-bottom:20px}
+    .price-card a{display:block;background:var(--primary-royal);color:#fff;text-decoration:none;font-weight:800;padding:12px;border-radius:8px}
+    .price-card a:hover{background:var(--primary-royal-dark)}
+    .testimonials-section{background:#eff6ff;padding:60px 20px;border-top:1px solid #dbeafe;border-bottom:1px solid #dbeafe}
+    .testimonials-grid{max-width:1000px;margin:30px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .testimonial-card{background:var(--card-bg);padding:25px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+    .testimonial-card p{font-style:italic;color:var(--text);font-size:.95rem;margin-bottom:15px}
+    .student-name{font-weight:700;color:var(--primary-royal);font-size:.9rem}
+    .cta-banner{background:var(--primary-royal);color:#fff;text-align:center;padding:65px 20px}
+    .cta-banner h2{font-size:clamp(1.7rem,4vw,2.2rem);font-weight:800;margin-bottom:10px}
+    .cta-banner p{font-size:1.05rem;color:#dbeafe;margin-bottom:25px}
+    footer{background:var(--dark-blue);color:#94a3b8;padding:60px 5% 30px;font-size:.9rem;border-top:1px solid #1e293b}
+    .footer-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;padding-bottom:40px;border-bottom:1px solid #1e293b}
+    .footer-col h4{color:#fff;font-size:1rem;font-weight:700;margin-bottom:18px;letter-spacing:.5px}
+    .footer-col ul{list-style:none}.footer-col ul li{margin-bottom:10px}
+    .footer-col a{color:#94a3b8;text-decoration:none;transition:color .2s}.footer-col a:hover{color:var(--accent-lemon)}
+    .social-vertical{display:flex;flex-direction:column;gap:12px}
+    .social-link{display:flex;align-items:center;gap:10px;font-weight:500}
+    .social-link i{font-size:1.2rem;width:20px;color:var(--accent-lemon)}
+    .payment-badges-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .payment-card{background:#fff;padding:6px 12px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;height:38px;min-width:70px;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+    .payment-card img{max-height:22px;max-width:60px;object-fit:contain}
+    .footer-bottom{text-align:center;padding-top:30px;font-size:.85rem;color:#64748b}
+    .floating-whatsapp{position:fixed;bottom:25px;right:25px;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:32px;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:1000;text-decoration:none;transition:transform .2s}
+    .floating-whatsapp:hover{transform:scale(1.1)}
+    @media(max-width:620px){.navbar{align-items:flex-start;flex-direction:column}.nav-actions{justify-content:flex-start;width:100%}.nav-btn{padding:9px 12px;font-size:.82rem}.hero{padding-top:62px}.price-card.featured{transform:none}}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">Flexi Educational Consult</div>
+    <div class="nav-actions">
+      <a href="student-dashboard.php" class="nav-btn dashboard"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> Student Dashboard</a>
+      <a href="page2.php" class="nav-btn">Join WhatsApp Class</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge">Flexi Educational Consult</span>
+      <h1>Master Your JAMB Syllabus &amp; Secure Top Scores Today</h1>
+      <p>Join our structured WhatsApp classes supported by expert tutors, Jarvis AI academic drills, and personalized mentorship for JAMB preparation and WAEC lessons.</p>
+      <div class="hero-actions">
+        <a href="#packages" class="btn-main">View Subscription Packages</a>
+        <a href="student-dashboard.php" class="btn-main btn-outline"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> Open Student Dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Why Learn With Flexi Educational Consult?</h2>
+  <section class="features">
+    <div class="feature-card"><div class="feature-icon">👩‍🏫</div><h3>JAMB Mentorship &amp; Counseling</h3><p>Receive JAMB mentorship, academic guidance, and counseling from experienced educators, including Susan Lily Uko.</p></div>
+    <div class="feature-card"><div class="feature-icon">📚</div><h3>Past Question Discounts</h3><p>Get exclusive discounts on the official <strong>Flexi Keypoint Series Past Questions PDFs</strong> to support your exam preparation.</p></div>
+    <div class="feature-card"><div class="feature-icon">🎯</div><h3>JAMB &amp; WAEC Aligned Lessons</h3><p>Study with structured lessons aligned with official syllabi and organized into an easy-to-follow scheme of work.</p></div>
+    <div class="feature-card"><div class="feature-icon">🤖</div><h3>Privacy &amp; Group Protection</h3><p><strong>Jarvis AI</strong> supports group security and privacy protection to help create a safer learning environment for students.</p></div>
+    <div class="feature-card"><div class="feature-icon">⚡</div><h3>Active Drills &amp; Academic Support</h3><p>Practice with <strong>Jarvis AI</strong> academic drills and get help with learning questions whenever support is available.</p></div>
+    <div class="feature-card"><div class="feature-icon">👥</div><h3>Tutors &amp; Staff Support</h3><p>Get support from our team of tutors and staff as you work toward your academic goals with Flexi Lessons.</p></div>
+  </section>
+
+  <section class="pricing-section" id="packages">
+    <h2 class="section-title">Choose Your Subscription Package</h2>
+    <p class="section-intro">Select the duration that suits your preparation plan. Continue to registration to choose your package and complete payment.</p>
+    <div class="pricing-grid">
+      <article class="price-card">
+        <h3>1 Month</h3><div class="price">₦4,000</div>
+        <p>One month of access to the Flexi Lessons subscription.</p>
+        <a href="page2.php">Choose 1 Month</a>
+      </article>
+      <article class="price-card featured">
+        <span class="popular">POPULAR OPTION</span>
+        <h3>2 Months</h3><div class="price">₦7,500</div>
+        <p>Two months of access for continued preparation.</p>
+        <a href="page2.php">Choose 2 Months</a>
+      </article>
+      <article class="price-card">
+        <h3>3 Months</h3><div class="price">₦10,000</div>
+        <p>Three months of access for longer-term preparation.</p>
+        <a href="page2.php">Choose 3 Months</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <h2 class="section-title" style="margin-top:0">What Our Students Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card"><p>“The Jarvis AI drills kept me practicing regularly, and the JAMB mentorship gave me more confidence in my preparation.”</p><div class="student-name">- Chidiebere O.</div></div>
+      <div class="testimonial-card"><p>“Getting help with academic questions made studying easier. Flexi Educational Consult helped me stay focused on my preparation.”</p><div class="student-name">- Amina M.</div></div>
+      <div class="testimonial-card"><p>“The Flexi Keypoint Series PDFs and the organized scheme of work were useful for my JAMB preparation.”</p><div class="student-name">- Tunde A.</div></div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <h2>Ready to Boost Your Academic Score?</h2>
+    <p>Choose a subscription: 1 Month — ₦4,000 • 2 Months — ₦7,500 • 3 Months — ₦10,000</p>
+    <a href="page2.php" class="btn-main">Register for Flexi Lessons</a>
+    <a href="student-dashboard.php" class="btn-main btn-outline" style="margin-left:8px">Go to Student Dashboard</a>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>CONTACT US</h4>
+        <ul>
+          <li><i class="fa-solid fa-phone" style="color:var(--accent-lemon);margin-right:8px"></i> 09034159839</li>
+          <li><i class="fa-solid fa-phone" style="color:var(--accent-lemon);margin-right:8px"></i> 07033855206</li>
+          <li><i class="fa-solid fa-envelope" style="color:var(--accent-lemon);margin-right:8px"></i> <a href="mailto:info@flexieduconsult.com.ng">info@flexieduconsult.com.ng</a></li>
+          <li style="margin-top:10px;font-size:.85rem;color:#cbd5e1"><strong>For complaints:</strong><br><i class="fa-solid fa-circle-exclamation" style="color:var(--accent-lemon);margin-right:8px"></i><a href="mailto:support@flexieduconsult.com.ng">support@flexieduconsult.com.ng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col"><h4>QUICK LINKS</h4><ul>
+        <li><i class="fa-solid fa-gauge-high" style="color:var(--accent-lemon);margin-right:8px"></i><a href="student-dashboard.php">Student Dashboard</a></li>
+        <li><i class="fa-solid fa-user-plus" style="color:var(--accent-lemon);margin-right:8px"></i><a href="page2.php">Registration &amp; Subscription</a></li>
+        <li><i class="fa-solid fa-globe" style="color:var(--accent-lemon);margin-right:8px"></i><a href="https://flexieduconsult.com.ng" target="_blank" rel="noopener noreferrer">Visit Main Website</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>FOLLOW US</h4><div class="social-vertical">
+        <a href="https://www.facebook.com/profile.php?id=61589793118693" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com/flexieduconsult2000?igsh=MWxqZG9reGRlb3Z0ZQ==" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://vm.tiktok.com/ZS9r7GfdDvykU-X6alu/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+      </div></div>
+      <div class="footer-col"><h4>SECURED BY</h4><div class="payment-badges-grid">
+        <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Paystack_Logo.png" alt="Paystack"></div>
+        <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard"></div>
+        <div class="payment-card"><img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Visa"></div>
+        <div class="payment-card"><img src="https://i.postimg.cc/W3ZKrzXt/images-(27).jpg" alt="Verve"></div>
+      </div></div>
+    </div>
+    <div class="footer-bottom">&copy; <span id="year"></span> Flexi Educational Consult. All rights reserved.</div>
+  </footer>
+
+  <a href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult,%20I%20want%20to%20enquire%20about%20the%20WhatsApp%20classes" class="floating-whatsapp" target="_blank" rel="noopener noreferrer" title="Chat with Flexi Educational Consult" aria-label="Chat with Flexi Educational Consult on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

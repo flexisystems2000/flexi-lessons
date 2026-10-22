@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e40af">
+
+  <title>Instructions &amp; Payment - Flexi Educational Consult</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  
+  <script src="https://js.paystack.co/v2/inline.js"></script>
+
+  <style>
+    :root {
+      --primary-royal: #1e40af;
+      --primary-royal-dark: #1e3a8a;
+      --accent-lemon: #84cc16;
+      --accent-lemon-hover: #65a30d;
+      --dark-blue: #0f172a;
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #334155;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--primary-royal);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--primary-royal);
+    }
+
+    .page-container {
+      max-width: 800px;
+      width: 100%;
+      margin: 20px auto;
+      padding: 0 12px;
+    }
+
+    .instructions-card {
+      background: var(--card-bg);
+      padding: 28px 20px;
+      border-radius: 16px;
+      border-top: 6px solid var(--primary-royal);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      width: 100%;
+    }
+
+    .header-box {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header-box h1 {
+      color: var(--primary-royal);
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .header-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .student-info-card {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 25px;
+    }
+
+    .student-info-card h3 {
+      color: var(--primary-royal);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .info-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark-blue);
+      word-break: break-word;
+    }
+
+    .hub-banner {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary-royal);
+      padding: 18px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+    .hub-banner h3 {
+      color: var(--primary-royal);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hub-banner ul {
+      list-style: none;
+      padding-left: 5px;
+    }
+
+    .hub-banner ul li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .hub-banner ul li i {
+      color: var(--accent-lemon-hover);
+      margin-top: 4px;
+    }
+
+    .rules-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .rules-box h3 {
+      color: var(--dark-blue);
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rules-list {
+      list-style-type: decimal;
+      padding-left: 20px;
+    }
+
+    .rules-list li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .summary-box {
+      background: var(--dark-blue);
+      color: white;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    .summary-row.total {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #334155;
+      font-weight: 800;
+      color: white;
+    }
+
+    .summary-box .amount {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-lemon);
+    }
+
+    .btn-pay {
+      width: 100%;
+      background: var(--accent-lemon);
+      color: var(--dark-blue);
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
+      transition: background 0.2s, transform 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-pay:hover {
+      background: var(--accent-lemon-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-pay:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .payment-notice {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      display: none;
+      overflow-wrap: anywhere;
+    }
+
+    .payment-notice.info {
+      display: block;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    .payment-notice.error {
+      display: block;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .payment-notice.success {
+      display: block;
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    footer {
+      background-color: var(--dark-blue);
+      color: #94a3b8;
+      padding: 50px 5% 30px;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .footer-col a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent-lemon);
+    }
+
+    .social-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .social-link i {
+      font-size: 1.2rem;
+      width: 20px;
+      color: var(--accent-lemon);
+    }
+
+    .payment-badges-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .payment-card {
+      background: #ffffff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      min-width: 60px;
+    }
+
+    .payment-card img {
+      max-height: 20px;
+      max-width: 55px;
+      object-fit: contain;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 25px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .floating-whatsapp:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 480px) {
+      .instructions-card {
+        padding: 22px 15px;
+      }
+
+      .header-box h1 {
+        font-size: 1.35rem;
+      }
+
+      .summary-row {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="brand">Flexi Educational Consult</div>
+  </nav>
+
+  <main class="page-container">
+    <div class="instructions-card">
+
+      <div class="header-box">
+        <h1>Welcome to the Masterclass!</h1>
+        <p>Please review your details and group guidelines before completing registration.</p>
+      </div>
+
+      <div class="student-info-card">
+        <h3><i class="fa-solid fa-address-card"></i> Candidate Summary</h3>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Student Name</span>
+            <span class="info-value" id="dispStudentName">---</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Email Address</span>
+            <span class="info-value" id="dispStudentEmail">---</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">WhatsApp / Phone</span>
+            <span class="info-value" id="dispStudentPhone">---</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Department</span>
+            <span class="info-value" id="dispDepartment">---</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hub-banner">
+        <h3><i class="fa-solid fa-graduation-cap"></i> 2027 JAMB Aspirants Hub 📚</h3>
+
+        <ul>
+          <li><i class="fa-solid fa-check"></i><span>Updates on JAMB 2027 registration, dates, syllabus &amp; CBT tips</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Free study materials, past questions &amp; group discussions</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Support each other, no fraud / no fake form sales</span></li>
+        </ul>
+
+        <p style="font-size:0.85rem;font-weight:700;color:#1e3a8a;margin-top:10px;">
+          💡 Let’s pass JAMB together. Admins won’t DM you for money.
+        </p>
+      </div>
+
+      <div class="rules-box">
+        <h3><i class="fa-solid fa-shield-halved"></i> Group Rules and Regulations</h3>
+
+        <ol class="rules-list">
+          <li>Respect everyone in the group.</li>
+          <li>Do well to react to any tutorial session that relates to your subject.</li>
+          <li>No unnecessary messages; messages by students should only be questions, or replies to questions asked by administrators.</li>
+          <li>Do not insult your admins or any student.</li>
+          <li>No stickers allowed.</li>
+          <li>Only educational topics are to be discussed here.</li>
+        </ol>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Subscription Package</span>
+          <span id="dispPackageFee">—</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Estimated Electronic Charges</span>
+          <span id="dispProcessingFee">—</span>
+        </div>
+
+        <div class="summary-row total">
+          <span>Total Payable</span>
+          <span class="amount" id="dispTotalPayable">—</span>
+        </div>
+      </div>
+
+      <button id="payBtn" class="btn-pay" type="button">
+        <i class="fa-solid fa-lock"></i>
+        Submit &amp; Pay
+        <span id="btnPayAmount">—</span>
+      </button>
+
+      <div id="paymentNotice" class="payment-notice" role="status" aria-live="polite"></div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h4>CONTACT US</h4>
+        <ul>
+          <li><i class="fa-solid fa-phone" style="color:var(--accent-lemon);margin-right:8px;"></i>09034159839</li>
+          <li><i class="fa-solid fa-phone" style="color:var(--accent-lemon);margin-right:8px;"></i>07033855206</li>
+          <li><i class="fa-solid fa-envelope" style="color:var(--accent-lemon);margin-right:8px;"></i><a href="mailto:info@flexieduconsult.com.ng">info@flexieduconsult.com.ng</a></li>
+          <li style="margin-top:10px;font-size:0.85rem;color:#cbd5e1;">
+            <strong>For complaints:</strong><br>
+            <i class="fa-solid fa-circle-exclamation" style="color:var(--accent-lemon);margin-right:8px;"></i>
+            <a href="mailto:support@flexieduconsult.com.ng">support@flexieduconsult.com.ng</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>FOLLOW US</h4>
+        <div class="social-vertical">
+          <a href="https://www.facebook.com/profile.php?id=61589793118693" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i>Facebook</a>
+          <a href="https://www.instagram.com/flexieduconsult2000?igsh=MWxqZG9reGRlb3Z0ZQ==" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i>Instagram</a>
+          <a href="https://vm.tiktok.com/ZS9r7GfdDvykU-X6alu/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i>TikTok</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>SECURED BY</h4>
+        <div class="payment-badges-grid">
+          <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Paystack_Logo.png" alt="Paystack"></div>
+          <div class="payment-card"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard"></div>
+          <div class="payment-card"><img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Visa"></div>
+          <div class="payment-card"><img src="https://i.postimg.cc/0Qm3PLw5/1771700279759-2.jpg" alt="Verve"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; <span id="year"></span> flexieduconsult. All rights reserved.
+    </div>
+  </footer>
+
+  <a
+    href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult,%20I%20have%20a%20question%20about%20payment"
+    class="floating-whatsapp"
+    target="_blank"
+    rel="noopener noreferrer"
+    title="Chat with Flexi Educational Consult"
+    aria-label="Chat with Flexi Educational Consult on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // =========================================================
+    // CONFIGURATION
+    // =========================================================
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoGXb2XlvuwcJY8oyW6_J42fgxfH5vZao",
+      authDomain: "jarvisai-1a594.firebaseapp.com",
+      projectId: "jarvisai-1a594",
+      storageBucket: "jarvisai-1a594.firebasestorage.app",
+      messagingSenderId: "868499596875",
+      appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    
+    const PAYSTACK_PUBLIC_KEY =
+      'pk_live_bb0c7b83bfdbd0c9990e2c7f7fd73a86d4821a00';
+
+    const PAYSTACK_SPLIT_CODES = {
+      Commercial: 'SPL_KKVdoIZw3e',
+      Art: 'SPL_xdTvrjYa3l',
+      Science: 'SPL_ZD33fo9szd'
+    };
+
+    const SUBSCRIPTION_PLANS = {
+      monthly: {
+        label: '1 Month',
+        months: 1,
+        amount: 4000
+      },
+      twoMonths: {
+        label: '2 Months',
+        months: 2,
+        amount: 7500
+      },
+      threeMonths: {
+        label: '3 Months',
+        months: 3,
+        amount: 10000
+      }
+    };
+
+    // This is an estimate, not a Paystack fee guarantee.
+    function calculateGrossPaystackAmount(netAmount) {
+      return Math.ceil((netAmount + 100) / (1 - 0.015));
+    }
+
+    const API_BASE_URL =
+      'https://flexi-lessons-payment-api-virid.vercel.app';
+
+    const $ = id => document.getElementById(id);
+    const payBtn = $('payBtn');
+    const paymentNotice = $('paymentNotice');
+
+    $('year').textContent = new Date().getFullYear();
+
+    function formatNaira(amount) {
+      return '₦' + Number(amount).toLocaleString('en-NG');
+    }
+
+    function showNotice(message, type = 'info') {
+      paymentNotice.className = 'payment-notice ' + type;
+      paymentNotice.textContent = message;
+    }
+
+    function safeText(value) {
+      return typeof value === 'string' ? value.trim() : '';
+    }
+
+    function setButtonEnabled(enabled) {
+      payBtn.disabled = !enabled;
+
+      if (enabled) {
+        payBtn.innerHTML =
+          `<i class="fa-solid fa-lock"></i> Submit &amp; Pay <span>${formatNaira(GROSS_FEE)}</span>`;
+      } else {
+        payBtn.innerHTML =
+          '<i class="fa-solid fa-spinner fa-spin"></i> Please wait...';
+      }
+    }
+
+    // =========================================================
+    // LOAD REGISTRATION DETAILS
+    // =========================================================
+
+    const storedData = localStorage.getItem('flexiStudentRegistration');
+
+    if (!storedData) {
+      alert('No registration data found. Please complete the form on Page 2 first.');
+      window.location.replace('page2.php');
+      throw new Error('Missing registration data.');
+    }
+
+    let studentData;
+
+    try {
+      studentData = JSON.parse(storedData);
+    } catch (error) {
+      alert('Your registration information could not be read. Please complete the form again.');
+      window.location.replace('page2.php');
+      throw new Error('Invalid registration JSON.');
+    }
+
+    const selectedPlan =
+      SUBSCRIPTION_PLANS[studentData.subscriptionPlan];
+
+    const validDepartments = ['Commercial', 'Art', 'Science'];
+
+    if (!selectedPlan || !validDepartments.includes(studentData.department)) {
+      alert('Please select a valid department and subscription package on Page 2.');
+      window.location.replace('page2.php');
+      throw new Error('Invalid department or subscription package.');
+    }
+
+    const studentEmail = safeText(studentData.studentEmail);
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(studentEmail)) {
+      alert('Your email address is missing or invalid. Please return to Page 2.');
+      window.location.replace('page2.php');
+      throw new Error('Invalid student email.');
+    }
+
+    const BASE_FEE = selectedPlan.amount;
+    const GROSS_FEE = calculateGrossPaystackAmount(BASE_FEE);
+    const PROCESSING_FEE = GROSS_FEE - BASE_FEE;
+    const EXPECTED_AMOUNT_KOBO = GROSS_FEE * 100;
+
+    $('dispStudentName').textContent =
+      `${safeText(studentData.firstName)} ${safeText(studentData.surname)}`.trim() || 'N/A';
+
+    $('dispStudentEmail').textContent = studentEmail;
+    $('dispStudentPhone').textContent = safeText(studentData.studentPhone) || 'N/A';
+    $('dispDepartment').textContent = studentData.department;
+
+    $('dispPackageFee').textContent =
+      `${selectedPlan.label} — ${formatNaira(BASE_FEE)}`;
+
+    $('dispProcessingFee').textContent = formatNaira(PROCESSING_FEE);
+    $('dispTotalPayable').textContent = formatNaira(GROSS_FEE);
+    $('btnPayAmount').textContent = formatNaira(GROSS_FEE);
+
+    // =========================================================
+    // PAYSTACK SDK
+    // =========================================================
+
+    function getPaystackConstructor() {
+      if (typeof window.PaystackPop !== 'function') {
+        throw new Error(
+          'Paystack has not loaded. Check your internet connection and reload this page.'
+        );
+      }
+
+      return window.PaystackPop;
+    }
+
+    // =========================================================
+    // PAYMENT FLOW
+    // =========================================================
+
+    let paymentLaunchInProgress = false;
+
+    payBtn.addEventListener('click', async () => {
+      if (paymentLaunchInProgress) return;
+
+      paymentLaunchInProgress = true;
+      payBtn.disabled = true;
+      showNotice('', 'info');
+
+      const splitCode = PAYSTACK_SPLIT_CODES[studentData.department];
+
+      if (!splitCode) {
+        showNotice(
+          'We could not prepare your payment. Please contact Flexi support for assistance.',
+          'error'
+        );
+        paymentLaunchInProgress = false;
+        setButtonEnabled(true);
+        return;
+      }
+
+      let popup;
+
+      try {
+        const PaystackPop = getPaystackConstructor();
+        popup = new PaystackPop();
+      } catch (error) {
+        showNotice('We could not start payment right now. Please check your internet connection and try again.', 'error');
+        paymentLaunchInProgress = false;
+        setButtonEnabled(true);
+        return;
+      }
+
+      const registrationId =
+        'FLEXI_' +
+        Date.now() +
+        '_' +
+        Math.random().toString(36).slice(2, 8).toUpperCase();
+
+      const candidateRef = doc(db, 'registrations', registrationId);
+
+      try {
+        payBtn.innerHTML =
+          '<i class="fa-solid fa-spinner fa-spin"></i> Saving Registration...';
+
+        await setDoc(candidateRef, {
+          ...studentData,
+
+          registrationId,
+          department: studentData.department,
+          subscriptionPlan: studentData.subscriptionPlan,
+          subscriptionLabel: selectedPlan.label,
+          subscriptionMonths: selectedPlan.months,
+
+          amountPaid: BASE_FEE,
+          grossAmountPaid: GROSS_FEE,
+
+          // Backend verification compares Paystack's amount in kobo.
+          expectedAmountKobo: EXPECTED_AMOUNT_KOBO,
+
+          paymentStatus: false,
+          paymentVerified: false,
+          paymentVerificationPending: false,
+
+          paymentProvider: 'Paystack',
+          paymentCurrency: 'NGN',
+
+          // Paystack checkout will use this reference.
+          paystackReference: registrationId,
+          expectedPaystackReference: registrationId,
+
+          splitCodeUsed: splitCode,
+          createdAt: serverTimestamp()
+        });
+
+        localStorage.setItem('flexiCurrentRegId', registrationId);
+
+      } catch (error) {
+        console.error('Registration save failed:', error);
+
+        showNotice(
+          'Your registration could not be saved. Check your connection and try again.',
+          'error'
+        );
+
+        paymentLaunchInProgress = false;
+        setButtonEnabled(true);
+        return;
+      }
+
+      try {
+        payBtn.innerHTML =
+          '<i class="fa-solid fa-credit-card"></i> Opening Paystack...';
+
+        popup.newTransaction({
+          key: PAYSTACK_PUBLIC_KEY,
+          email: studentEmail,
+          amount: EXPECTED_AMOUNT_KOBO,
+          currency: 'NGN',
+          reference: registrationId,
+          split_code: splitCode,
+
+          metadata: {
+            custom_fields: [
+              {
+                display_name: 'Student Name',
+                variable_name: 'student_name',
+                value: `${safeText(studentData.firstName)} ${safeText(studentData.surname)}`.trim()
+              },
+              {
+                display_name: 'Phone Number',
+                variable_name: 'phone_number',
+                value: safeText(studentData.studentPhone)
+              },
+              {
+                display_name: 'Department',
+                variable_name: 'department',
+                value: studentData.department
+              },
+              {
+                display_name: 'Subscription Plan',
+                variable_name: 'subscription_plan',
+                value: selectedPlan.label
+              },
+              {
+                display_name: 'Registration ID',
+                variable_name: 'registration_id',
+                value: registrationId
+              }
+            ]
+          },
+
+          onSuccess: async function(transaction) {
+            const reference =
+              transaction && transaction.reference
+                ? String(transaction.reference).trim()
+                : '';
+
+            if (!reference) {
+              showNotice(
+                'Paystack returned no transaction reference. Do not pay again yet. Contact support so the transaction can be checked.',
+                'error'
+              );
+
+              paymentLaunchInProgress = false;
+              setButtonEnabled(true);
+              return;
+            }
+
+            payBtn.disabled = true;
+            payBtn.innerHTML =
+              '<i class="fa-solid fa-spinner fa-spin"></i> Recording Payment Reference...';
+
+            try {
+              localStorage.setItem('flexiCurrentRegId', registrationId);
+
+              // Record the callback reference only.
+              // Never mark the payment as verified in the browser.
+              await setDoc(candidateRef, {
+                paystackReference: reference,
+                paymentVerificationPending: true,
+                paymentStatus: false,
+                paymentVerified: false,
+                paymentCallbackReceivedAt: serverTimestamp()
+              }, { merge: true });
+
+              showNotice(
+                'Transaction response received. Checking your payment...',
+                'success'
+              );
+
+              window.location.href = 'page4.php';
+
+            } catch (error) {
+              console.error('Failed to record transaction reference:', error);
+
+              showNotice(
+                'The payment response was received, but its reference could not be saved. Do not pay again yet. Contact support to check the transaction.',
+                'error'
+              );
+
+              paymentLaunchInProgress = false;
+              setButtonEnabled(true);
+            }
+          },
+
+          onCancel: function() {
+            showNotice(
+              'Checkout was closed. If you completed payment before closing it, check your transaction status before attempting another payment.',
+              'info'
+            );
+
+            paymentLaunchInProgress = false;
+            setButtonEnabled(true);
+          },
+
+          onError: function(error) {
+            console.error('Paystack transaction error:', error);
+
+            showNotice(
+              'Paystack reported a checkout error. Confirm the transaction status before attempting another payment.',
+              'error'
+            );
+
+            paymentLaunchInProgress = false;
+            setButtonEnabled(true);
+          }
+        });
+
+      } catch (error) {
+        console.error('Unable to start Paystack transaction:', error);
+
+        showNotice(
+          'We could not start payment right now. Please try again shortly.',
+          'error'
+        );
+
+        paymentLaunchInProgress = false;
+        setButtonEnabled(true);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e40af">
+  <meta name="description" content="Student dashboard for Flexi Educational Consult.">
+  <title>Student Dashboard - Flexi Educational Consult</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --blue:#1e40af;
+      --blue-dark:#1e3a8a;
+      --green:#84cc16;
+      --ink:#0f172a;
+      --muted:#64748b;
+      --bg:#f4f7fb;
+      --card:#fff;
+      --line:#e2e8f0;
+      --good:#166534;
+      --good-bg:#f0fdf4;
+      --warn:#92400e;
+      --warn-bg:#fffbeb;
+      --bad:#991b1b;
+      --bad-bg:#fef2f2;
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+
+    button,input { font:inherit; }
+    a { color:inherit; }
+
+    .site-header {
+      background:linear-gradient(120deg,var(--blue-dark),var(--blue));
+      color:#fff;
+      padding:18px 16px;
+    }
+
+    .topbar {
+      max-width:1180px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:11px;
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .brand-icon {
+      display:grid;
+      place-items:center;
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      background:#ffffff20;
+      font-size:20px;
+    }
+
+    .top-actions {
+      display:flex;
+      align-items:center;
+      gap:9px;
+      flex-wrap:wrap;
+    }
+
+    .wrap {
+      max-width:1180px;
+      margin:25px auto;
+      padding:0 16px 38px;
+    }
+
+    .welcome {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+
+    h1 {
+      font-size:clamp(24px,4vw,32px);
+      margin:0 0 7px;
+      letter-spacing:-.6px;
+    }
+
+    .subtext {
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.65;
+      margin:0;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 14px;
+      border:1px solid transparent;
+      border-radius:10px;
+      background:var(--blue);
+      color:#fff;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .btn:hover { filter:brightness(.96); }
+    .btn:disabled { opacity:.55; cursor:not-allowed; }
+    .btn.light { background:#fff; color:var(--blue); }
+    .btn.secondary { background:#eef2ff; color:var(--blue); }
+    .btn.outline { background:transparent; border-color:#cbd5e1; color:var(--ink); }
+
+    .alert {
+      border-radius:12px;
+      padding:13px 15px;
+      font-size:13px;
+      line-height:1.6;
+      margin:0 0 16px;
+    }
+
+    .alert.info { background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; }
+    .alert.warn { background:var(--warn-bg); color:var(--warn); border:1px solid #fde68a; }
+    .alert.error { background:var(--bad-bg); color:var(--bad); border:1px solid #fecaca; }
+    .alert.success { background:var(--good-bg); color:var(--good); border:1px solid #bbf7d0; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(12,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .card {
+      grid-column:span 4;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:20px;
+      box-shadow:0 4px 18px rgba(15,23,42,.035);
+      min-width:0;
+    }
+
+    .card.wide { grid-column:span 8; }
+    .card.full { grid-column:1/-1; }
+
+    .card h2 {
+      font-size:15px;
+      margin:0 0 15px;
+      display:flex;
+      align-items:center;
+      gap:9px;
+    }
+
+    .card h2 i { color:var(--blue); }
+
+    .card-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .profile-line {
+      display:flex;
+      align-items:center;
+      gap:13px;
+      margin-bottom:15px;
+      min-width:0;
+    }
+
+    .avatar {
+      width:58px;
+      height:58px;
+      flex:0 0 58px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#dbeafe;
+      color:var(--blue);
+      font-size:23px;
+      font-weight:800;
+      overflow:hidden;
+    }
+
+    .avatar img { width:100%; height:100%; object-fit:cover; }
+
+    .student-name {
+      font-size:17px;
+      font-weight:800;
+      overflow-wrap:anywhere;
+    }
+
+    .student-email {
+      font-size:12px;
+      color:var(--muted);
+      margin-top:4px;
+      overflow-wrap:anywhere;
+    }
+
+    .value {
+      font-size:22px;
+      font-weight:800;
+      overflow-wrap:anywhere;
+      margin:4px 0 7px;
+    }
+
+    .muted {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.65;
+      margin:0;
+    }
+
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 9px;
+      border-radius:999px;
+      background:#f1f5f9;
+      color:#334155;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .pill.good { background:#dcfce7; color:#166534; }
+    .pill.warn { background:#fef3c7; color:#92400e; }
+    .pill.bad { background:#fee2e2; color:#991b1b; }
+
+    .detail {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid var(--line);
+      font-size:12px;
+      align-items:flex-start;
+    }
+
+    .detail:last-child { border-bottom:0; }
+
+    .detail span:first-child {
+      color:var(--muted);
+      flex:0 0 auto;
+    }
+
+    .detail strong {
+      text-align:right;
+      overflow-wrap:anywhere;
+    }
+
+    .actions {
+      display:flex;
+      gap:9px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .plan-price {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:9px 0;
+      border-bottom:1px solid var(--line);
+      font-size:13px;
+    }
+
+    .plan-price:last-of-type { border-bottom:0; }
+
+    .empty {
+      padding:16px;
+      border:1px dashed #cbd5e1;
+      border-radius:12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+      background:#f8fafc;
+    }
+
+    .table-wrap { width:100%; overflow-x:auto; }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+      min-width:480px;
+    }
+
+    th,td {
+      text-align:left;
+      padding:11px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+    }
+
+    th {
+      color:var(--muted);
+      font-weight:700;
+      background:#f8fafc;
+    }
+
+    td { overflow-wrap:anywhere; }
+
+    .score-list { display:grid; gap:12px; }
+
+    .score-card {
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .score-card-top {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .score-card-title {
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .score-card-date {
+      color:var(--muted);
+      font-size:11px;
+      margin-top:5px;
+    }
+
+    .score-total {
+      font-size:20px;
+      color:var(--blue);
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .score-total small {
+      font-size:11px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .score-meta {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .score-stat {
+      background:#f8fafc;
+      border:1px solid var(--line);
+      padding:9px;
+      border-radius:9px;
+      min-width:0;
+    }
+
+    .score-stat span {
+      display:block;
+      color:var(--muted);
+      font-size:10px;
+      margin-bottom:5px;
+    }
+
+    .score-stat strong {
+      font-size:13px;
+      overflow-wrap:anywhere;
+    }
+
+    .subject-heading {
+      font-size:12px;
+      font-weight:800;
+      margin:14px 0 8px;
+    }
+
+    .subject-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
+    }
+
+    .subject-result {
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      min-width:0;
+    }
+
+    .subject-result span {
+      font-size:11px;
+      overflow-wrap:anywhere;
+    }
+
+    .subject-result strong {
+      color:var(--blue);
+      white-space:nowrap;
+      font-size:12px;
+    }
+
+    .score-extra {
+      border-top:1px solid var(--line);
+      padding-top:10px;
+      margin-top:12px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.7;
+    }
+
+    /* Registration subjects */
+
+    .exam-subject-group {
+      margin-top:15px;
+    }
+
+    .exam-subject-group:first-child {
+      margin-top:0;
+    }
+
+    .exam-type-title {
+      font-size:12px;
+      font-weight:800;
+      color:var(--blue-dark);
+      margin-bottom:9px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .subject-chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .subject-chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 10px;
+      border-radius:9px;
+      background:#eff6ff;
+      border:1px solid #dbeafe;
+      color:#1e40af;
+      font-size:11px;
+      font-weight:700;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+
+    .subject-chip i {
+      color:#16a34a;
+      font-size:10px;
+    }
+
+    .activity-item {
+      display:flex;
+      gap:12px;
+      padding:13px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .activity-item:first-child {
+      padding-top:0;
+    }
+
+    .activity-item:last-child {
+      border-bottom:0;
+      padding-bottom:0;
+    }
+
+    .activity-icon {
+      width:36px;
+      height:36px;
+      flex:0 0 36px;
+      border-radius:11px;
+      background:#eff6ff;
+      color:var(--blue);
+      display:grid;
+      place-items:center;
+    }
+
+    .activity-content {
+      min-width:0;
+      flex:1;
+    }
+
+    .activity-text {
+      font-size:12px;
+      font-weight:600;
+      line-height:1.65;
+      overflow-wrap:anywhere;
+      white-space:pre-wrap;
+    }
+
+    .activity-date {
+      color:var(--muted);
+      font-size:11px;
+      margin-top:6px;
+    }
+
+    .attendance-meter {
+      height:9px;
+      background:#e2e8f0;
+      border-radius:999px;
+      overflow:hidden;
+      margin:14px 0;
+    }
+
+    .attendance-meter-fill {
+      height:100%;
+      width:0;
+      background:var(--green);
+      border-radius:999px;
+      transition:width .3s ease;
+    }
+
+    .quick-links {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .quick-link {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:13px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:700;
+      background:#fff;
+    }
+
+    .quick-link i { color:var(--blue); font-size:17px; }
+    .quick-link:hover { background:#f8fafc; }
+
+    .loading {
+      display:inline-block;
+      width:14px;
+      height:14px;
+      border:2px solid #cbd5e1;
+      border-top-color:var(--blue);
+      border-radius:50%;
+      animation:spin .7s linear infinite;
+      vertical-align:middle;
+    }
+
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    footer {
+      text-align:center;
+      padding:24px 16px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .hidden { display:none!important; }
+
+    @media(max-width:850px) {
+      .card,.card.wide { grid-column:span 6; }
+    }
+
+    @media(max-width:600px) {
+      .card,.card.wide,.card.full { grid-column:1/-1; }
+      .wrap { margin-top:18px; padding-inline:12px; }
+      .card { padding:16px; }
+      .quick-links { grid-template-columns:1fr; }
+      .topbar { align-items:flex-start; }
+      .top-actions { width:100%; }
+      .top-actions .btn { flex:1; }
+      .welcome .btn { width:100%; }
+      .score-meta { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .subject-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="topbar">
+    <div class="brand">
+      <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+      <span>Flexi Educational Consult</span>
+    </div>
+
+    <div class="top-actions">
+      <a class="btn light" href="page4.php">
+        <i class="fa-solid fa-receipt"></i> Payment Receipt
+      </a>
+
+      <button class="btn" id="refreshBtn" type="button">
+        <i class="fa-solid fa-rotate"></i> Refresh
+      </button>
+
+      <button class="btn" id="logoutBtn" type="button" title="Sign out">
+        <i class="fa-solid fa-right-from-bracket"></i> Log out
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="welcome">
+    <div>
+      <h1 id="welcomeTitle">Student Dashboard</h1>
+      <p class="subtext">
+        Your subscription, registration information, and learning records in one place.
+      </p>
+    </div>
+
+    <a class="btn" href="renewal.php">
+      <i class="fa-solid fa-arrows-rotate"></i> Renew Subscription
+    </a>
+  </section>
+
+  <div id="pageNotice" class="alert info" role="status" aria-live="polite">
+    <span class="loading" aria-hidden="true"></span>
+    Checking your student session and loading your dashboard…
+  </div>
+
+  <section class="grid" aria-label="Student dashboard">
+
+    
+    <article class="card">
+      <h2><i class="fa-solid fa-user-graduate"></i> Student Profile</h2>
+
+      <div class="profile-line">
+        <div class="avatar" id="avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div style="min-width:0">
+          <div class="student-name" id="studentName">Loading…</div>
+          <div class="student-email" id="studentEmail">—</div>
+        </div>
+      </div>
+
+      <div class="detail">
+        <span>WhatsApp / Phone</span>
+        <strong id="studentPhone">—</strong>
+      </div>
+
+      <div class="detail">
+        <span>Department</span>
+        <strong id="studentDepartment">—</strong>
+      </div>
+
+      <div class="detail">
+        <span>Registration ID</span>
+        <strong id="registrationId">—</strong>
+      </div>
+
+      <div class="actions">
+        <a class="btn secondary" id="editProfileBtn" href="profile.php">
+          <i class="fa-solid fa-user-pen"></i> Profile details
+        </a>
+      </div>
+    </article>
+
+    
+    <article class="card">
+      <h2><i class="fa-solid fa-calendar-check"></i> Subscription Status</h2>
+
+      <div id="subscriptionBadge" class="pill">Awaiting account data</div>
+      <div class="value" id="subscriptionPlan">—</div>
+      <p class="muted" id="subscriptionMessage">
+        Your active subscription information will appear here.
+      </p>
+
+      <div class="detail">
+        <span>Start date</span>
+        <strong id="startDate">—</strong>
+      </div>
+
+      <div class="detail">
+        <span>Expiry date</span>
+        <strong id="expiryDate">—</strong>
+      </div>
+
+      <div class="detail">
+        <span>Days remaining</span>
+        <strong id="daysRemaining">—</strong>
+      </div>
+    </article>
+
+    
+    <article class="card">
+      <h2><i class="fa-solid fa-wallet"></i> Payment Summary</h2>
+
+      <div class="value" id="amountPaid">—</div>
+      <p class="muted">Recorded subscription payment</p>
+
+      <div class="detail">
+        <span>Payment status</span>
+        <strong id="paymentStatus">Not loaded</strong>
+      </div>
+
+      <div class="detail">
+        <span>Payment reference</span>
+        <strong id="paymentReference">—</strong>
+      </div>
+
+      <div class="detail">
+        <span>Last updated</span>
+        <strong id="paymentDate">—</strong>
+      </div>
+
+      <div class="actions">
+        <a class="btn secondary" href="page4.php">
+          <i class="fa-solid fa-file-invoice"></i> View receipt
+        </a>
+      </div>
+    </article>
+
+    
+    <article class="card wide">
+      <div class="card-head">
+        <h2><i class="fa-solid fa-clipboard-question"></i> Weekly CBT Mock Scores</h2>
+        <span class="pill" id="cbtBadge">CBT records</span>
+      </div>
+
+      <p class="muted" style="margin-bottom:12px">
+        Your saved Weekly CBT Mock results, matched using your registered WhatsApp number.
+      </p>
+
+      <div id="cbtScores" class="empty">
+        <span class="loading" aria-hidden="true"></span>
+        Loading CBT scores…
+      </div>
+    </article>
+
+    
+    <article class="card">
+      <h2><i class="fa-solid fa-book-open"></i> Classes & Learning</h2>
+
+      <div class="value" id="classCount">—</div>
+      <p class="muted">Subjects selected during registration</p>
+
+      <div id="subjectsContainer" style="margin-top:18px">
+        <div class="empty">
+          Loading your registered subjects…
+        </div>
+      </div>
+
+      <div class="alert info" style="margin-top:14px;margin-bottom:0">
+        <i class="fa-brands fa-whatsapp"></i>
+        Your lessons take place through WhatsApp. This section displays your registered subjects and does not track video lessons or online course completion.
+      </div>
+    </article>
+
+    
+    <article class="card">
+      <h2><i class="fa-solid fa-calendar-days"></i> Attendance</h2>
+
+      <div class="value" id="attendanceRate">—</div>
+      <p class="muted">Attendance percentage recorded by the administrator</p>
+
+      <div class="attendance-meter" aria-label="Attendance percentage">
+        <div class="attendance-meter-fill" id="attendanceMeterFill"></div>
+      </div>
+
+      <div id="attendanceNote" class="empty" style="margin-top:12px">
+        Your attendance percentage will appear here when the administrator records it.
+      </div>
+    </article>
+
+    
+    <article class="card wide">
+      <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Learning Activity</h2>
+
+      <div id="activityList" class="empty">
+        Your recent learning activity will appear here when the administrator records it.
+      </div>
+    </article>
+
+    
+    <article class="card">
+      <h2><i class="fa-solid fa-arrows-rotate"></i> Renew Your Plan</h2>
+
+      <p class="muted" style="margin-bottom:10px">
+        Choose a subscription package on the dedicated renewal page. Renewal does not send you back through new-student registration.
+      </p>
+
+      <div class="plan-price">
+        <span>1 Month</span><strong>₦4,000</strong>
+      </div>
+
+      <div class="plan-price">
+        <span>2 Months</span><strong>₦7,500</strong>
+      </div>
+
+      <div class="plan-price">
+        <span>3 Months</span><strong>₦10,000</strong>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="renewal.php">
+          <i class="fa-solid fa-credit-card"></i> Continue to Renewal
+        </a>
+      </div>
+    </article>
+
+    
+    <article class="card full">
+      <h2><i class="fa-solid fa-link"></i> Quick Links</h2>
+
+      <div class="quick-links">
+        <a class="quick-link" href="page4.php">
+          <i class="fa-solid fa-receipt"></i> Payment receipt & instructions
+        </a>
+
+        <a class="quick-link" href="renewal.php">
+          <i class="fa-solid fa-arrows-rotate"></i> Renew subscription
+        </a>
+
+        <a class="quick-link"
+           href="https://wa.me/2349034159839?text=Hello%20Flexi%20Educational%20Consult%2C%20I%20need%20student%20dashboard%20support."
+           target="_blank"
+           rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp"></i> Contact student support
+        </a>
+      </div>
+    </article>
+
+    
+    <article class="card full">
+      <h2><i class="fa-solid fa-shield-halved"></i> Account & Data Security</h2>
+
+      <div class="alert warn" style="margin:0">
+        Student registration and CBT records must be protected by appropriate authentication and Firestore security rules or a trusted backend. A registration ID or WhatsApp number alone is not proof of identity.
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> Flexi Educational Consult. All rights reserved.
+</footer>
+
+<script type="module">
+import {
+  initializeApp,
+  getApps
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+(() => {
+  'use strict';
+
+  const $ = id => document.getElementById(id);
+
+  $('year').textContent = new Date().getFullYear();
+
+  // Flexi Lessons Firebase project.
+  const flexiConfig = {
+    apiKey: "AIzaSyCoGXb2XlvuwcJY8oyW6_J42fgxfH5vZao",
+    authDomain: "jarvisai-1a594.firebaseapp.com",
+    projectId: "jarvisai-1a594",
+    storageBucket: "jarvisai-1a594.firebasestorage.app",
+    messagingSenderId: "868499596875",
+    appId: "1:868499596875:web:4bf592934f6086be8a4fce"
+  };
+
+  // Separate Weekly CBT Mock Firebase project.
+  const cbtConfig = {
+    apiKey: "AIzaSyDIzP6OB7uLm5bn4js0C6b-4Ll10gV80-o",
+    authDomain: "jambotron-ze1fo.firebaseapp.com",
+    projectId: "jambotron-ze1fo",
+    storageBucket: "jambotron-ze1fo.firebasestorage.app",
+    messagingSenderId: "722311662864",
+    appId: "1:722311662864:web:bad3d8e03d34a4602be995"
+  };
+
+  const flexiApp =
+    getApps().find(app => app.name === 'flexi-dashboard') ||
+    initializeApp(flexiConfig, 'flexi-dashboard');
+
+  const cbtApp =
+    getApps().find(app => app.name === 'weekly-cbt-dashboard') ||
+    initializeApp(cbtConfig, 'weekly-cbt-dashboard');
+
+  const db = getFirestore(flexiApp);
+  const cbtDb = getFirestore(cbtApp);
+
+  const regId = localStorage.getItem('flexiCurrentRegId') || '';
+
+  function notice(message, type = 'info') {
+    const element = $('pageNotice');
+    element.className = 'alert ' + type;
+    element.textContent = message;
+  }
+
+  function value(input, fallback = '—') {
+    return input === undefined || input === null || input === ''
+      ? fallback
+      : String(input);
+  }
+
+  function toDate(input) {
+    if (!input) return null;
+
+    if (typeof input.toDate === 'function') {
+      return input.toDate();
+    }
+
+    if (
+      typeof input === 'object' &&
+      typeof input.seconds === 'number'
+    ) {
+      return new Date(input.seconds * 1000);
+    }
+
+    const date = new Date(input);
+
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  function dateText(input) {
+    const date = toDate(input);
+
+    return date
+      ? date.toLocaleString('en-NG', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      : 'Date unavailable';
+  }
+
+  function money(input) {
+    const amount = Number(input);
+
+    return input !== undefined &&
+      input !== null &&
+      input !== '' &&
+      Number.isFinite(amount)
+        ? '₦' + amount.toLocaleString('en-NG')
+        : '—';
+  }
+
+  function normalizePhone(input) {
+    let digits = String(input || '').replace(/\D/g, '');
+
+    if (!digits) return '';
+
+    if (digits.startsWith('00')) {
+      digits = digits.slice(2);
+    }
+
+    if (digits.startsWith('234') && digits.length >= 12) {
+      return digits;
+    }
+
+    if (digits.startsWith('0') && digits.length === 11) {
+      return '234' + digits.slice(1);
+    }
+
+    if (digits.length === 10) {
+      return '234' + digits;
+    }
+
+    return digits;
+  }
+
+  function phoneVariants(input) {
+    const normalized = normalizePhone(input);
+    const variants = new Set();
+
+    if (!normalized) return [];
+
+    variants.add(normalized);
+
+    if (normalized.startsWith('234')) {
+      variants.add('0' + normalized.slice(3));
+      variants.add('+' + normalized);
+      variants.add(normalized.slice(3));
+    }
+
+    return [...variants].filter(Boolean);
+  }
+
+  function isPaymentVerified(data) {
+    return data.paymentStatus === true &&
+           data.paymentVerified === true;
+  }
+
+  function subscriptionMonths(data) {
+    const numericMonths = Number(
+      data.subscriptionMonths || data.months || 0
+    );
+
+    if ([1, 2, 3].includes(numericMonths)) {
+      return numericMonths;
+    }
+
+    const plan = String(
+      data.subscriptionPlan ||
+      data.subscriptionLabel ||
+      ''
+    ).toLowerCase();
+
+    if (plan.includes('three') || plan.includes('3 month')) return 3;
+    if (plan.includes('two') || plan.includes('2 month')) return 2;
+    if (plan.includes('monthly') || plan.includes('1 month')) return 1;
+
+    return 0;
+  }
+
+  function subscriptionExpiry(data) {
+    const start = toDate(
+      data.subscriptionStartDate ||
+      data.paymentVerifiedAt ||
+      data.paidAt ||
+      data.createdAt
+    );
+
+    const months = subscriptionMonths(data);
+
+    if (!start || !months || !isPaymentVerified(data)) {
+      return null;
+    }
+
+    const end = new Date(start);
+    end.setMonth(end.getMonth() + months);
+
+    return end;
+  }
+
+  function renderRegistration(data) {
+    const name = [
+      data.firstName || data.firstname,
+      data.surname || data.lastName || data.lastname
+    ].filter(Boolean).join(' ').trim() ||
+      data.studentName ||
+      'Student';
+
+    $('welcomeTitle').textContent = 'Welcome, ' + name;
+    $('studentName').textContent = name;
+
+    $('studentEmail').textContent = value(
+      data.studentEmail || data.email
+    );
+
+    const registeredPhone =
+      data.studentWhatsApp ||
+      data.whatsappNumber ||
+      data.studentPhone ||
+      data.whatsapp ||
+      data.phone ||
+      '';
+
+    $('studentPhone').textContent = value(registeredPhone);
+    $('studentDepartment').textContent = value(data.department);
+
+    $('registrationId').textContent = value(
+      data.registrationId || regId
+    );
+
+    // Support existing Base64 profile-image fields.
+    const photo =
+      data.profilePhotoBase64 ||
+      data.photoBase64 ||
+      data.profileImageBase64 ||
+      '';
+
+    if (
+      /^data:image\/(png|jpeg|jpg|webp);base64,/i.test(photo)
+    ) {
+      const image = document.createElement('img');
+      image.src = photo;
+      image.alt = 'Student profile photo';
+      $('avatar').replaceChildren(image);
+    }
+
+    const verified = isPaymentVerified(data);
+    const months = subscriptionMonths(data);
+    const end = subscriptionExpiry(data);
+    const now = new Date();
+    const active = Boolean(verified && end && end > now);
+
+    const label =
+      data.subscriptionLabel ||
+      ({
+        1: '1 Month',
+        2: '2 Months',
+        3: '3 Months'
+      }[months]) ||
+      data.subscriptionPlan ||
+      'No package';
+
+    $('subscriptionPlan').textContent = label;
+
+    const badge = $('subscriptionBadge');
+
+    badge.className = 'pill ' +
+      (active ? 'good' : verified ? 'bad' : 'warn');
+
+    badge.textContent = active
+      ? 'Active subscription'
+      : verified
+        ? 'Subscription expired'
+        : 'Payment pending verification';
+
+    $('subscriptionMessage').textContent = active
+      ? 'Your payment is verified and your subscription is active.'
+      : verified
+        ? 'Your verified subscription period appears to have ended. Renew using the renewal page.'
+        : 'Payment is not confirmed until Firestore records both paymentStatus=true and paymentVerified=true.';
+
+    const start = toDate(
+      data.subscriptionStartDate ||
+      data.paymentVerifiedAt ||
+      data.paidAt
+    );
+
+    $('startDate').textContent = start
+      ? dateText(start)
+      : '—';
+
+    $('expiryDate').textContent = end
+      ? dateText(end)
+      : '—';
+
+    $('daysRemaining').textContent = active
+      ? String(Math.max(0, Math.ceil((end - now) / 86400000)))
+      : verified
+        ? '0'
+        : '—';
+
+    $('amountPaid').textContent = verified
+      ? money(
+          data.grossAmountPaid ??
+          data.amountPaid ??
+          data.subscriptionAmount ??
+          data.amount
+        )
+      : '—';
+
+    $('paymentStatus').textContent = verified
+      ? 'Verified'
+      : data.paymentVerificationPending
+        ? 'Verification pending'
+        : 'Not verified';
+
+    $('paymentReference').textContent = value(
+      data.paystackReference ||
+      data.paymentReference ||
+      data.reference
+    );
+
+    $('paymentDate').textContent = dateText(
+      data.paymentVerifiedAt || data.paidAt
+    );
+
+    return normalizePhone(registeredPhone);
+  }
+
+  /*
+   * page2.php stores selected subjects inside:
+   *
+   * subjects: {
+   *   JAMB: [...],
+   *   SSCE: [...],
+   *   JUPEB: [...]
+   * }
+   *
+   * The function also tolerates older arrays and alternative
+   * exam-type capitalization without inventing subjects.
+   */
+  function getRegisteredSubjects(data) {
+    const subjects = data.subjects;
+
+    if (!subjects) return [];
+
+    const groups = [];
+
+    if (Array.isArray(subjects)) {
+      const names = subjects
+        .map(item => {
+          if (typeof item === 'string') return item.trim();
+
+          if (item && typeof item === 'object') {
+            return String(
+              item.name ||
+              item.subject ||
+              ''
+            ).trim();
+          }
+
+          return '';
+        })
+        .filter(Boolean);
+
+      if (names.length) {
+        groups.push({
+          examType: 'Registered Subjects',
+          subjects: [...new Set(names)]
+        });
+      }
+
+      return groups;
+    }
+
+    if (typeof subjects !== 'object') {
+      return groups;
+    }
+
+    const examTypes = ['JAMB', 'SSCE', 'JUPEB'];
+
+    for (const examType of examTypes) {
+      const matchedKey = Object.keys(subjects).find(
+        key => key.toUpperCase() === examType
+      );
+
+      if (!matchedKey) continue;
+
+      const selected = subjects[matchedKey];
+
+      let names = [];
+
+      if (Array.isArray(selected)) {
+        names = selected.map(item => {
+          if (typeof item === 'string') {
+            return item.trim();
+          }
+
+          if (item && typeof item === 'object') {
+            return String(
+              item.name ||
+              item.subject ||
+              ''
+            ).trim();
+          }
+
+          return '';
+        });
+      } else if (selected && typeof selected === 'object') {
+        // Supports older objects whose subject fields are booleans.
+        names = Object.entries(selected)
+          .filter(([, enabled]) => enabled === true)
+          .map(([subject]) => subject.trim());
+      }
+
+      names = [...new Set(names.filter(Boolean))];
+
+      if (names.length) {
+        groups.push({
+          examType,
+          subjects: names
+        });
+      }
+    }
+
+    return groups;
+  }
+
+  function renderRegisteredSubjects(data) {
+    const container = $('subjectsContainer');
+    container.replaceChildren();
+
+    const groups = getRegisteredSubjects(data);
+
+    const allSubjects = [
+      ...new Set(
+        groups.flatMap(group => group.subjects)
+      )
+    ];
+
+    $('classCount').textContent = String(allSubjects.length);
+
+    if (!groups.length || !allSubjects.length) {
+      container.className = 'empty';
+      container.textContent =
+        'No selected subjects were found in your registration record. If you selected subjects during registration, please contact student support.';
+      return;
+    }
+
+    container.className = '';
+
+    groups.forEach(group => {
+      const groupElement = document.createElement('div');
+      groupElement.className = 'exam-subject-group';
+
+      const heading = document.createElement('div');
+      heading.className = 'exam-type-title';
+
+      const icon = document.createElement('i');
+      icon.className = 'fa-solid fa-book-open';
+
+      const title = document.createElement('span');
+      title.textContent = group.examType;
+
+      heading.append(icon, title);
+
+      const chips = document.createElement('div');
+      chips.className = 'subject-chips';
+
+      group.subjects.forEach(subject => {
+        const chip = document.createElement('span');
+        chip.className = 'subject-chip';
+
+        const check = document.createElement('i');
+        check.className = 'fa-solid fa-check';
+
+        const text = document.createElement('span');
+        text.textContent = subject;
+
+        chip.append(check, text);
+        chips.appendChild(chip);
+      });
+
+      groupElement.append(heading, chips);
+      container.appendChild(groupElement);
+    });
+  }
+
+  /*
+   * Render administrator-managed information from:
+   *
+   * student_dashboard_updates/{registrationId}
+   *
+   * Expected fields used by admin.html:
+   * attendancePercentage: number from 0 to 100
+   * recentLearningActivity: { text: string, date: timestamp/string }
+   */
+  function renderAdminUpdates(updateData) {
+    renderAttendance(updateData);
+    renderRecentActivity(updateData);
+  }
+
+  function renderAttendance(updateData) {
+    const rawPercentage =
+      updateData.attendancePercentage ??
+      updateData.attendanceRate ??
+      updateData.attendance ??
+      null;
+
+    const percentage = Number(rawPercentage);
+
+    const validPercentage =
+      rawPercentage !== null &&
+      rawPercentage !== '' &&
+      Number.isFinite(percentage) &&
+      percentage >= 0 &&
+      percentage <= 100;
+
+    if (!validPercentage) {
+      $('attendanceRate').textContent = '—';
+      $('attendanceMeterFill').style.width = '0%';
+
+      $('attendanceNote').className = 'empty';
+      $('attendanceNote').textContent =
+        'Your attendance percentage has not been recorded by the administrator yet.';
+
+      return;
+    }
+
+    $('attendanceRate').textContent =
+      Number.isInteger(percentage)
+        ? percentage + '%'
+        : percentage.toFixed(1) + '%';
+
+    $('attendanceMeterFill').style.width =
+      percentage + '%';
+
+    $('attendanceNote').className =
+      'alert ' +
+      (percentage >= 75
+        ? 'success'
+        : percentage >= 50
+          ? 'warn'
+          : 'error');
+
+    $('attendanceNote').style.marginTop = '12px';
+    $('attendanceNote').style.marginBottom = '0';
+
+    $('attendanceNote').textContent =
+      percentage >= 75
+        ? 'Your recorded attendance is looking good.'
+        : percentage >= 50
+          ? 'Your attendance has been recorded. Keep attending your scheduled lessons.'
+          : 'Your recorded attendance is low. Please attend your scheduled lessons regularly.';
+  }
+
+  function renderRecentActivity(updateData) {
+    const container = $('activityList');
+    container.replaceChildren();
+
+    /*
+     * The current admin.html format is an object:
+     * { text: "...", date: ... }
+     *
+     * A string is also supported for compatibility with older records.
+     */
+    const activity =
+      updateData.recentLearningActivity ??
+      updateData.learningActivity ??
+      updateData.recentActivity ??
+      null;
+
+    let activityText = '';
+    let activityDate = null;
+
+    if (typeof activity === 'string') {
+      activityText = activity.trim();
+    } else if (activity && typeof activity === 'object') {
+      activityText = String(
+        activity.text ||
+        activity.description ||
+        activity.activity ||
+        ''
+      ).trim();
+
+      activityDate =
+        activity.date ||
+        activity.createdAt ||
+        activity.updatedAt ||
+        null;
+    }
+
+    if (!activityText) {
+      container.className = 'empty';
+      container.textContent =
+        'No recent learning activity has been recorded by the administrator yet.';
+      return;
+    }
+
+    container.className = '';
+
+    const item = document.createElement('div');
+    item.className = 'activity-item';
+
+    const icon = document.createElement('div');
+    icon.className = 'activity-icon';
+
+    const iconElement = document.createElement('i');
+    iconElement.className = 'fa-solid fa-book-open';
+    icon.appendChild(iconElement);
+
+    const content = document.createElement('div');
+    content.className = 'activity-content';
+
+    const text = document.createElement('div');
+    text.className = 'activity-text';
+    text.textContent = activityText;
+
+    const date = document.createElement('div');
+    date.className = 'activity-date';
+
+    date.textContent = activityDate
+      ? 'Recorded: ' + dateText(activityDate)
+      : 'Recent learning activity';
+
+    content.append(text, date);
+    item.append(icon, content);
+    container.appendChild(item);
+  }
+
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+
+    if (className) {
+      element.className = className;
+    }
+
+    if (text !== undefined && text !== null) {
+      element.textContent = String(text);
+    }
+
+    return element;
+  }
+
+  function resultNumber(result, keys) {
+    for (const key of keys) {
+      if (
+        result[key] !== undefined &&
+        result[key] !== null &&
+        result[key] !== ''
+      ) {
+        const number = Number(result[key]);
+
+        if (Number.isFinite(number)) {
+          return number;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function normalizeSubjectScores(input) {
+    if (!input) return [];
+
+    let entries = [];
+
+    if (Array.isArray(input)) {
+      entries = input.map((item, index) => [
+        item?.subject || item?.name || 'Subject ' + (index + 1),
+        item
+      ]);
+    } else if (typeof input === 'object') {
+      entries = Object.entries(input);
+    } else {
+      return [];
+    }
+
+    return entries.map(([key, raw]) => {
+      if (typeof raw === 'number' || typeof raw === 'string') {
+        const numeric = Number(raw);
+
+        return {
+          name: key,
+          score: Number.isFinite(numeric) ? numeric : null,
+          maxScore: 100
+        };
+      }
+
+      if (!raw || typeof raw !== 'object') {
+        return {
+          name: key,
+          score: null,
+          maxScore: 100
+        };
+      }
+
+      const scoreValue =
+        raw.score ??
+        raw.scaledScore ??
+        raw.totalScore ??
+        raw.marks ??
+        null;
+
+      const numericScore = Number(scoreValue);
+
+      return {
+        name: raw.subject || raw.name || key,
+        score:
+          scoreValue !== null &&
+          scoreValue !== '' &&
+          Number.isFinite(numericScore)
+            ? numericScore
+            : null,
+        maxScore: Number(raw.maxScore ?? raw.maximum ?? 100),
+        correctCount: raw.correctCount,
+        wrongCount: raw.wrongCount,
+        unansweredCount: raw.unansweredCount
+      };
+    });
+  }
+
+  function renderOneResult(result) {
+    const card = createElement('div', 'score-card');
+
+    const top = createElement('div', 'score-card-top');
+    const titleArea = document.createElement('div');
+
+    const examTitle = createElement(
+      'div',
+      'score-card-title',
+      result.examType || 'Weekly CBT Mock'
+    );
+
+    const submittedAt = result.submittedAt || result.createdAt;
+
+    const examDate = createElement(
+      'div',
+      'score-card-date',
+      dateText(submittedAt)
+    );
+
+    titleArea.append(examTitle, examDate);
+
+    const totalScore = resultNumber(
+      result,
+      ['totalScore', 'score', 'rawTotalScore']
+    );
+
+    const maximumScore = resultNumber(
+      result,
+      ['maxScore']
+    ) ?? 400;
+
+    const totalArea = createElement('div', 'score-total');
+
+    totalArea.textContent = totalScore === null
+      ? 'Score unavailable'
+      : String(totalScore) + ' ';
+
+    if (totalScore !== null) {
+      totalArea.appendChild(
+        createElement('small', '', '/ ' + maximumScore)
+      );
+    }
+
+    top.append(titleArea, totalArea);
+    card.appendChild(top);
+
+    const stats = createElement('div', 'score-meta');
+
+    const correct = resultNumber(result, ['correctCount']);
+    const wrong = resultNumber(result, ['wrongCount']);
+    const unanswered = resultNumber(result, ['unansweredCount']);
+
+    [
+      ['Correct answers', correct],
+      ['Wrong answers', wrong],
+      ['Unanswered', unanswered]
+    ].forEach(([label, number]) => {
+      const stat = createElement('div', 'score-stat');
+
+      stat.append(
+        createElement('span', '', label),
+        createElement(
+          'strong',
+          '',
+          number === null ? '—' : number
+        )
+      );
+
+      stats.appendChild(stat);
+    });
+
+    card.appendChild(stats);
+
+    const subjects = normalizeSubjectScores(result.subjectScores);
+
+    if (subjects.length) {
+      card.appendChild(
+        createElement('div', 'subject-heading', 'Subject performance')
+      );
+
+      const subjectGrid = createElement('div', 'subject-grid');
+
+      subjects.forEach(subject => {
+        const item = createElement('div', 'subject-result');
+
+        const subjectName = createElement(
+          'span',
+          '',
+          subject.name
+        );
+
+        const scoreText = subject.score === null
+          ? '—'
+          : String(subject.score) +
+            '/' +
+            (
+              Number.isFinite(subject.maxScore) &&
+              subject.maxScore > 0
+                ? subject.maxScore
+                : 100
+            );
+
+        const score = createElement('strong', '', scoreText);
+
+        item.append(subjectName, score);
+        subjectGrid.appendChild(item);
+      });
+
+      card.appendChild(subjectGrid);
+    }
+
+    const extra = createElement('div', 'score-extra');
+
+    const questionCount = resultNumber(result, ['totalQuestions']);
+    const answeredCount = resultNumber(result, ['answeredCount']);
+
+    const details = [];
+
+    if (questionCount !== null) {
+      details.push('Total questions: ' + questionCount);
+    }
+
+    if (answeredCount !== null) {
+      details.push('Questions answered: ' + answeredCount);
+    }
+
+    if (result.submissionReason || result.reasonForSubmission) {
+      details.push(
+        'Submission: ' +
+        (result.submissionReason || result.reasonForSubmission)
+      );
+    }
+
+    if (details.length) {
+      extra.textContent = details.join(' · ');
+      card.appendChild(extra);
+    }
+
+    return card;
+  }
+
+  function renderScores(results) {
+    const container = $('cbtScores');
+    container.replaceChildren();
+
+    const badge = $('cbtBadge');
+
+    if (!results.length) {
+      container.className = 'empty';
+      container.textContent =
+        'No Weekly CBT Mock submissions were found for your registered WhatsApp number yet.';
+
+      badge.textContent = 'No scores yet';
+      badge.className = 'pill warn';
+
+      return;
+    }
+
+    results.sort((a, b) => {
+      const dateA =
+        toDate(a.submittedAt || a.createdAt)?.getTime() || 0;
+
+      const dateB =
+        toDate(b.submittedAt || b.createdAt)?.getTime() || 0;
+
+      return dateB - dateA;
+    });
+
+    const latest = results.slice(0, 15);
+
+    container.className = 'score-list';
+
+    badge.textContent =
+      results.length +
+      ' result' +
+      (results.length === 1 ? '' : 's');
+
+    badge.className = 'pill good';
+
+    latest.forEach(result => {
+      container.appendChild(renderOneResult(result));
+    });
+
+    if (results.length > latest.length) {
+      container.appendChild(
+        createElement(
+          'div',
+          'muted',
+          'Showing the latest ' +
+          latest.length +
+          ' of ' +
+          results.length +
+          ' saved results.'
+        )
+      );
+    }
+  }
+
+  async function loadScores(registeredPhone) {
+    const container = $('cbtScores');
+
+    if (!registeredPhone) {
+      container.className = 'empty';
+      container.textContent =
+        'Your registration record does not contain a usable WhatsApp or phone number. Please contact student support.';
+
+      $('cbtBadge').textContent = 'Phone unavailable';
+      $('cbtBadge').className = 'pill warn';
+
+      return;
+    }
+
+    container.className = 'empty';
+    container.textContent = 'Loading your Weekly CBT Mock results…';
+
+    try {
+      const submissions = collection(cbtDb, 'cbt_submissions');
+      const variants = phoneVariants(registeredPhone);
+
+      const queries = [];
+
+      for (const number of variants) {
+        queries.push(
+          getDocs(
+            query(
+              submissions,
+              where('candidate.whatsapp', '==', number)
+            )
+          )
+        );
+
+        queries.push(
+          getDocs(
+            query(
+              submissions,
+              where('whatsapp', '==', number)
+            )
+          )
+        );
+      }
+
+      const snapshots = await Promise.all(queries);
+      const uniqueResults = new Map();
+
+      snapshots.forEach(snapshot => {
+        snapshot.forEach(documentSnapshot => {
+          uniqueResults.set(documentSnapshot.id, {
+            id: documentSnapshot.id,
+            ...documentSnapshot.data()
+          });
+        });
+      });
+
+      const expectedPhone = normalizePhone(registeredPhone);
+
+      const matchedResults = [...uniqueResults.values()].filter(result => {
+        const candidatePhone =
+          result.candidate?.whatsapp ||
+          result.whatsapp ||
+          '';
+
+        return normalizePhone(candidatePhone) === expectedPhone;
+      });
+
+      renderScores(matchedResults);
+
+    } catch (error) {
+      console.error('Weekly CBT Mock result loading error:', error);
+
+      container.className = 'empty';
+      container.textContent =
+        'Could not load Weekly CBT Mock scores. Check the Weekly CBT Mock Firestore security rules and database connection.';
+
+      $('cbtBadge').textContent = 'Unavailable';
+      $('cbtBadge').className = 'pill bad';
+    }
+  }
+
+  /*
+   * Fetch the administrator-managed document separately from
+   * the registration document. This matches admin.html's
+   * student_dashboard_updates/{registrationId} structure.
+   */
+  async function loadAdminUpdates() {
+    if (!regId) {
+      renderAdminUpdates({});
+      return;
+    }
+
+    try {
+      const updateRef = doc(
+        db,
+        'student_dashboard_updates',
+        regId
+      );
+
+      const updateSnapshot = await getDoc(updateRef);
+
+      if (!updateSnapshot.exists()) {
+        renderAdminUpdates({});
+        return;
+      }
+
+      renderAdminUpdates(updateSnapshot.data());
+
+    } catch (error) {
+      console.error('Admin dashboard update loading error:', error);
+
+      $('attendanceRate').textContent = '—';
+      $('attendanceMeterFill').style.width = '0%';
+
+      $('attendanceNote').className = 'empty';
+      $('attendanceNote').textContent =
+        'Attendance could not be loaded. Please try refreshing the dashboard.';
+
+      $('activityList').className = 'empty';
+      $('activityList').textContent =
+        'Recent learning activity could not be loaded. Please try refreshing the dashboard.';
+    }
+  }
+
+  async function loadDashboard() {
+    const refreshButton = $('refreshBtn');
+
+    refreshButton.disabled = true;
+    refreshButton.innerHTML =
+      '<span class="loading" aria-hidden="true"></span> Loading';
+
+    try {
+      if (!regId) {
+        notice(
+          'No current registration ID was found in this browser. Sign in through the student login to establish your existing registration session.',
+          'warn'
+        );
+
+        $('studentName').textContent = 'Registration not loaded';
+
+        $('subjectsContainer').className = 'empty';
+        $('subjectsContainer').textContent =
+          'Your registration record is required to display your selected subjects.';
+
+        $('cbtScores').className = 'empty';
+        $('cbtScores').textContent =
+          'Your existing registration record is required to load your dashboard and match your CBT results.';
+
+        $('cbtBadge').textContent = 'Registration required';
+
+        renderAdminUpdates({});
+
+        return;
+      }
+
+      notice('Loading your existing registration from Firestore…');
+
+      const registrationSnapshot = await getDoc(
+        doc(db, 'registrations', regId)
+      );
+
+      if (!registrationSnapshot.exists()) {
+        throw new Error(
+          'The registration record was not found in Firestore.'
+        );
+      }
+
+      const registrationData = registrationSnapshot.data();
+
+      const registration = {
+        ...registrationData,
+        registrationId: registrationData.registrationId || regId
+      };
+
+      const registeredPhone = renderRegistration(registration);
+
+      // Display only subjects saved in the student's registration.
+      renderRegisteredSubjects(registration);
+
+      // Load attendance and activity saved by admin.html.
+      await loadAdminUpdates();
+
+      // Preserve the separate Weekly CBT Mock project and matching.
+      await loadScores(registeredPhone);
+
+      notice(
+        'Your registration, selected subjects, attendance, learning activity, and CBT records have been checked.',
+        'success'
+      );
+
+    } catch (error) {
+      console.error('Student dashboard loading error:', error);
+
+      notice(
+        error.message ||
+        'Unable to load your registration. Check your connection and Firestore rules.',
+        'error'
+      );
+
+      $('cbtScores').className = 'empty';
+      $('cbtScores').textContent =
+        'CBT scores are unavailable until the registration record and Weekly CBT Mock connection can be read.';
+
+      $('cbtBadge').textContent = 'Unavailable';
+      $('cbtBadge').className = 'pill bad';
+
+      $('subjectsContainer').className = 'empty';
+      $('subjectsContainer').textContent =
+        'Your registered subjects could not be loaded.';
+
+    } finally {
+      refreshButton.disabled = false;
+      refreshButton.innerHTML =
+        '<i class="fa-solid fa-rotate"></i> Refresh';
+    }
+  }
+
+  $('refreshBtn').addEventListener('click', loadDashboard);
+
+  $('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('flexiStudentSessionToken');
+
+    // Preserve registration and payment records.
+    window.location.href = 'login.php';
+  });
+
+  loadDashboard();
+})();
+</script>
+
+</body>
+</html>
