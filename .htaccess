@@ -8,7 +8,7 @@ Enable URL rewriting
     RewriteEngine On# Homepage
 RewriteRule ^$ index.php [L]
 
-# Clean URLs for Flexi Lessons pages
+# Clean URLs
 RewriteRule ^register/?$ page2.php [L,NC]
 RewriteRule ^instructions/?$ page3.php [L,NC]
 RewriteRule ^access/?$ page4.php [L,NC]
