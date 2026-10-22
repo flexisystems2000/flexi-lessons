@@ -2,6 +2,8 @@ DirectoryIndex index.php
 
 Options -Indexes
 
+Enable URL rewriting
+
 <IfModule mod_rewrite.c>
     RewriteEngine On# Homepage
 RewriteRule ^$ index.php [L]
@@ -20,40 +22,40 @@ RewriteRule ^login/?$ login.php [L,NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.+?)/?$ $1.php [L,NC]
+RewriteRule ^(.+?)/?$ $1.php [END,NC]
 
-# Redirect direct PHP page requests to their clean URLs
-RewriteCond %{THE_REQUEST} \s/+page2\.php[\s?] [NC]
+# Redirect direct PHP requests to clean URLs
+RewriteCond %{THE_REQUEST} \s/+page2\.php(?:[\s?]) [NC]
 RewriteRule ^page2\.php$ /register [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+page3\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+page3\.php(?:[\s?]) [NC]
 RewriteRule ^page3\.php$ /instructions [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+page4\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+page4\.php(?:[\s?]) [NC]
 RewriteRule ^page4\.php$ /access [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+student-dashboard\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+student-dashboard\.php(?:[\s?]) [NC]
 RewriteRule ^student-dashboard\.php$ /dashboard [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+renewal\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+renewal\.php(?:[\s?]) [NC]
 RewriteRule ^renewal\.php$ /renewal [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+renewal-receipt\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+renewal-receipt\.php(?:[\s?]) [NC]
 RewriteRule ^renewal-receipt\.php$ /renewals [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+profile\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+profile\.php(?:[\s?]) [NC]
 RewriteRule ^profile\.php$ /profile [R=302,L,NC]
 
-RewriteCond %{THE_REQUEST} \s/+login\.php[\s?] [NC]
+RewriteCond %{THE_REQUEST} \s/+login\.php(?:[\s?]) [NC]
 RewriteRule ^login\.php$ /login [R=302,L,NC]
 
-</IfModule>Prevent direct access to hidden files.
+</IfModule>Prevent direct access to hidden files
 
 <FilesMatch "^.">
 Require all denied
 </FilesMatch>
 
-Protect common configuration and dependency files.
+Protect common configuration and dependency files
 
 <FilesMatch "^(Dockerfile|composer.(json|lock)|package(-lock)?.json)$">
 Require all denied
