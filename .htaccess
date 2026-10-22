@@ -1,62 +1,64 @@
-DirectoryIndex index.php
+DirectoryIndex index.php index.html
 
 Options -Indexes
 
-# Enable URL rewriting
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteBase /
 
-    # Homepage
-    RewriteRule ^$ index.php [L]
+    # ============================================================
+    # HOMEPAGE
+    # ============================================================
+    RewriteRule ^$ index.php [END]
 
-    # Clean URLs
-    RewriteRule ^register/?$ page2.php [L,NC]
-    RewriteRule ^instructions/?$ page3.php [L,NC]
-    RewriteRule ^access/?$ page4.php [L,NC]
-    RewriteRule ^dashboard/?$ student-dashboard.php [L,NC]
-    RewriteRule ^renewal/?$ renewal.php [L,NC]
-    RewriteRule ^renewals/?$ renewal-receipt.php [L,NC]
-    RewriteRule ^profile/?$ profile.php [L,NC]
-    RewriteRule ^login/?$ login.php [L,NC]
+    # ============================================================
+    # FLEXI LESSONS CLEAN URLS
+    # Keep the browser on the clean URL.
+    # Internally load the corresponding PHP file.
+    # ============================================================
 
-    # Resolve other extensionless URLs to existing PHP files
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^register/?$ page2.php [END,NC]
+    RewriteRule ^instructions/?$ page3.php [END,NC]
+    RewriteRule ^access/?$ page4.php [END,NC]
+    RewriteRule ^dashboard/?$ student-dashboard.php [END,NC]
+    RewriteRule ^renewal/?$ renewal.php [END,NC]
+    RewriteRule ^renewals/?$ renewal-receipt.php [END,NC]
+    RewriteRule ^profile/?$ profile.php [END,NC]
+    RewriteRule ^login/?$ login.php [END,NC]
+
+    # ============================================================
+    # EXISTING FILES AND DIRECTORIES
+    # Allow PHP files, CSS, JavaScript, images and other real files
+    # to be served normally.
+    # ============================================================
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [END]
+
+    # ============================================================
+    # OTHER EXTENSIONLESS PHP PAGES
+    # Rewrite only when the corresponding PHP file exists.
+    # Example: /some-page -> some-page.php
+    # ============================================================
+
     RewriteCond %{REQUEST_FILENAME}.php -f
     RewriteRule ^(.+?)/?$ $1.php [END,NC]
 
-    # Redirect direct PHP requests to clean URLs
-    RewriteCond %{THE_REQUEST} \s/+page2\.php(?:[\s?]) [NC]
-    RewriteRule ^page2\.php$ /register [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+page3\.php(?:[\s?]) [NC]
-    RewriteRule ^page3\.php$ /instructions [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+page4\.php(?:[\s?]) [NC]
-    RewriteRule ^page4\.php$ /access [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+student-dashboard\.php(?:[\s?]) [NC]
-    RewriteRule ^student-dashboard\.php$ /dashboard [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+renewal\.php(?:[\s?]) [NC]
-    RewriteRule ^renewal\.php$ /renewal [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+renewal-receipt\.php(?:[\s?]) [NC]
-    RewriteRule ^renewal-receipt\.php$ /renewals [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+profile\.php(?:[\s?]) [NC]
-    RewriteRule ^profile\.php$ /profile [R=302,L,NC]
-
-    RewriteCond %{THE_REQUEST} \s/+login\.php(?:[\s?]) [NC]
-    RewriteRule ^login\.php$ /login [R=302,L,NC]
 </IfModule>
 
-# Prevent direct access to hidden files
+# ============================================================
+# PROTECT HIDDEN FILES
+# ============================================================
+
 <FilesMatch "^\.">
     Require all denied
 </FilesMatch>
 
-# Protect common configuration and dependency files
+# ============================================================
+# PROTECT CONFIGURATION AND DEPENDENCY FILES
+# ============================================================
+
 <FilesMatch "^(Dockerfile|composer\.(json|lock)|package(-lock)?\.json)$">
     Require all denied
 </FilesMatch>
